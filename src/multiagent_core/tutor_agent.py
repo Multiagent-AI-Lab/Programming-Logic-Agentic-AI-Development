@@ -26,6 +26,15 @@ if "GEMINI_API_KEY" in os.environ:
 
 logger = logging.getLogger(__name__)
 
+SKILL_METADATA = {
+    "name": "tutor_agent",
+    "description": "Responde dudas del curso vía RAG semántico (ChromaDB) + Gemini, con debugger socrático y memoria episódica.",
+    "version": "2.0.0",
+    "input": "question: str (ask) | course_dir: Path, chroma_path: Optional[Path], memory_path: Optional[Path] (constructor)",
+    "output": "str (respuesta en Markdown, o pregunta socrática si detecta un error)",
+    "requires_api_key": True,
+}
+
 DEFAULT_CHROMA_DIRNAME = ".chroma"
 TOP_K_RESULTS = 3
 DEFAULT_MEMORY_FILENAME = ".tutor_memory.json"

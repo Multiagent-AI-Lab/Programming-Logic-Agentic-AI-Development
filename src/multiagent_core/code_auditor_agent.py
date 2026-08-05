@@ -14,6 +14,15 @@ import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+SKILL_METADATA = {
+    "name": "code_auditor_agent",
+    "description": "Audita estilo PEP8 y seguridad OWASP de código Python de estudiantes.",
+    "version": "1.0.0",
+    "input": "code: str, test_file_path: Optional[Path]",
+    "output": "List[str] (audit_style/audit_security) | str (generate_report)",
+    "requires_api_key": False,
+}
+
 
 class CodeAuditorAgent:
     """Agente que analiza código de estudiantes buscando fallas lógicas, de estilo y de seguridad."""

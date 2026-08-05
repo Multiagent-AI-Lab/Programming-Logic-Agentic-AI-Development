@@ -12,6 +12,15 @@ import re
 
 from ._mermaid_utils import MermaidNodeCounter
 
+SKILL_METADATA = {
+    "name": "pseudocode_agent",
+    "description": "Traduce entre pseudocódigo UCEMICH, diagramas Mermaid y esqueletos Python.",
+    "version": "1.0.0",
+    "input": "pseudocode: str | code_source: str (según el método)",
+    "output": "str (Mermaid, pseudocódigo, o esqueleto Python según el método)",
+    "requires_api_key": False,
+}
+
 
 class PseudocodeAgent:
     """Agente que convierte pseudocódigo UCEMICH a Mermaid, Python a pseudocódigo,

@@ -10,6 +10,15 @@ import ast
 
 from ._mermaid_utils import MermaidNodeCounter
 
+SKILL_METADATA = {
+    "name": "flowchart_agent",
+    "description": "Genera diagramas de flujo Mermaid a partir del AST de una función Python.",
+    "version": "1.0.0",
+    "input": "code_source: str",
+    "output": "str (diagrama Mermaid en formato graph TD)",
+    "requires_api_key": False,
+}
+
 
 class FlowchartAgent:
     """Agente que traduce código Python a sintaxis de diagramas de flujo Mermaid."""

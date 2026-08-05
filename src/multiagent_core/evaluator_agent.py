@@ -13,6 +13,15 @@ from typing import Any, Dict, Optional
 
 from .code_auditor_agent import CodeAuditorAgent
 
+SKILL_METADATA = {
+    "name": "evaluator_agent",
+    "description": "Califica código de estudiantes contra la Rúbrica Genérica de Laboratorio.",
+    "version": "1.0.0",
+    "input": "student_code: str, test_file_path: Optional[Path]",
+    "output": "Dict[str, Any] con criterios calificados y calificación final",
+    "requires_api_key": False,
+}
+
 NIVELES = ("Insuficiente", "En desarrollo", "Competente", "Sobresaliente")
 PUNTAJE_POR_NIVEL = {
     "Insuficiente": 45.0,

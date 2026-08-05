@@ -14,6 +14,15 @@ import nbformat as nbf
 
 from .flowchart_agent import FlowchartAgent
 
+SKILL_METADATA = {
+    "name": "notebook_compiler_agent",
+    "description": "Convierte MDs de las unidades del curso en notebooks .ipynb ejecutables.",
+    "version": "1.0.0",
+    "input": "md_filepath: Path, output_dir: Path",
+    "output": "Path (ruta del .ipynb generado)",
+    "requires_api_key": False,
+}
+
 
 class MathAgent:
     """Sub-Agente que traduce caracteres matemáticos UTF-8 comunes a su equivalente en LaTeX."""
