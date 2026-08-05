@@ -18,7 +18,9 @@ def course_dir(tmp_path: Path) -> Path:
         "# Unidad 2\n\n## Pseudocódigo\nEl pseudocódigo UCEMICH describe algoritmos usando INICIO, FIN, SI y PARA.\n",
         encoding="utf-8",
     )
-    (tmp_path / "notas.txt").write_text("archivo no markdown, no debe incluirse", encoding="utf-8")
+    (tmp_path / "notas.txt").write_text(
+        "archivo no markdown, no debe incluirse", encoding="utf-8"
+    )
     return tmp_path
 
 
@@ -28,7 +30,9 @@ def chroma_path(tmp_path: Path) -> Path:
 
 
 class TestGetMarkdownFiles:
-    def test_encuentra_solo_archivos_unidad_md(self, course_dir: Path, chroma_path: Path):
+    def test_encuentra_solo_archivos_unidad_md(
+        self, course_dir: Path, chroma_path: Path
+    ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         archivos = tutor._get_markdown_files()
         nombres = {f.name for f in archivos}
@@ -44,12 +48,16 @@ class TestSearchLocalDocs:
         assert "UNIDAD_1_TEST.md" in resultado
         assert "Variables" in resultado
 
-    def test_cita_la_seccion_exacta_de_origen(self, course_dir: Path, chroma_path: Path):
+    def test_cita_la_seccion_exacta_de_origen(
+        self, course_dir: Path, chroma_path: Path
+    ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         resultado = tutor._search_local_docs("sintaxis de pseudocódigo con SI y PARA")
         assert "UNIDAD_2_TEST.md" in resultado
 
-    def test_indice_es_persistente_entre_instancias(self, course_dir: Path, chroma_path: Path):
+    def test_indice_es_persistente_entre_instancias(
+        self, course_dir: Path, chroma_path: Path
+    ):
         TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         tutor2 = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         resultado = tutor2._search_local_docs("variable")
@@ -57,12 +65,16 @@ class TestSearchLocalDocs:
 
 
 class TestAsk:
-    def test_construye_prompt_con_contexto_y_pregunta(self, course_dir: Path, chroma_path: Path):
+    def test_construye_prompt_con_contexto_y_pregunta(
+        self, course_dir: Path, chroma_path: Path
+    ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         mock_response = MagicMock()
         mock_response.text = "Respuesta simulada del tutor"
 
-        with patch("src.multiagent_core.tutor_agent.genai.GenerativeModel") as mock_model_cls:
+        with patch(
+            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
+        ) as mock_model_cls:
             mock_model_cls.return_value.generate_content.return_value = mock_response
             respuesta = tutor.ask("¿Qué es una variable?")
 
@@ -71,11 +83,17 @@ class TestAsk:
         assert "¿Qué es una variable?" in prompt_enviado
         assert "Variables" in prompt_enviado
 
-    def test_maneja_error_de_la_api_sin_lanzar_excepcion(self, course_dir: Path, chroma_path: Path):
+    def test_maneja_error_de_la_api_sin_lanzar_excepcion(
+        self, course_dir: Path, chroma_path: Path
+    ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
 
-        with patch("src.multiagent_core.tutor_agent.genai.GenerativeModel") as mock_model_cls:
-            mock_model_cls.return_value.generate_content.side_effect = RuntimeError("fallo de red")
+        with patch(
+            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
+        ) as mock_model_cls:
+            mock_model_cls.return_value.generate_content.side_effect = RuntimeError(
+                "fallo de red"
+            )
             respuesta = tutor.ask("¿Qué es una variable?")
 
         assert "Error al invocar al modelo Gemini" in respuesta
@@ -133,7 +151,9 @@ class TestAskConTraceback:
             "ZeroDivisionError: division by zero\n¿Qué hago?"
         )
 
-        with patch("src.multiagent_core.tutor_agent.genai.GenerativeModel") as mock_model_cls:
+        with patch(
+            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
+        ) as mock_model_cls:
             mock_model_cls.return_value.generate_content.return_value = mock_response
             respuesta = tutor.ask(pregunta_con_error)
 
@@ -146,7 +166,9 @@ class TestAskConTraceback:
         mock_response = MagicMock()
         mock_response.text = "Una variable es un espacio en memoria."
 
-        with patch("src.multiagent_core.tutor_agent.genai.GenerativeModel") as mock_model_cls:
+        with patch(
+            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
+        ) as mock_model_cls:
             mock_model_cls.return_value.generate_content.return_value = mock_response
             respuesta = tutor.ask("¿Qué es una variable?")
 
