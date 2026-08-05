@@ -8,16 +8,17 @@ de una función en Python usando el árbol de sintaxis abstracta (AST).
 
 import ast
 
+from ._mermaid_utils import MermaidNodeCounter
+
 
 class FlowchartAgent:
     """Agente que traduce código Python a sintaxis de diagramas de flujo Mermaid."""
 
-    def __init__(self):
-        self.node_counter = 0
+    def __init__(self) -> None:
+        self._node_counter = MermaidNodeCounter()
 
     def _next_node_id(self) -> str:
-        self.node_counter += 1
-        return f"node_{self.node_counter}"
+        return self._node_counter.next_id()
 
     def build_mermaid_flowchart(self, code_source: str) -> str:
         """Lee un código fuente en Python y genera la cadena del diagrama Mermaid."""
@@ -36,7 +37,7 @@ class FlowchartAgent:
         if not func_node:
             return "%% No se encontró una definición de función (def) para diagramar.\n"
 
-        self.node_counter = 0
+        self._node_counter.reset()
         mermaid_lines = ["graph TD", f"    start([Inicio: {func_node.name}])"]
 
         last_node = "start"

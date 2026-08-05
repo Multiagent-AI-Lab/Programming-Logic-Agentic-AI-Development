@@ -10,21 +10,22 @@ reforzando el Hilo de Oro del curso: Pseudocódigo → Mermaid → Python → py
 import ast
 import re
 
+from ._mermaid_utils import MermaidNodeCounter
+
 
 class PseudocodeAgent:
     """Agente que convierte pseudocódigo UCEMICH a Mermaid, Python a pseudocódigo,
     y pseudocódigo a un esqueleto Python."""
 
-    def __init__(self):
-        self.node_counter = 0
+    def __init__(self) -> None:
+        self._node_counter = MermaidNodeCounter()
 
     def _next_node_id(self) -> str:
-        self.node_counter += 1
-        return f"node_{self.node_counter}"
+        return self._node_counter.next_id()
 
     def pseudocode_to_mermaid(self, pseudocode: str) -> str:
         """Traduce pseudocódigo UCEMICH (SI/PARA/MIENTRAS) a un diagrama Mermaid."""
-        self.node_counter = 0
+        self._node_counter.reset()
         lines = [
             line.strip() for line in pseudocode.strip().split("\n") if line.strip()
         ]
