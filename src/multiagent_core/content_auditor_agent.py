@@ -259,3 +259,45 @@ class ContentAuditorAgent:
             "hallazgos": hallazgos,
             "total_hallazgos": total,
         }
+
+    def audit_all_units(self, course_dir: Path) -> str:
+        """Audita todas las unidades del curso y genera un reporte Markdown consolidado.
+
+        Args:
+            course_dir: Directorio raíz del curso, donde viven los UNIDAD_*.md.
+
+        Returns:
+            Reporte consolidado en Markdown, con una sección por unidad auditada,
+            ordenadas alfabéticamente por nombre de archivo.
+        """
+        md_files = sorted(Path(course_dir).glob("UNIDAD_*.md"))
+
+        secciones = ["# Reporte de Auditoría de Contenido", ""]
+        total_general = 0
+
+        for md_path in md_files:
+            resultado = self.audit_unit(md_path)
+            total_general += resultado["total_hallazgos"]
+
+            secciones.append(
+                f"## {resultado['unidad']} ({resultado['total_hallazgos']} hallazgos)"
+            )
+            secciones.append("")
+
+            for dimension, hallazgos in resultado["hallazgos"].items():
+                if not hallazgos:
+                    continue
+                secciones.append(f"### {dimension.capitalize()}")
+                for h in hallazgos:
+                    secciones.append(f"- {h}")
+                secciones.append("")
+
+            if resultado["total_hallazgos"] == 0:
+                secciones.append("- ✅ Sin hallazgos.")
+                secciones.append("")
+
+        secciones.insert(
+            2, f"**Total de hallazgos en {len(md_files)} unidades: {total_general}**\n"
+        )
+
+        return "\n".join(secciones)

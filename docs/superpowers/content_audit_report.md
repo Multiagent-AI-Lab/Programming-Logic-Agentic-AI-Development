@@ -1,0 +1,832 @@
+# Reporte de Auditoría de Contenido
+
+**Total de hallazgos en 9 unidades: 769**
+
+## UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md (2 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['mermaid', 'pseudocodigo', 'pytest'].
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+
+## UNIDAD_1_PENSAMIENTO_COMPUTACIONAL_CLI.md (92 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['pseudocodigo', 'pytest'].
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 9: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 14: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 17: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 39: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 53: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 54: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 62: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 90: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 113: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 129: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 158: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 164: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 169: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 174: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 216: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 222: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 228: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 232: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 236: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 237: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_setup_sandbox' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_resolve_path' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'pwd' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'ls' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'cd' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'mkdir' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'touch' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'cat' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'clean_sandbox' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 5: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 12: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 26: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 43: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 45: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 57: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 80: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 89: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 95: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 106: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 108: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 125: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 150: Excede los 79 caracteres recomendados por PEP 8 (longitud: 110).
+- Línea 152: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 166: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 168: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 176: Excede los 79 caracteres recomendados por PEP 8 (longitud: 123).
+- Línea 184: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 191: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 194: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 195: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 196: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 200: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 204: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'set_model' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'tokenize' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'calculate_cost' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'simulate_context_window' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 6: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 9: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 17: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 20: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 23: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 33: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 40: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 47: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 54: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 61: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 71: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 73: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 78: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 79: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 81: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 85: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Función 'setUp' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'tearDown' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_setup_sandbox_creates_directories' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_pwd_returns_correct_relative_root' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_mkdir_and_cd' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_touch_and_cat' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_security_path_traversal_prevention' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'setUp' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_tokenize_split_rules' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_calculate_cost' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'test_simulate_context_window_truncation' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+
+## UNIDAD_2_METODOLOGIA_ALGORITMOS_PRUEBAS.md (86 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['pytest'].
+- No se encontró ninguna sección de Analogía Didáctica (patrón '### 💡 Analogía') en esta unidad.
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Función 'test_calcula_volumen_esfera_valida' sin docstring en el código de ejemplo.
+- Función 'test_calcula_volumen_esfera_valida' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_retorna_menos_uno_si_radio_no_positivo' sin docstring en el código de ejemplo.
+- Función 'test_retorna_menos_uno_si_radio_no_positivo' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Línea 11: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 12: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 15: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 18: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 20: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 25: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 28: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 29: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 14: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 26: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 30: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 35: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 40: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 46: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 55: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 57: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 62: Excede los 79 caracteres recomendados por PEP 8 (longitud: 107).
+- Línea 74: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 75: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 77: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 79: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 43: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 50: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 52: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 58: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 61: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 64: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 69: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 79: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 80: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 88: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 104: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 117: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 128: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 148: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 154: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 160: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 161: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Riesgo de Seguridad: Uso de `eval()`. Ejecutar cadenas de texto arbitrarias expone al sistema a inyecciones de código y ejecución remota de comandos no autorizados (Riesgo OWASP LLM-02).
+- Línea 1: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 2: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 16: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 17: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 21: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 30: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 35: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 2: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 5: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 8: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 9: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Función 'test_calcular_coordinacion_promedio_validos' sin docstring en el código de ejemplo.
+- Función 'test_calcular_coordinacion_excepciones' sin docstring en el código de ejemplo.
+- Línea 16: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 23: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 8: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Función 'test_calcular_dispersion_validos' sin docstring en el código de ejemplo.
+- Función 'test_calcular_dispersion_error_limite' sin docstring en el código de ejemplo.
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 12: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 15: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 16: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 19: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Línea 20: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 21: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 107).
+- Línea 31: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 34: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 14: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Función 'test_filtrar_lecturas_afm_comportamiento' sin docstring en el código de ejemplo.
+- Función 'test_filtrar_lecturas_afm_excepciones' sin docstring en el código de ejemplo.
+
+### Curricular
+- Posible discrepancia de duración: el MD dice '1 semana (6 horas)' pero el programa oficial indica 'Semana 2'.
+
+## UNIDAD_3_VARIABLES_OPERADORES.md (80 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['mermaid', 'pseudocodigo', 'pytest'].
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 1: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 14: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 16: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 17: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 21: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 28: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 35: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 50: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 51: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 55: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 67: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 68: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 71: Excede los 79 caracteres recomendados por PEP 8 (longitud: 115).
+- Línea 72: Excede los 79 caracteres recomendados por PEP 8 (longitud: 129).
+- Línea 73: Excede los 79 caracteres recomendados por PEP 8 (longitud: 123).
+- Línea 75: Excede los 79 caracteres recomendados por PEP 8 (longitud: 140).
+- Línea 76: Excede los 79 caracteres recomendados por PEP 8 (longitud: 134).
+- Línea 91: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 93: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 97: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 99: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 101: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 107: Excede los 79 caracteres recomendados por PEP 8 (longitud: 141).
+- Línea 122: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 125: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 5: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 9: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 22: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 31: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 32: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 37: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 45: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 47: Excede los 79 caracteres recomendados por PEP 8 (longitud: 119).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 55: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 56: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 65: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 70: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 74: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 87: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 89: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 93: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 95: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 99: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 20: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 30: Excede los 79 caracteres recomendados por PEP 8 (longitud: 110).
+- Línea 34: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 43: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 47: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 54: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 59: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 72: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 76: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 109: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 120: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Función 'test_fuerza_coulomb_escala_nanometro' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_fuerza_coulomb_escala_angstrom' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_fuerza_coulomb_repulsiva' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_fuerza_coulomb_limites_excepciones' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_energia_bohr_hidrogeno_estado_fundamental' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_energia_bohr_niveles_excitados' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_energia_bohr_atomos_hidrogenoides' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_energia_bohr_excepciones' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_operacion' sin docstring en el código de ejemplo.
+- Función 'test_operacion' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 14: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+
+### Curricular
+- Posible discrepancia de duración: el MD dice '2 semanas (12 horas)' pero el programa oficial indica 'Semanas 3-4'.
+
+## UNIDAD_4_ESTRUCTURAS_DECISION.md (99 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['pseudocodigo', 'pytest'].
+- No se encontró ninguna sección de Analogía Didáctica (patrón '### 💡 Analogía') en esta unidad.
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 6: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Función '__post_init__' sin docstring en el código de ejemplo.
+- Función '__post_init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 5: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 106).
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 1)
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Función 'classify_by_aspect_ratio_if' sin docstring en el código de ejemplo.
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Función 'classify_by_geometry_match' sin docstring en el código de ejemplo.
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 1)
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 2)
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 2)
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 2)
+- Función 'spaghetti_classifier' sin docstring en el código de ejemplo.
+- Función 'spaghetti_classifier' sin type hints completos (argumentos sin tipo: ['data'], retorno anotado: False).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 11: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Función 'refactored_classifier' sin docstring en el código de ejemplo.
+- Línea 2: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 1)
+- Línea 5: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 1)
+- Línea 26: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 27: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 35: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 49: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 51: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 53: Excede los 79 caracteres recomendados por PEP 8 (longitud: 110).
+- Línea 57: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 59: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 63: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 75: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 78: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 93: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 96: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 108: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 118: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 122: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 130: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 142: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 181: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 185: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 196: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 199: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 203: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 207: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 209: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 212: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Línea 219: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Función '__post_init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 1: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 29: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 31: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 39: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 41: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 65: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 68: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 69: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 87: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 92: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 99: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 117: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 121: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 132: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 133: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 147: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 148: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 155: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 157: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 165: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 169: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 173: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Función 'test_nanoparticle_instantiation_success' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_nanoparticle_name_validation_fails' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_nanoparticle_dimension_types_fail' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_nanoparticle_dimension_values_fail' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_classify_by_aspect_ratio_if_branches' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_classify_by_aspect_ratio_if_invalid_type' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_geometry_match_perfect_symmetry' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_geometry_match_nanoplatelet' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_geometry_match_nanowire' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_geometry_match_nanorod' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_geometry_match_nanodisc' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_geometry_match_complex' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_classify_by_geometry_match_invalid_type' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_spaghetti_classifier_behavior' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_refactored_classifier_success_paths' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+- Función 'test_refactored_classifier_raises_exceptions' sin type hints completos (argumentos sin tipo: ninguno, retorno anotado: False).
+
+## UNIDAD_5_CICLOS_BUCLES_AGENTICOS.md (71 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['pseudocodigo', 'pytest'].
+- No se encontró ninguna sección de Analogía Didáctica (patrón '### 💡 Analogía') en esta unidad.
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 6: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 17: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Error de sintaxis crítica al parsear código para análisis de seguridad: unexpected indent (<unknown>, line 1)
+- Línea 21: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 22: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 37: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 40: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 41: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 42: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 49: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 50: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 57: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 60: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 62: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 64: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 68: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 70: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 80: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 92: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 111: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 129: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 144: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 146: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 182: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_derivatives' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'simulate_euler_fixed_steps' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'simulate_euler_until_equilibrium' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'simulate_rk4_fixed_steps' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 10: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 17: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 19: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 36: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 40: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 45: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 53: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 59: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 72: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 76: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 77: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 80: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 81: Excede los 79 caracteres recomendados por PEP 8 (longitud: 120).
+- Línea 98: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 100: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 106: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 108: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 111: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 121: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 128: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 136: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Riesgo de Seguridad: Uso de `exec()`. Ejecutar cadenas de texto arbitrarias expone al sistema a inyecciones de código y ejecución remota de comandos no autorizados (Riesgo OWASP LLM-02).
+- Función 'execute' sin docstring en el código de ejemplo.
+- Función 'execute' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'propose_correction' sin docstring en el código de ejemplo.
+- Función 'propose_correction' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '__init__' sin docstring en el código de ejemplo.
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'run_tests' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'run' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 13: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 30: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 37: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 43: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 47: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+
+## UNIDAD_6_MODULARIDAD_IA_MCP.md (91 hallazgos)
+
+### Latex
+- Delimitadores '$' desbalanceados: hay un número impar de '$' simples fuera de bloques '$$...$$', lo que sugiere una fórmula sin cerrar.
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['pseudocodigo', 'pytest'].
+- No se encontró ninguna sección de Analogía Didáctica (patrón '### 💡 Analogía') en esta unidad.
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 1: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Función 'calcular_relacion_aspecto' sin docstring en el código de ejemplo.
+- Función 'suma_radios' sin docstring en el código de ejemplo.
+- Línea 2: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 6: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 8: Excede los 79 caracteres recomendados por PEP 8 (longitud: 110).
+- Función 'calcular_area' sin docstring en el código de ejemplo.
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 22: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 25: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 28: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 29: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 38: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 39: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 42: Excede los 79 caracteres recomendados por PEP 8 (longitud: 113).
+- Línea 47: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 51: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 59: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 60: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 69: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 70: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 73: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 75: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 77: Excede los 79 caracteres recomendados por PEP 8 (longitud: 129).
+- Línea 84: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 85: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 87: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 91: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 92: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 93: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 96: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 99: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 103: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 109: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 112: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 125: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 127: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 129: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 152: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 157: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 174: Excede los 79 caracteres recomendados por PEP 8 (longitud: 117).
+- Línea 209: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 221: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 247: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 254: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 271: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 272: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 274: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 278: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 282: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 286: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 303: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 315: Excede los 79 caracteres recomendados por PEP 8 (longitud: 130).
+- Línea 318: Excede los 79 caracteres recomendados por PEP 8 (longitud: 130).
+- Línea 321: Excede los 79 caracteres recomendados por PEP 8 (longitud: 140).
+- Línea 323: Excede los 79 caracteres recomendados por PEP 8 (longitud: 146).
+- Línea 333: Excede los 79 caracteres recomendados por PEP 8 (longitud: 123).
+- Línea 341: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'register_tool' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'list_tools' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_parse_google_docstring' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_map_python_type_to_json_type' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'generate_tool_schema' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'call_tool' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 1: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 27: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 37: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 46: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 57: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 75: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 91: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 100: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 110: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 111: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 127: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 132: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 139: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 140: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 145: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 1: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+
+## UNIDAD_7_ESTRUCTURAS_DATOS_GRAFOS.md (130 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['mermaid', 'pseudocodigo', 'pytest'].
+- No se encontró ninguna sección de Analogía Didáctica (patrón '### 💡 Analogía') en esta unidad.
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 2: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 6: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 8: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 9: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 12: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 13: Excede los 79 caracteres recomendados por PEP 8 (longitud: 119).
+- Línea 14: Excede los 79 caracteres recomendados por PEP 8 (longitud: 107).
+- Línea 15: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 25: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 29: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 34: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 36: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 40: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 42: Excede los 79 caracteres recomendados por PEP 8 (longitud: 107).
+- Línea 46: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 132).
+- Línea 52: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 54: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 55: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 56: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 59: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 62: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 63: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 70: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 72: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 79: Excede los 79 caracteres recomendados por PEP 8 (longitud: 113).
+- Línea 84: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 97: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 104: Excede los 79 caracteres recomendados por PEP 8 (longitud: 106).
+- Línea 108: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 109: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 115: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 118: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 123: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 131: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 133: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 140: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'set_value_at' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'get_value_at' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'get_physical_coordinates' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'calculate_total_density' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 27: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 36: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 40: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 42: Excede los 79 caracteres recomendados por PEP 8 (longitud: 106).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 109).
+- Línea 50: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 61: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 63: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 69: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 70: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 73: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 78: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Línea 80: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).
+- Línea 82: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 88: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 92: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 106: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Línea 108: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 118: Excede los 79 caracteres recomendados por PEP 8 (longitud: 98).
+- Línea 122: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 125: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 127: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 145: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 148: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 149: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 152: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'add_atom' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'add_bond' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'find_shortest_path' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'get_adjacency_dict' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 5: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 11: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 15: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 26: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 31: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 35: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 43: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 46: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 55: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 61: Excede los 79 caracteres recomendados por PEP 8 (longitud: 89).
+- Línea 63: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 72: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 79: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 85: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Línea 89: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 91: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 94: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 96: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 102: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 103: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 110: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 122: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 133: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 138: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 155: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 157: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 2: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 4: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 7: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 9: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 16: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 21: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 22: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 23: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 27: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 28: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 33: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 37: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 49: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 53: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 58: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 63: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 65: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 67: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+
+## UNIDAD_8_PROYECTO_INTEGRADOR.md (118 hallazgos)
+
+### Pedagogico
+- Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → Python → pytest): faltan bloques de tipo ['pseudocodigo', 'pytest'].
+- No se encontró ninguna sección de Analogía Didáctica (patrón '### 💡 Analogía') en esta unidad.
+
+### Codigo
+- Error de sintaxis crítica al parsear código para análisis de seguridad: invalid syntax (<unknown>, line 3)
+- Línea 21: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 24: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 27: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 34: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 45: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 48: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 53: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 56: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 60: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 73: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 90: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 93: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 97: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 99: Excede los 79 caracteres recomendados por PEP 8 (longitud: 92).
+- Línea 103: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 105: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 120: Excede los 79 caracteres recomendados por PEP 8 (longitud: 86).
+- Línea 126: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 132: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 138: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 141: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 146: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 147: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 152: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 155: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 159: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 165: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 168: Excede los 79 caracteres recomendados por PEP 8 (longitud: 88).
+- Línea 174: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 179: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 181: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 193: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 194: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 199: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 200: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 205: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 208: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 212: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 218: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 220: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 221: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 224: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 225: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 229: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 230: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 233: Excede los 79 caracteres recomendados por PEP 8 (longitud: 94).
+- Línea 238: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 243: Excede los 79 caracteres recomendados por PEP 8 (longitud: 117).
+- Línea 245: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 247: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 290: Excede los 79 caracteres recomendados por PEP 8 (longitud: 115).
+- Línea 299: Excede los 79 caracteres recomendados por PEP 8 (longitud: 121).
+- Línea 304: Excede los 79 caracteres recomendados por PEP 8 (longitud: 91).
+- Línea 306: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 307: Excede los 79 caracteres recomendados por PEP 8 (longitud: 82).
+- Línea 314: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Línea 318: Excede los 79 caracteres recomendados por PEP 8 (longitud: 97).
+- Línea 319: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 322: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 325: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 327: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 336: Excede los 79 caracteres recomendados por PEP 8 (longitud: 111).
+- Línea 337: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 338: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 343: Excede los 79 caracteres recomendados por PEP 8 (longitud: 121).
+- Línea 348: Excede los 79 caracteres recomendados por PEP 8 (longitud: 120).
+- Línea 359: Excede los 79 caracteres recomendados por PEP 8 (longitud: 120).
+- Línea 367: Excede los 79 caracteres recomendados por PEP 8 (longitud: 116).
+- Línea 377: Excede los 79 caracteres recomendados por PEP 8 (longitud: 108).
+- Línea 378: Excede los 79 caracteres recomendados por PEP 8 (longitud: 90).
+- Línea 382: Excede los 79 caracteres recomendados por PEP 8 (longitud: 139).
+- Línea 388: Excede los 79 caracteres recomendados por PEP 8 (longitud: 87).
+- Línea 390: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 392: Excede los 79 caracteres recomendados por PEP 8 (longitud: 114).
+- Línea 407: Excede los 79 caracteres recomendados por PEP 8 (longitud: 83).
+- Línea 412: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 418: Excede los 79 caracteres recomendados por PEP 8 (longitud: 99).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'read_instructions' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'extract_code_blocks' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'analyze' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'visit_Call' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'visit_Import' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'visit_ImportFrom' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_check_line_lengths' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_check_naming_conventions' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'run' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '__init__' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función 'execute_evaluation' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Función '_save_report' sin type hints completos (argumentos sin tipo: ['self'], retorno anotado: True).
+- Línea 3: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 16: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 32: Excede los 79 caracteres recomendados por PEP 8 (longitud: 106).
+- Línea 41: Excede los 79 caracteres recomendados por PEP 8 (longitud: 96).
+- Línea 42: Excede los 79 caracteres recomendados por PEP 8 (longitud: 103).
+- Línea 43: Excede los 79 caracteres recomendados por PEP 8 (longitud: 110).
+- Línea 44: Excede los 79 caracteres recomendados por PEP 8 (longitud: 104).
+- Línea 52: Excede los 79 caracteres recomendados por PEP 8 (longitud: 100).
+- Línea 65: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 66: Excede los 79 caracteres recomendados por PEP 8 (longitud: 106).
+- Línea 71: Excede los 79 caracteres recomendados por PEP 8 (longitud: 101).
+- Línea 72: Excede los 79 caracteres recomendados por PEP 8 (longitud: 106).
+- Línea 76: Excede los 79 caracteres recomendados por PEP 8 (longitud: 116).
+- Línea 88: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 89: Excede los 79 caracteres recomendados por PEP 8 (longitud: 102).
+- Línea 90: Excede los 79 caracteres recomendados por PEP 8 (longitud: 93).
+- Línea 96: Excede los 79 caracteres recomendados por PEP 8 (longitud: 95).
+- Línea 112: Excede los 79 caracteres recomendados por PEP 8 (longitud: 84).
+- Línea 113: Excede los 79 caracteres recomendados por PEP 8 (longitud: 85).
+- Línea 114: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 115: Excede los 79 caracteres recomendados por PEP 8 (longitud: 80).
+- Línea 117: Excede los 79 caracteres recomendados por PEP 8 (longitud: 81).
+- Línea 118: Excede los 79 caracteres recomendados por PEP 8 (longitud: 105).

@@ -248,7 +248,7 @@ class TestAuditAllUnits:
         self, auditor: ContentAuditorAgent, tmp_path: Path
     ):
         (tmp_path / "UNIDAD_1_TEST.md").write_text(
-            "# UNIDAD 1\n\n```python\ndef f(x: int) -> int:\n    \"\"\"Doc.\"\"\"\n    return x\n```\n",
+            '# UNIDAD 1\n\n```python\ndef f(x: int) -> int:\n    """Doc."""\n    return x\n```\n',
             encoding="utf-8",
         )
         reporte = auditor.audit_all_units(tmp_path)
