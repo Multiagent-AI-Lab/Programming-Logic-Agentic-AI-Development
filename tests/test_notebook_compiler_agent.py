@@ -172,3 +172,45 @@ Texto final tras el bloque anidado.
         nb = nbformat.read(nb_path, as_version=4)
         todo_el_texto = "\n".join(c.source for c in nb.cells)
         assert "Texto final tras el bloque anidado" in todo_el_texto
+
+
+class TestExtractFencedBlocks:
+    def test_extrae_bloque_python_simple(self):
+        from src.multiagent_core.notebook_compiler_agent import extract_fenced_blocks
+
+        content = "Texto antes\n\n```python\nx = 1\n```\n\nTexto después"
+        bloques = extract_fenced_blocks(content)
+
+        assert len(bloques) == 1
+        fence, language, code = bloques[0]
+        assert fence == "```"
+        assert language == "python"
+        assert code == "x = 1"
+
+    def test_extrae_multiples_bloques(self):
+        from src.multiagent_core.notebook_compiler_agent import extract_fenced_blocks
+
+        content = "```python\na = 1\n```\n\ntexto\n\n```bash\necho hola\n```"
+        bloques = extract_fenced_blocks(content)
+
+        assert len(bloques) == 2
+        assert bloques[0][1] == "python"
+        assert bloques[1][1] == "bash"
+
+    def test_respeta_fence_de_4_backticks_con_anidado_de_3(self):
+        from src.multiagent_core.notebook_compiler_agent import extract_fenced_blocks
+
+        content = "````markdown\n# Titulo\n\n```python\ndef f():\n    pass\n```\n````"
+        bloques = extract_fenced_blocks(content)
+
+        assert len(bloques) == 1
+        fence, language, code = bloques[0]
+        assert fence == "````"
+        assert language == "markdown"
+        assert "```python" in code
+        assert "def f():" in code
+
+    def test_sin_bloques_retorna_lista_vacia(self):
+        from src.multiagent_core.notebook_compiler_agent import extract_fenced_blocks
+
+        assert extract_fenced_blocks("solo texto plano, sin fences") == []
