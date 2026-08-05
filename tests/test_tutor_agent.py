@@ -1,5 +1,6 @@
 """Tests de caracterización para TutorAgent (RAG con ChromaDB)."""
 
+import json
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -173,3 +174,96 @@ class TestAskConTraceback:
             respuesta = tutor.ask("¿Qué es una variable?")
 
         assert respuesta == "Una variable es un espacio en memoria."
+
+
+@pytest.fixture
+def memory_path(tmp_path: Path) -> Path:
+    return tmp_path / ".tutor_memory_test.json"
+
+
+class TestMemoriaEpisodica:
+    def test_add_episode_persiste_en_archivo_json(
+        self, course_dir: Path, chroma_path: Path, memory_path: Path
+    ):
+        tutor = TutorAgent(
+            course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
+        )
+        tutor._add_episode("¿qué es una variable?", "Una variable guarda un valor.")
+
+        assert memory_path.exists()
+        contenido = json.loads(memory_path.read_text(encoding="utf-8"))
+        assert len(contenido) == 1
+        assert contenido[0]["question"] == "¿qué es una variable?"
+
+    def test_retrieve_relevant_episodes_encuentra_por_solapamiento_de_palabras(
+        self, course_dir: Path, chroma_path: Path, memory_path: Path
+    ):
+        tutor = TutorAgent(
+            course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
+        )
+        tutor._add_episode("¿qué es una variable en Python?", "Resumen sobre variables.")
+        tutor._add_episode("¿cómo funciona un bucle for?", "Resumen sobre bucles.")
+
+        resultados = tutor._retrieve_relevant_episodes("dudas sobre variable")
+        assert len(resultados) >= 1
+        assert "variable" in resultados[0]["question"].lower()
+
+    def test_memoria_persiste_entre_instancias_nuevas(
+        self, course_dir: Path, chroma_path: Path, memory_path: Path
+    ):
+        tutor1 = TutorAgent(
+            course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
+        )
+        tutor1._add_episode("¿qué es un ciclo while?", "Resumen sobre while.")
+
+        tutor2 = TutorAgent(
+            course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
+        )
+        resultados = tutor2._retrieve_relevant_episodes("ciclo while")
+        assert len(resultados) >= 1
+
+    def test_limite_de_episodios_no_crece_indefinidamente(
+        self, course_dir: Path, chroma_path: Path, memory_path: Path
+    ):
+        from src.multiagent_core.tutor_agent import MAX_EPISODIOS
+
+        tutor = TutorAgent(
+            course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
+        )
+        for i in range(MAX_EPISODIOS + 10):
+            tutor._add_episode(f"pregunta {i}", f"respuesta {i}")
+
+        contenido = json.loads(memory_path.read_text(encoding="utf-8"))
+        assert len(contenido) == MAX_EPISODIOS
+
+    def test_default_memory_path_es_course_dir_tutor_memory_json(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        assert tutor.memory_path == course_dir / ".tutor_memory.json"
+
+
+class TestAskUsaMemoria:
+    def test_ask_incluye_contexto_de_pregunta_anterior_relacionada(
+        self, course_dir: Path, chroma_path: Path, memory_path: Path
+    ):
+        tutor = TutorAgent(
+            course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
+        )
+        mock_response = MagicMock()
+        mock_response.text = "Respuesta simulada"
+
+        with patch(
+            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
+        ) as mock_model_cls:
+            mock_model_cls.return_value.generate_content.return_value = mock_response
+            tutor.ask("¿qué es una variable en Python?")
+
+            mock_model_cls.return_value.generate_content.reset_mock()
+            tutor.ask("y las variables, se pueden reasignar?")
+
+        prompt_enviado = mock_model_cls.return_value.generate_content.call_args[0][0]
+        assert (
+            "sesiones anteriores" in prompt_enviado.lower()
+            or "pregunta anterior" in prompt_enviado.lower()
+        )
