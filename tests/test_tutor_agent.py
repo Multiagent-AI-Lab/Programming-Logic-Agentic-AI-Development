@@ -80,3 +80,74 @@ class TestAsk:
 
         assert "Error al invocar al modelo Gemini" in respuesta
         assert "Contexto Local Recuperado" in respuesta
+
+
+class TestDiagnoseError:
+    def test_zero_division_error_da_pregunta_sobre_validar_denominador(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        pregunta = tutor._diagnose_error("ZeroDivisionError: division by zero")
+        assert pregunta is not None
+        assert "denominador" in pregunta.lower() or "cero" in pregunta.lower()
+
+    def test_index_error_da_pregunta_sobre_verificar_longitud(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        pregunta = tutor._diagnose_error("IndexError: list index out of range")
+        assert pregunta is not None
+        assert "len(" in pregunta or "longitud" in pregunta.lower()
+
+    def test_key_error_da_pregunta_sobre_dict_get(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        pregunta = tutor._diagnose_error("KeyError: 'radio_nm'")
+        assert pregunta is not None
+        assert "get(" in pregunta or "clave" in pregunta.lower()
+
+    def test_error_desconocido_da_pregunta_generica_de_fallback(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        pregunta = tutor._diagnose_error("SomeWeirdError: mensaje raro")
+        assert pregunta is not None
+        assert "?" in pregunta
+
+    def test_mensaje_sin_error_retorna_none(self, course_dir: Path, chroma_path: Path):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        assert tutor._diagnose_error("") is None
+
+
+class TestAskConTraceback:
+    def test_pregunta_con_traceback_recibe_pista_socratica_antes_de_la_respuesta(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        mock_response = MagicMock()
+        mock_response.text = "Respuesta completa del LLM"
+
+        pregunta_con_error = (
+            "Me sale este error:\nTraceback (most recent call last):\n"
+            "ZeroDivisionError: division by zero\n¿Qué hago?"
+        )
+
+        with patch("src.multiagent_core.tutor_agent.genai.GenerativeModel") as mock_model_cls:
+            mock_model_cls.return_value.generate_content.return_value = mock_response
+            respuesta = tutor.ask(pregunta_con_error)
+
+        assert "denominador" in respuesta.lower() or "cero" in respuesta.lower()
+
+    def test_pregunta_conceptual_sin_traceback_no_recibe_pista_socratica(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        mock_response = MagicMock()
+        mock_response.text = "Una variable es un espacio en memoria."
+
+        with patch("src.multiagent_core.tutor_agent.genai.GenerativeModel") as mock_model_cls:
+            mock_model_cls.return_value.generate_content.return_value = mock_response
+            respuesta = tutor.ask("¿Qué es una variable?")
+
+        assert respuesta == "Una variable es un espacio en memoria."
