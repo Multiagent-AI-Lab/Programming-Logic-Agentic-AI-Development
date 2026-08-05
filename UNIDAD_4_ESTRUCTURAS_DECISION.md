@@ -1068,3 +1068,24 @@ print(agent.pseudocode_to_mermaid(mi_pseudocodigo))
 ```
 
 Copia el resultado en [mermaid.live](https://mermaid.live) para verlo renderizado, o pégalo en una celda Markdown de este notebook dentro de un bloque ```mermaid.
+
+### CodeAuditorAgent y EvaluatorAgent — audita tu código antes de entregar
+
+Corre tu propio código a través del auditor y el evaluador antes de entregarlo, para detectar problemas de estilo, seguridad, o saber tu calificación aproximada contra la rúbrica:
+
+```python
+from src.multiagent_core.code_auditor_agent import CodeAuditorAgent
+from src.multiagent_core.evaluator_agent import EvaluatorAgent
+
+mi_codigo = """
+def calcular_area(radio):
+    return 3.14159 * radio ** 2
+"""
+
+auditor = CodeAuditorAgent()
+print(auditor.generate_report(mi_codigo))
+
+evaluador = EvaluatorAgent()
+resultado = evaluador.evaluate(mi_codigo)
+print(resultado["retroalimentacion"])
+```

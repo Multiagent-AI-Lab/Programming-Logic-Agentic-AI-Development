@@ -1179,6 +1179,7 @@ Antes de presentar tu defensa oral, verifica cada punto:
 - [ ] Puedes explicar, sin apoyo de IA, cada función del código que entregaste.
 - [ ] Revisaste las 5 preguntas modelo de `RUBRICA_GENERAL.md` y preparaste una respuesta para cada una.
 - [ ] El repositorio de GitHub está actualizado con el historial de commits del desarrollo (no un solo commit final).
+- [ ] Corriste `CodeAuditorAgent` y `EvaluatorAgent` sobre tu código final y revisaste sus hallazgos antes de entregar.
 
 ---
 
@@ -1211,4 +1212,25 @@ def mi_funcion(x):
     return 0
 """
 print(agent.build_mermaid_flowchart(mi_codigo))
+```
+
+### CodeAuditorAgent y EvaluatorAgent — audita tu código antes de entregar
+
+Corre tu propio código a través del auditor y el evaluador antes de entregarlo, para detectar problemas de estilo, seguridad, o saber tu calificación aproximada contra la rúbrica:
+
+```python
+from src.multiagent_core.code_auditor_agent import CodeAuditorAgent
+from src.multiagent_core.evaluator_agent import EvaluatorAgent
+
+mi_codigo = """
+def calcular_area(radio):
+    return 3.14159 * radio ** 2
+"""
+
+auditor = CodeAuditorAgent()
+print(auditor.generate_report(mi_codigo))
+
+evaluador = EvaluatorAgent()
+resultado = evaluador.evaluate(mi_codigo)
+print(resultado["retroalimentacion"])
 ```
