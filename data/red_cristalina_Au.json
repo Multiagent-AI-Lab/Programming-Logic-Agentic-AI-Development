@@ -1,0 +1,21 @@
+{
+  "nombre": "Red Cristalina de Oro (Au) - Celda FCC simplificada",
+  "descripcion": "Fragmento de red cristalina cúbica centrada en las caras (FCC) de oro, representado como grafo de nodos (átomos) y aristas (enlaces metálicos), compatible con la clase CrystalLatticeGraph de la Unidad 7 (NetworkX).",
+  "nodos": [
+    {"id": "Au1", "element": "Au", "coordinates": [0.0, 0.0, 0.0], "charge": 0.0},
+    {"id": "Au2", "element": "Au", "coordinates": [2.04, 2.04, 0.0], "charge": 0.0},
+    {"id": "Au3", "element": "Au", "coordinates": [2.04, 0.0, 2.04], "charge": 0.0},
+    {"id": "Au4", "element": "Au", "coordinates": [0.0, 2.04, 2.04], "charge": 0.0},
+    {"id": "Au5", "element": "Au", "coordinates": [4.08, 0.0, 0.0], "charge": 0.0},
+    {"id": "Au6", "element": "Au", "coordinates": [0.0, 4.08, 0.0], "charge": 0.0}
+  ],
+  "aristas": [
+    {"atomo_a": "Au1", "atomo_b": "Au2", "bond_type": "metalico", "energy_kcal_mol": 53.0},
+    {"atomo_a": "Au1", "atomo_b": "Au3", "bond_type": "metalico", "energy_kcal_mol": 53.0},
+    {"atomo_a": "Au1", "atomo_b": "Au4", "bond_type": "metalico", "energy_kcal_mol": 53.0},
+    {"atomo_a": "Au2", "atomo_b": "Au5", "bond_type": "metalico", "energy_kcal_mol": 53.0},
+    {"atomo_a": "Au3", "atomo_b": "Au5", "bond_type": "metalico", "energy_kcal_mol": 53.0},
+    {"atomo_a": "Au2", "atomo_b": "Au6", "bond_type": "metalico", "energy_kcal_mol": 53.0},
+    {"atomo_a": "Au4", "atomo_b": "Au6", "bond_type": "metalico", "energy_kcal_mol": 53.0}
+  ]
+}

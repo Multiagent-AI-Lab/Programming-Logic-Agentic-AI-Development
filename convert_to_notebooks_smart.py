@@ -1,0 +1,62 @@
+"""
+CONVERSOR INTELIGENTE DE MARKDOWN A NOTEBOOKS (CONSEJO DE AGENTES) 🚀
+===================================================================
+
+Script de automatización que utiliza el NotebookCompilerAgent del consejo de agentes
+para transformar las lecciones Markdown del repositorio en Jupyter Notebooks listos
+para su uso por parte de los estudiantes.
+"""
+
+from pathlib import Path
+from src.multiagent_core.notebook_compiler_agent import NotebookCompilerAgent
+
+if __name__ == "__main__":
+    BASE_DIR = Path(__file__).parent
+    output_dir = BASE_DIR / "notebooks"
+    output_dir.mkdir(exist_ok=True)
+    
+    files_to_convert = [
+        "UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md",
+        "UNIDAD_1_PENSAMIENTO_COMPUTACIONAL_CLI.md",
+        "UNIDAD_2_METODOLOGIA_ALGORITMOS_PRUEBAS.md",
+        "UNIDAD_3_VARIABLES_OPERADORES.md",
+        "UNIDAD_4_ESTRUCTURAS_DECISION.md",
+        "UNIDAD_5_CICLOS_BUCLES_AGENTICOS.md",
+        "UNIDAD_6_MODULARIDAD_IA_MCP.md",
+        "UNIDAD_7_ESTRUCTURAS_DATOS_GRAFOS.md",
+        "UNIDAD_8_PROYECTO_INTEGRADOR.md"
+    ]
+    
+    print("="*75)
+    print("INICIANDO CONVERSOR MULTIAGENTE PEDAGÓGICO V3")
+    print("="*75)
+    print(f"Directorio Base: {BASE_DIR}")
+    print(f"Directorio de Salida: {output_dir}\n")
+    
+    # Instanciar el agente compilador del consejo
+    compiler = NotebookCompilerAgent()
+    
+    converted = 0
+    missing = []
+    
+    for filename in files_to_convert:
+        filepath = BASE_DIR / filename
+        if not filepath.exists():
+            missing.append(filename)
+            continue
+            
+        try:
+            compiler.compile(filepath, output_dir)
+            converted += 1
+        except Exception as e:
+            print(f"  [ERROR] Error al compilar {filename}: {e}")
+            
+    print("\n" + "="*75)
+    print("RESUMEN DE EJECUCION")
+    print("="*75)
+    print(f"  [OK] Convertidos con exito: {converted}")
+    if missing:
+        print(f"  [PENDIENTE] Archivos Markdown no encontrados aun (pendientes de creacion): {len(missing)}")
+        for f in missing:
+            print(f"  - {f}")
+    print("="*75)

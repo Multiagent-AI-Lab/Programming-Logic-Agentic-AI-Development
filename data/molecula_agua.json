@@ -1,0 +1,30 @@
+{
+  "molecula": "Agua",
+  "formula": "H2O",
+  "descripcion": "Coordenadas atómicas de referencia de la molécula de agua en geometría de equilibrio (ángulo de enlace ~104.5°), usada como ejemplo introductorio de estructuras de datos anidadas en Python.",
+  "unidad_longitud": "Angstrom",
+  "atomos": [
+    {
+      "id": "O1",
+      "elemento": "O",
+      "coordenadas": {"x": 0.0000, "y": 0.0000, "z": 0.0000},
+      "carga_parcial": -0.834
+    },
+    {
+      "id": "H1",
+      "elemento": "H",
+      "coordenadas": {"x": 0.7572, "y": 0.5865, "z": 0.0000},
+      "carga_parcial": 0.417
+    },
+    {
+      "id": "H2",
+      "elemento": "H",
+      "coordenadas": {"x": -0.7572, "y": 0.5865, "z": 0.0000},
+      "carga_parcial": 0.417
+    }
+  ],
+  "enlaces": [
+    {"atomo_a": "O1", "atomo_b": "H1", "tipo": "covalente", "longitud_nm": 0.0958},
+    {"atomo_a": "O1", "atomo_b": "H2", "tipo": "covalente", "longitud_nm": 0.0958}
+  ]
+}
