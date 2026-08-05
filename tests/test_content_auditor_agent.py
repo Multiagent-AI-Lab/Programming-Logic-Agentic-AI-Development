@@ -48,11 +48,11 @@ class TestDimensionLatex:
         self, auditor: ContentAuditorAgent, tmp_path: Path
     ):
         md_path = tmp_path / "UNIDAD_TEST.md"
-        md_path.write_text(
-            "# Test\n\n$$\\DeltaG = 5$$\n", encoding="utf-8"
-        )
+        md_path.write_text("# Test\n\n$$\\DeltaG = 5$$\n", encoding="utf-8")
         resultado = auditor.audit_unit(md_path)
-        assert any("DeltaG" in h or "\\Delta" in h for h in resultado["hallazgos"]["latex"])
+        assert any(
+            "DeltaG" in h or "\\Delta" in h for h in resultado["hallazgos"]["latex"]
+        )
 
     def test_no_marca_diagrama_ascii_con_simbolo_griego_como_error_latex(
         self, auditor: ContentAuditorAgent, tmp_path: Path
@@ -110,15 +110,15 @@ class TestDimensionCodigo:
     ):
         md_path = tmp_path / "UNIDAD_TEST.md"
         md_path.write_text(
-            '# Test\n\n```python\n'
-            'def calcular(x: float) -> float:\n'
+            "# Test\n\n```python\n"
+            "def calcular(x: float) -> float:\n"
             '    """Duplica un valor.\n\n'
-            '    Args:\n'
-            '        x: Valor de entrada.\n\n'
-            '    Returns:\n'
-            '        El valor duplicado.\n'
+            "    Args:\n"
+            "        x: Valor de entrada.\n\n"
+            "    Returns:\n"
+            "        El valor duplicado.\n"
             '    """\n'
-            '    return x * 2\n```\n',
+            "    return x * 2\n```\n",
             encoding="utf-8",
         )
         resultado = auditor.audit_unit(md_path)
@@ -159,11 +159,11 @@ class TestDimensionPedagogico:
     ):
         md_path = tmp_path / "UNIDAD_TEST.md"
         md_path.write_text(
-            '# Test\n\n'
-            '```pseudocodigo\nFUNCIÓN f(x)\n    RETORNAR x\nFIN_FUNCIÓN\n```\n\n'
-            '```mermaid\ngraph TD\n    a --> b\n```\n\n'
+            "# Test\n\n"
+            "```pseudocodigo\nFUNCIÓN f(x)\n    RETORNAR x\nFIN_FUNCIÓN\n```\n\n"
+            "```mermaid\ngraph TD\n    a --> b\n```\n\n"
             '```python\ndef f(x: int) -> int:\n    """Doc."""\n    return x\n```\n\n'
-            '```pytest\ndef test_f():\n    assert f(1) == 1\n```\n',
+            "```pytest\ndef test_f():\n    assert f(1) == 1\n```\n",
             encoding="utf-8",
         )
         resultado = auditor.audit_unit(md_path)
@@ -175,7 +175,9 @@ class TestDimensionPedagogico:
         self, auditor: ContentAuditorAgent, tmp_path: Path
     ):
         md_path = tmp_path / "UNIDAD_TEST.md"
-        md_path.write_text("# Test\n\nSolo texto plano sin analogías.\n", encoding="utf-8")
+        md_path.write_text(
+            "# Test\n\nSolo texto plano sin analogías.\n", encoding="utf-8"
+        )
         resultado = auditor.audit_unit(md_path)
         assert any("analog" in h.lower() for h in resultado["hallazgos"]["pedagogico"])
 
@@ -188,4 +190,6 @@ class TestDimensionPedagogico:
             encoding="utf-8",
         )
         resultado = auditor.audit_unit(md_path)
-        assert not any("analog" in h.lower() for h in resultado["hallazgos"]["pedagogico"])
+        assert not any(
+            "analog" in h.lower() for h in resultado["hallazgos"]["pedagogico"]
+        )

@@ -102,6 +102,38 @@ class ContentAuditorAgent:
 
         return hallazgos
 
+    def _audit_pedagogico(self, bloques: List[tuple], content: str) -> List[str]:
+        """Verifica coherencia pedagógica: Hilo de Oro y presencia de analogías.
+
+        Args:
+            bloques: Bloques de código extraídos vía extract_fenced_blocks.
+            content: Texto completo del MD, para buscar el patrón de analogía.
+
+        Returns:
+            Lista de descripciones de hallazgos; vacía si no hay problemas.
+        """
+        hallazgos: List[str] = []
+
+        idiomas_presentes = {lang for _, lang, _ in bloques}
+        hilo_de_oro_esperado = {"pseudocodigo", "mermaid", "python", "pytest"}
+        if not hilo_de_oro_esperado.issubset(idiomas_presentes):
+            faltantes = hilo_de_oro_esperado - idiomas_presentes
+            hallazgos.append(
+                "Ciclo del Hilo de Oro incompleto (Pseudocódigo → Mermaid → "
+                f"Python → pytest): faltan bloques de tipo {sorted(faltantes)}."
+            )
+
+        if (
+            "### 💡 Analogía" not in content
+            and "### 💡 ANALOGÍA" not in content.upper()
+        ):
+            hallazgos.append(
+                "No se encontró ninguna sección de Analogía Didáctica "
+                "(patrón '### 💡 Analogía') en esta unidad."
+            )
+
+        return hallazgos
+
     def audit_unit(self, md_path: Path) -> Dict[str, Any]:
         """Audita una unidad del curso contra las 4 dimensiones de calidad.
 
@@ -118,7 +150,7 @@ class ContentAuditorAgent:
 
         hallazgos = {
             "latex": self._audit_latex(content),
-            "pedagogico": [],
+            "pedagogico": self._audit_pedagogico(bloques, content),
             "codigo": self._audit_codigo(python_blocks),
             "curricular": [],
         }
