@@ -61,3 +61,38 @@ Aplica como base a los laboratorios de todas las unidades (U1–U8). Cada unidad
 - Esta rúbrica genérica es la **base**; unidades individuales (U1–U8) pueden agregar criterios propios sin sustituir estos 4/5 criterios centrales.
 - La política de IA por unidad (ver `UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`, sección de Política de IA) determina qué tan estrictamente se evalúa el criterio de "Trazabilidad del uso de IA": en U1–U3 se espera cero uso de IA en el código entregado.
 - En exámenes y defensa oral, cualquier evidencia de uso de IA durante la evaluación implica calificación de 0 en el criterio correspondiente.
+
+---
+
+## 🤖 Flujo de Calificación para el Docente (OrchestratorAgent)
+
+Para agilizar la calificación y mantener consistencia entre entregas, usa `OrchestratorAgent` desde terminal (o un script/notebook propio, no destinado al alumno):
+
+```python
+from pathlib import Path
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+orchestrator = OrchestratorAgent()
+
+# Lee el código entregado por el alumno desde su archivo
+codigo_alumno = Path("entregas/alumno_x/solucion.py").read_text(encoding="utf-8")
+test_file = Path("entregas/alumno_x/test_solucion.py")  # opcional
+
+reporte = orchestrator.generate_pedagogical_report(
+    codigo_alumno, unit_number=5, test_file_path=test_file
+)
+print(reporte)
+```
+
+El reporte generado incluye automáticamente:
+- Auditoría de estilo (PEP 8) y seguridad (OWASP), omitida si la entrega es pseudocódigo.
+- Diagrama de flujo Mermaid autogenerado (desde Python o desde pseudocódigo, según lo que el `OrchestratorAgent` detecte).
+- Calificación contra los 4 criterios de la Rúbrica Genérica de Laboratorio de este documento.
+
+Guarda el reporte como parte del expediente de la entrega:
+
+```python
+Path("entregas/alumno_x/reporte_evaluacion.md").write_text(reporte, encoding="utf-8")
+```
+
+Este flujo es **complementario, no sustituto**, del criterio "Proceso (Hilo de Oro)" de la rúbrica — ese criterio requiere revisión humana del pseudocódigo y diagrama entregados, ya que `EvaluatorAgent` no puede verificarlo automáticamente (ver `src/multiagent_core/evaluator_agent.py`, método `_evaluar_proceso`).
