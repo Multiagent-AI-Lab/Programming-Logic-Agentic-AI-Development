@@ -1213,3 +1213,19 @@ Al dominar esta unidad, los ingenieros de la UCEMICH adoptan una disciplina de d
 | Programación en base a "vibras" directas de la IA. | Auditoría arquitectónica formal del código y diseño de diagramas Mermaid. | Prevención de alucinaciones teóricas y errores de lógica termodinámica. |
 | Uso de `eval()` e invocaciones shell (`subprocess.run(shell=True)`). | Parsing estructurado con `json.loads` y gestión de archivos con `pathlib`. | Blindaje del sistema contra inyecciones de código y comandos no autorizados. |
 | Hardcoding de contraseñas y llaves criptográficas. | Uso de archivos locales `.env` y variables de entorno ocultas en `.gitignore`. | Prevención de robos de identidad computacional y costos financieros por API. |
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿cómo se escribe una prueba de escritorio para una función con pseudocódigo?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

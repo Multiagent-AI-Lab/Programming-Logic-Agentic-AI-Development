@@ -1179,3 +1179,19 @@ Antes de presentar tu defensa oral, verifica cada punto:
 - [ ] Puedes explicar, sin apoyo de IA, cada función del código que entregaste.
 - [ ] Revisaste las 5 preguntas modelo de `RUBRICA_GENERAL.md` y preparaste una respuesta para cada una.
 - [ ] El repositorio de GitHub está actualizado con el historial de commits del desarrollo (no un solo commit final).
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿qué hace el MAEC cuando detecta un import peligroso en el código del alumno?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

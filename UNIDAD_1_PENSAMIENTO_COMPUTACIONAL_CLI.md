@@ -963,3 +963,19 @@ Esta unidad se evalúa con la **Rúbrica Genérica de Laboratorio** (4 criterios
 | :--- | :--- | :--- | :--- | :--- |
 | **Dominio de CLI** | No navega el sistema de archivos sin ayuda. | Ejecuta comandos básicos con errores frecuentes de ruta. | Navega y gestiona archivos/carpetas con comandos correctos. | Además usa rutas relativas/absolutas de forma fluida y explica el porqué de cada comando. |
 | **Calidad del prompt de IA (solo consultas conceptuales)** | No formula preguntas o son ambiguas. | Preguntas genéricas sin contexto del problema. | Preguntas específicas y bien delimitadas. | Preguntas que además demuestran pensamiento computacional previo (descomposición del problema antes de preguntar). |
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre CLI, Git y Vibe Coding citando el contenido exacto de esta unidad:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿qué es el Vibe Coding y por qué no reemplaza el pensamiento computacional?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

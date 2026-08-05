@@ -992,3 +992,19 @@ A continuación, se presenta una suite de evaluación diseñada para consolidar 
     *   *Distractor A:* El código provisto realiza simulación numérica abstracta y no incluye tecnologías de renderizado gráfico de ninguna índole (como WebGL o OpenGL).
     *   *Distractor C:* RK4 y Euler son aproximaciones numéricas distintas de diferente orden de precisión, por lo que sus estimaciones no son numéricamente idénticas (aunque sí convergen al mismo valor físico teórico con diferentes pasos).
     *   *Distractor D:* Las pruebas unitarias locales validan el software del usuario y no tienen la capacidad ni el propósito de parchar o modificar los bugs del compilador o del intérprete base del lenguaje Python.
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿qué diferencia hay entre un contador, un acumulador y una bandera?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

@@ -199,6 +199,50 @@ Consultar el Libro de Python **no es usar IA** — es lectura de un recurso huma
 
 ---
 
+# 0.9 Tu Tutor Personal: TutorAgent
+
+El curso incluye un agente tutor que responde dudas conceptuales citando exactamente la sección de las unidades donde está la respuesta — a diferencia de un asistente genérico, `TutorAgent` conoce el contenido específico de este curso.
+
+## Obtener tu API Key gratuita de Gemini
+
+1. Ir a [aistudio.google.com/apikey](https://aistudio.google.com/apikey) e iniciar sesión con tu cuenta de Google.
+2. Hacer clic en "Create API Key" — es gratuito, no requiere tarjeta de crédito para el tier básico.
+3. Copiar la key generada.
+4. Guardarla como variable de entorno antes de abrir el notebook:
+   ```powershell
+   $env:GEMINI_API_KEY = "tu_clave_aqui"
+   ```
+   O, si usas un archivo `.env` en la raíz del proyecto (recomendado):
+   ```
+   GEMINI_API_KEY=tu_clave_aqui
+   ```
+
+> [!IMPORTANT]
+> Cada alumno debe generar **su propia** API key. No compartas la tuya ni uses una key ajena — el tier gratuito tiene un límite de peticiones por minuto/día, y compartir una sola key entre el grupo la agotaría rápido para todos.
+
+## Cómo usar TutorAgent en cualquier notebook
+
+Cada unidad de este curso incluye una celda "🛠️ Herramientas de esta unidad" al final. Para `TutorAgent`, instáncialo **una sola vez** por notebook y reutiliza la misma variable:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+# Instanciar una sola vez (abrir el índice tiene un costo fijo ~0.3s)
+tutor = TutorAgent(course_dir=Path("."))
+```
+
+```python
+# Reutiliza la variable "tutor" en cualquier celda posterior para preguntar
+print(tutor.ask("¿qué es una variable?"))
+```
+
+Nota: la primera vez que ejecutes esto en una sesión nueva de Colab, `TutorAgent` indexa las 9 unidades del curso (tarda unos segundos); en ejecuciones posteriores en la misma máquina es instantáneo. Si `course_dir` no apunta a la raíz del repositorio (por ejemplo, tras un `git clone` en una ruta distinta en Colab), ajusta la ruta al directorio donde están los archivos `UNIDAD_*.md`.
+
+📖 Referencia: [aistudio.google.com](https://aistudio.google.com/apikey)
+
+---
+
 ## 📖 Referencias
 
 - [Introducción a Python](https://ellibrodepython.com/introduccion-python)

@@ -1029,3 +1029,19 @@ El análisis morfológico de nanopartículas mediante programación nos permite 
 2. **Evite la Anidación**: Si nota que su código supera los tres niveles de indentación condicional, aplique la refactorización mediante cláusulas de guarda para simplificar el flujo mental de ejecución.
 3. **Use Excepciones Descriptivas**: Reemplace retornos silenciosos de error (como retornar la cadena `"Error"` o retornar `None`) por excepciones estándar de Python (`ValueError`, `TypeError`). Esto facilita la depuración e integración con agentes de software autónomos.
 4. **Pruebe las Ramas**: Diseñe sus suites de pruebas asegurándose de cubrir tanto el flujo exitoso como cada una de las condiciones de fallo programadas. La robustez del software es proporcional a la rigurosidad de sus pruebas unitarias.
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿cuándo usar match/case en vez de if/elif/else?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

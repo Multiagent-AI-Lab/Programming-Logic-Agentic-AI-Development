@@ -1122,3 +1122,19 @@ La modularidad no es simplemente una técnica cosmética para acortar scripts la
 2.  **Gestionar de manera segura la memoria** de Python, entendiendo la naturaleza mutable o inmutable de los datos y cómo influyen bajo el mecanismo de *Call-by-Sharing*.
 3.  **Habilitar la introspección de software**, permitiendo que bibliotecas como `inspect` extraigan la firma funcional del código y la traduzcan al estándar de comunicación de IA (JSON Schema).
 4.  **Integrar el Model Context Protocol (MCP)** como el puente unificado que equipa a los modelos de lenguaje (LLMs) con la capacidad de ejecutar de forma autónoma, controlada y estructurada el código de producción desarrollado en Python.
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿cómo se desempaquetan los argumentos con **kwargs en una tool call MCP?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

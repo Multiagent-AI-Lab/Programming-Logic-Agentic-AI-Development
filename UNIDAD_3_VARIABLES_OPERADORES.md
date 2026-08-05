@@ -1173,3 +1173,19 @@ La comprensión profunda de cómo Python almacena, evalúa y opera con variables
 2.  **El rigor científico requiere código limpio**: La adopción de PEP 8 y constantes basadas en la precisión de CODATA permite que las computadoras actúen como verdaderos laboratorios experimentales, como se demostró en `fisica_atomica.py`.
 3.  **El intérprete opera con reglas fijas**: La jerarquía de los operadores aritméticos, relacionales y lógicos, y mecanismos óptimos como el cortocircuito, actúan como las compuertas lógicas y sensores en cascada que garantizan que el código de producción sea robusto, eficiente y libre de fallos en tiempo de ejecución.
 4.  **La precisión numérica es relativa**: El uso obligatorio de `math.isclose` con tolerancias relativas parametrizadas en entornos de pruebas automatizadas con Pytest, es la única respuesta científica válida frente a los límites físicos del almacenamiento binario de flotantes del estándar IEEE 754.
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿cuál es la diferencia entre shallow copy y deep copy?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).

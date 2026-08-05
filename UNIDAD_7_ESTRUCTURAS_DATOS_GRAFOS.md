@@ -1000,3 +1000,19 @@ Esta unidad se evalúa con la **Rúbrica Genérica de Laboratorio** (4 criterios
 | :--- | :--- | :--- | :--- | :--- |
 | **Modelado con grafos (NetworkX)** | No logra representar el problema como nodos/aristas. | Representa nodos y aristas pero sin metadatos físicos relevantes (elemento, carga, energía de enlace). | Modela correctamente el grafo con metadatos físicos completos. | Además implementa y justifica el algoritmo de camino mínimo (Dijkstra) aplicado al contexto físico del problema. |
 | **Simulación con NumPy (mallas)** | No ejecuta o produce dimensiones incorrectas. | Ejecuta con la forma de malla correcta pero sin validar límites físicos. | Ejecuta correctamente y valida límites (índices dentro de rango, valores físicos coherentes). | Además optimiza el uso de operaciones vectorizadas de NumPy frente a loops explícitos. |
+
+---
+
+## 🛠️ Herramientas de esta Unidad
+
+**TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
+
+```python
+from pathlib import Path
+from src.multiagent_core.tutor_agent import TutorAgent
+
+tutor = TutorAgent(course_dir=Path("."))
+print(tutor.ask("¿cómo se calcula el camino mínimo en un grafo de red cristalina con NetworkX?"))
+```
+
+No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).
