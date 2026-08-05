@@ -231,3 +231,26 @@ class TestDimensionCurricular:
         md_path.write_text("# Test\n\nTexto.\n", encoding="utf-8")
         resultado = auditor.audit_unit(md_path)
         assert resultado["hallazgos"]["curricular"] == []
+
+
+class TestAuditAllUnits:
+    def test_recorre_las_9_unidades_reales_sin_excepciones(
+        self, auditor: ContentAuditorAgent
+    ):
+        course_dir = Path(__file__).parent.parent
+        reporte = auditor.audit_all_units(course_dir)
+
+        assert isinstance(reporte, str)
+        assert "UNIDAD_0" in reporte
+        assert "UNIDAD_8" in reporte
+
+    def test_reporte_es_markdown_con_encabezados_por_unidad(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        (tmp_path / "UNIDAD_1_TEST.md").write_text(
+            "# UNIDAD 1\n\n```python\ndef f(x: int) -> int:\n    \"\"\"Doc.\"\"\"\n    return x\n```\n",
+            encoding="utf-8",
+        )
+        reporte = auditor.audit_all_units(tmp_path)
+        assert "# Reporte de Auditoría de Contenido" in reporte
+        assert "UNIDAD_1_TEST.md" in reporte
