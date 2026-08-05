@@ -20,6 +20,9 @@ __pycache__/
 # ChromaDB persistente (índice del TutorAgent, se regenera localmente)
 .chroma/
 
+# Memoria episódica local del TutorAgent (se regenera por alumno/máquina)
+.tutor_memory.json
+
 # Material histórico del curso 2023-2024 (planeaciones, PSeInt, código previo).
 # Se conserva localmente en docs/legado/ pero no se publica en GitHub.
 docs/legado/

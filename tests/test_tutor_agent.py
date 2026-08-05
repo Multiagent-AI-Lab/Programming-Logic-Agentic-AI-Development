@@ -201,7 +201,9 @@ class TestMemoriaEpisodica:
         tutor = TutorAgent(
             course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
         )
-        tutor._add_episode("¿qué es una variable en Python?", "Resumen sobre variables.")
+        tutor._add_episode(
+            "¿qué es una variable en Python?", "Resumen sobre variables."
+        )
         tutor._add_episode("¿cómo funciona un bucle for?", "Resumen sobre bucles.")
 
         resultados = tutor._retrieve_relevant_episodes("dudas sobre variable")

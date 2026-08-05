@@ -8,6 +8,7 @@ con embeddings de ChromaDB que busca en los archivos Markdown de las lecciones
 y cita la sección exacta de origen.
 """
 
+import json
 import logging
 import os
 import re
@@ -27,6 +28,9 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_CHROMA_DIRNAME = ".chroma"
 TOP_K_RESULTS = 3
+DEFAULT_MEMORY_FILENAME = ".tutor_memory.json"
+MAX_EPISODIOS = 50
+PREFIJO_LONGITUD = 5
 
 _SOCRATIC_RULES: dict[str, str] = {
     "zerodivisionerror": (
@@ -60,13 +64,23 @@ class TutorAgent:
     """Agente Tutor RAG que responde dudas del curso usando embeddings de ChromaDB
     sobre la documentación local del curso."""
 
-    def __init__(self, course_dir: Path, chroma_path: Optional[Path] = None):
+    def __init__(
+        self,
+        course_dir: Path,
+        chroma_path: Optional[Path] = None,
+        memory_path: Optional[Path] = None,
+    ) -> None:
         self.course_dir = Path(course_dir)
         self.model_name = "gemini-1.5-flash"
         self.chroma_path = (
             Path(chroma_path)
             if chroma_path
             else self.course_dir / DEFAULT_CHROMA_DIRNAME
+        )
+        self.memory_path = (
+            Path(memory_path)
+            if memory_path
+            else self.course_dir / DEFAULT_MEMORY_FILENAME
         )
         self.chroma_client = chromadb.PersistentClient(path=str(self.chroma_path))
         self.collection = self.chroma_client.get_or_create_collection("lecciones_curso")
@@ -131,6 +145,81 @@ class TutorAgent:
 
         return "\n".join(context_parts)
 
+    def _load_episodes(self) -> list[dict]:
+        """Carga los episodios guardados desde memory_path.
+
+        Returns:
+            Lista de episodios (dicts con "question", "answer_summary"), o
+            lista vacía si el archivo no existe o está corrupto.
+        """
+        if not self.memory_path.exists():
+            return []
+        try:
+            return json.loads(self.memory_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return []
+
+    def _add_episode(self, question: str, answer_summary: str) -> None:
+        """Guarda una pregunta y su respuesta como episodio en memoria local.
+
+        Args:
+            question: Pregunta formulada por el alumno.
+            answer_summary: Resumen o texto completo de la respuesta dada.
+        """
+        episodios = self._load_episodes()
+        episodios.append({"question": question, "answer_summary": answer_summary})
+        episodios = episodios[-MAX_EPISODIOS:]
+        self.memory_path.write_text(
+            json.dumps(episodios, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    def _prefijos(self, texto: str) -> set[str]:
+        """Extrae prefijos normalizados de las palabras de un texto.
+
+        Usar prefijos (en vez de palabras completas) permite que variaciones
+        morfológicas simples del español (singular/plural, género) sigan
+        contando como la misma palabra clave para la búsqueda de episodios
+        relacionados — p. ej. "variable" y "variables" comparten el prefijo
+        "variab".
+
+        Args:
+            texto: Texto de entrada a tokenizar.
+
+        Returns:
+            Conjunto de prefijos de hasta PREFIJO_LONGITUD caracteres, uno
+            por palabra alfanumérica encontrada en el texto.
+        """
+        palabras = re.findall(r"\w+", texto.lower())
+        return {p[:PREFIJO_LONGITUD] for p in palabras}
+
+    def _retrieve_relevant_episodes(
+        self, query: str, top_k: int = TOP_K_RESULTS
+    ) -> list[dict]:
+        """Recupera episodios previos relevantes por solapamiento de palabras clave.
+
+        Args:
+            query: Texto de la pregunta actual, usado para buscar episodios
+                temáticamente relacionados.
+            top_k: Número máximo de episodios a retornar.
+
+        Returns:
+            Lista de episodios ordenados por relevancia descendente, cada uno
+            con "question", "answer_summary" y "score" (0.0-1.0).
+        """
+        episodios = self._load_episodes()
+        query_words = self._prefijos(query)
+
+        puntuados = []
+        for ep in episodios:
+            ep_words = self._prefijos(ep["question"])
+            overlap = len(query_words & ep_words)
+            score = overlap / max(len(query_words), 1)
+            if score > 0:
+                puntuados.append({**ep, "score": round(score, 3)})
+
+        puntuados.sort(key=lambda e: e["score"], reverse=True)
+        return puntuados[:top_k]
+
     def _diagnose_error(
         self, error_message: str, code_context: str = ""
     ) -> Optional[str]:
@@ -165,7 +254,7 @@ class TutorAgent:
         return _SOCRATIC_FALLBACK
 
     def ask(self, question: str) -> str:
-        """Responde a la duda del estudiante, con pista socrática si detecta un error.
+        """Responde a la duda del estudiante, con pista socrática y memoria episódica.
 
         Args:
             question: Pregunta o mensaje de error del estudiante.
@@ -173,16 +262,27 @@ class TutorAgent:
         Returns:
             Si `question` contiene un traceback o nombre de excepción de
             Python reconocible, retorna primero una pregunta guía (no la
-            solución directa), coherente con la política pedagógica del
-            curso de auditar antes de confiar en el código. Si es una
-            pregunta conceptual sin error, responde directamente vía Gemini
-            con contexto local recuperado.
+            solución directa). Si es una pregunta conceptual, responde vía
+            Gemini con contexto local del curso y de episodios previos
+            relacionados de sesiones anteriores en la misma máquina.
         """
         pista_socratica = self._diagnose_error(question)
         if pista_socratica:
             return pista_socratica
 
         context = self._search_local_docs(question)
+        episodios_previos = self._retrieve_relevant_episodes(question)
+
+        contexto_memoria = ""
+        if episodios_previos:
+            lineas = [
+                f"  - Pregunta anterior: \"{ep['question']}\" (respuesta resumida: {ep['answer_summary'][:150]})"
+                for ep in episodios_previos
+            ]
+            contexto_memoria = (
+                "\n\nContexto de sesiones anteriores (memoria episódica):\n"
+                + "\n".join(lineas)
+            )
 
         prompt = f"""
 Eres un Agente Tutor experto en Lógica de Programación y Desarrollo Agéntico con IA para el curso de Ingeniería en Nanotecnología de la UCEMICH.
@@ -194,6 +294,7 @@ Si la información no está en el contexto, indícalo amablemente y responde con
 ---
 CONTEXTO DE LECCIONES:
 {context}
+{contexto_memoria}
 ---
 
 PREGUNTA DEL ALUMNO:
@@ -204,10 +305,16 @@ Responde en español de forma estructurada, usando Markdown. Explica el paso a p
         try:
             model = genai.GenerativeModel(self.model_name)
             response = model.generate_content(prompt)
-            return response.text
+            respuesta_texto = response.text
         except Exception as e:
             logger.exception("Fallo al invocar al modelo Gemini")
-            return f"Error al invocar al modelo Gemini: {e}\n\n[Contexto Local Recuperado]:\n{context}"
+            respuesta_texto = (
+                f"Error al invocar al modelo Gemini: {e}\n\n"
+                f"[Contexto Local Recuperado]:\n{context}"
+            )
+
+        self._add_episode(question, respuesta_texto[:300])
+        return respuesta_texto
 
 
 if __name__ == "__main__":
