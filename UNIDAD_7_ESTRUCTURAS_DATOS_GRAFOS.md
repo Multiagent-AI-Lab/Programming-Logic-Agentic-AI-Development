@@ -1016,3 +1016,20 @@ print(tutor.ask("¿cómo se calcula el camino mínimo en un grafo de red cristal
 ```
 
 No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).
+
+### FlowchartAgent — visualiza el flujo de tu función
+
+Pega tu propia función Python para ver su diagrama de flujo generado automáticamente:
+
+```python
+from src.multiagent_core.flowchart_agent import FlowchartAgent
+
+agent = FlowchartAgent()
+mi_codigo = """
+def mi_funcion(x):
+    if x > 0:
+        return x * 2
+    return 0
+"""
+print(agent.build_mermaid_flowchart(mi_codigo))
+```

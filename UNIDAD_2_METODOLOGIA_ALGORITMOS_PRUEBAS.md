@@ -1229,3 +1229,26 @@ print(tutor.ask("¿cómo se escribe una prueba de escritorio para una función c
 ```
 
 No requiere configuración adicional más allá de tu `GEMINI_API_KEY` (ver Unidad 0, sección 0.9).
+
+### PseudocodeAgent — verifica tu Hilo de Oro
+
+Escribe tu solución en pseudocódigo UCEMICH y visualiza su diagrama de flujo antes de traducir a Python:
+
+```python
+from src.multiagent_core.pseudocode_agent import PseudocodeAgent
+
+agent = PseudocodeAgent()
+mi_pseudocodigo = """
+FUNCIÓN calcular_volumen_esfera(radio_nm)
+    SI radio_nm <= 0 ENTONCES
+        RETORNAR -1
+    SINO
+        volumen <- (4 / 3) * 3.14159 * radio_nm ** 3
+        RETORNAR volumen
+    FIN_SI
+FIN_FUNCIÓN
+"""
+print(agent.pseudocode_to_mermaid(mi_pseudocodigo))
+```
+
+Copia el resultado en [mermaid.live](https://mermaid.live) para verlo renderizado, o pégalo en una celda Markdown de este notebook dentro de un bloque ```mermaid.
