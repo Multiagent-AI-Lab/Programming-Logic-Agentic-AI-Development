@@ -193,3 +193,41 @@ class TestDimensionPedagogico:
         assert not any(
             "analog" in h.lower() for h in resultado["hallazgos"]["pedagogico"]
         )
+
+
+class TestDimensionCurricular:
+    def test_parse_programa_oficial_extrae_subtemas_por_unidad(self):
+        from src.multiagent_core.content_auditor_agent import _parse_programa_oficial
+
+        programa_path = (
+            Path(__file__).parent.parent
+            / "docs"
+            / "legado"
+            / "planeacion_2023_2024"
+            / "Programa_de_Asignatura_Logica_Programacion_IA_v2_extracted.txt"
+        )
+        mapeo = _parse_programa_oficial(programa_path)
+
+        assert 6 in mapeo
+        assert any("lambda" in s.lower() for s in mapeo[6]["subtemas"])
+        assert "Semanas 11-13" in mapeo[6]["semanas"] or "11-13" in mapeo[6]["semanas"]
+
+    def test_detecta_subtema_faltante(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_6_MODULARIDAD_IA_MCP.md"
+        md_path.write_text(
+            "# UNIDAD 6\n**Duración:** 1 semana\n\nSolo texto genérico sin cubrir "
+            "los subtemas oficiales del programa.\n",
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert len(resultado["hallazgos"]["curricular"]) > 0
+
+    def test_no_marca_hallazgo_si_unidad_no_se_reconoce_por_nombre(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "ARCHIVO_SIN_NUMERO_DE_UNIDAD.md"
+        md_path.write_text("# Test\n\nTexto.\n", encoding="utf-8")
+        resultado = auditor.audit_unit(md_path)
+        assert resultado["hallazgos"]["curricular"] == []
