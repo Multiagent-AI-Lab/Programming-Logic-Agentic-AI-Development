@@ -137,3 +137,55 @@ class TestDimensionCodigo:
         )
         resultado = auditor.audit_unit(md_path)
         assert any("eval" in h.lower() for h in resultado["hallazgos"]["codigo"])
+
+
+class TestDimensionPedagogico:
+    def test_detecta_ausencia_de_ciclo_pseudocodigo_mermaid_python(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            '# Test\n\n```python\ndef f(x: int) -> int:\n    """Doc."""\n    return x\n```\n',
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert any(
+            "hilo de oro" in h.lower() or "pseudoc" in h.lower()
+            for h in resultado["hallazgos"]["pedagogico"]
+        )
+
+    def test_no_marca_hallazgo_si_hay_ciclo_completo(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            '# Test\n\n'
+            '```pseudocodigo\nFUNCIÓN f(x)\n    RETORNAR x\nFIN_FUNCIÓN\n```\n\n'
+            '```mermaid\ngraph TD\n    a --> b\n```\n\n'
+            '```python\ndef f(x: int) -> int:\n    """Doc."""\n    return x\n```\n\n'
+            '```pytest\ndef test_f():\n    assert f(1) == 1\n```\n',
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any(
+            "hilo de oro" in h.lower() for h in resultado["hallazgos"]["pedagogico"]
+        )
+
+    def test_detecta_ausencia_de_analogia_didactica(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text("# Test\n\nSolo texto plano sin analogías.\n", encoding="utf-8")
+        resultado = auditor.audit_unit(md_path)
+        assert any("analog" in h.lower() for h in resultado["hallazgos"]["pedagogico"])
+
+    def test_no_marca_hallazgo_de_analogia_si_existe(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            "# Test\n\n### 💡 Analogía Didáctica: Ejemplo\n\nTexto de la analogía.\n",
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any("analog" in h.lower() for h in resultado["hallazgos"]["pedagogico"])
