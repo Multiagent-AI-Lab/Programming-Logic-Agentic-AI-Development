@@ -13,10 +13,58 @@ def calcular_volumen_esfera(radio_nm):
         return volumen
 """
 
+CODIGO_PSEUDOCODIGO = """
+FUNCIÓN calcular_volumen_esfera(radio_nm)
+    SI radio_nm <= 0 ENTONCES
+        RETORNAR -1
+    FIN_SI
+    RETORNAR (4 / 3) * 3.14159 * radio_nm ** 3
+FIN_FUNCIÓN
+"""
+
+CODIGO_SIN_FUNCIONES = "x = 1 + 1\nprint(x)"
+
 
 @pytest.fixture
 def orchestrator() -> OrchestratorAgent:
     return OrchestratorAgent()
+
+
+class TestDetectInputType:
+    def test_detecta_pseudocodigo_por_palabras_clave_ucemich(
+        self, orchestrator: OrchestratorAgent
+    ):
+        assert orchestrator._detect_input_type(CODIGO_PSEUDOCODIGO) == "pseudocodigo"
+
+    def test_detecta_python_con_funciones(self, orchestrator: OrchestratorAgent):
+        assert orchestrator._detect_input_type(CODIGO_EJEMPLO) == "python_con_funciones"
+
+    def test_detecta_python_sin_funciones(self, orchestrator: OrchestratorAgent):
+        assert (
+            orchestrator._detect_input_type(CODIGO_SIN_FUNCIONES)
+            == "python_sin_funciones"
+        )
+
+
+class TestRoutingEnReporte:
+    def test_pseudocodigo_usa_pseudocode_agent_en_vez_de_flowchart_agent(
+        self, orchestrator: OrchestratorAgent
+    ):
+        reporte = orchestrator.generate_pedagogical_report(
+            CODIGO_PSEUDOCODIGO, unit_number=2
+        )
+        assert "```mermaid" in reporte
+        assert "graph TD" in reporte
+        assert "[ESTILO]" not in reporte
+        assert "[SEGURIDAD]" not in reporte
+
+    def test_python_sin_funciones_omite_diagrama_mermaid(
+        self, orchestrator: OrchestratorAgent
+    ):
+        reporte = orchestrator.generate_pedagogical_report(
+            CODIGO_SIN_FUNCIONES, unit_number=3
+        )
+        assert "[DIAGRAMA]" not in reporte
 
 
 class TestGeneratePedagogicalReport:
