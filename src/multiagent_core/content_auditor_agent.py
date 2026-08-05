@@ -9,6 +9,7 @@ cumplimiento curricular contra el programa oficial. Heurístico puro, sin LLM.
 """
 
 import ast
+import re
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -29,6 +30,53 @@ LATEX_KNOWN_MALFORMED = {
     r"\DeltaH": r"\Delta H",
     r"\DeltaS": r"\Delta S",
 }
+
+
+def _parse_programa_oficial(programa_path: Path) -> Dict[int, dict]:
+    """Parsea el programa de asignatura oficial en subtemas y semanas por unidad.
+
+    Args:
+        programa_path: Ruta al .txt del programa oficial extraído (formato con
+            líneas "Unidad N: Título (Semana(s) X)" seguidas de líneas "N.M. subtema").
+
+    Returns:
+        Diccionario {numero_unidad: {"subtemas": [...], "semanas": str}}.
+    """
+    if not programa_path.exists():
+        return {}
+
+    content = programa_path.read_text(encoding="utf-8")
+    lines = content.split("\n")
+
+    mapeo: Dict[int, dict] = {}
+    unidad_actual = None
+
+    for line in lines:
+        unidad_match = re.match(r"^Unidad (\d+):.*\((Semanas? [\d\-]+)\)", line)
+        if unidad_match:
+            unidad_actual = int(unidad_match.group(1))
+            mapeo[unidad_actual] = {
+                "subtemas": [],
+                "semanas": unidad_match.group(2),
+            }
+            continue
+
+        subtema_match = re.match(r"^(\d+)\.(\d+)\.\s+(.+)$", line)
+        if subtema_match and unidad_actual is not None:
+            unidad_del_subtema = int(subtema_match.group(1))
+            if unidad_del_subtema == unidad_actual:
+                mapeo[unidad_actual]["subtemas"].append(subtema_match.group(3))
+
+    return mapeo
+
+
+_PROGRAMA_OFICIAL_PATH = (
+    Path(__file__).parent.parent.parent
+    / "docs"
+    / "legado"
+    / "planeacion_2023_2024"
+    / "Programa_de_Asignatura_Logica_Programacion_IA_v2_extracted.txt"
+)
 
 
 class ContentAuditorAgent:
@@ -134,6 +182,56 @@ class ContentAuditorAgent:
 
         return hallazgos
 
+    def _audit_curricular(self, md_path: Path, content: str) -> List[str]:
+        """Verifica cobertura temática y duración contra el programa oficial.
+
+        Args:
+            md_path: Ruta del MD, usada para extraer el número de unidad del nombre.
+            content: Texto completo del MD.
+
+        Returns:
+            Lista de descripciones de hallazgos; vacía si la unidad no se
+            reconoce por nombre o no hay discrepancias.
+        """
+        unidad_match = re.match(r"UNIDAD_(\d+)_", md_path.name)
+        if not unidad_match:
+            return []
+
+        numero_unidad = int(unidad_match.group(1))
+        mapeo = _parse_programa_oficial(_PROGRAMA_OFICIAL_PATH)
+        if numero_unidad not in mapeo:
+            return []
+
+        hallazgos: List[str] = []
+        info = mapeo[numero_unidad]
+        content_lower = content.lower()
+
+        for subtema in info["subtemas"]:
+            palabras_clave = [
+                p.strip(".,()").lower() for p in subtema.split() if len(p) > 4
+            ][:3]
+            if palabras_clave and not any(p in content_lower for p in palabras_clave):
+                hallazgos.append(
+                    f"Subtema del programa oficial posiblemente no cubierto: "
+                    f"'{subtema}' (ninguna de las palabras clave {palabras_clave} "
+                    "aparece en el contenido)."
+                )
+
+        duracion_match = re.search(r"\*\*Duraci[óo]n:\*\*\s*(.+)", content)
+        if duracion_match:
+            duracion_texto = duracion_match.group(1)
+            numeros_programa = re.findall(r"\d+", info["semanas"])
+            if numeros_programa and not any(
+                n in duracion_texto for n in numeros_programa
+            ):
+                hallazgos.append(
+                    f"Posible discrepancia de duración: el MD dice "
+                    f"'{duracion_texto.strip()}' pero el programa oficial indica "
+                    f"'{info['semanas']}'."
+                )
+
+        return hallazgos
+
     def audit_unit(self, md_path: Path) -> Dict[str, Any]:
         """Audita una unidad del curso contra las 4 dimensiones de calidad.
 
@@ -152,7 +250,7 @@ class ContentAuditorAgent:
             "latex": self._audit_latex(content),
             "pedagogico": self._audit_pedagogico(bloques, content),
             "codigo": self._audit_codigo(python_blocks),
-            "curricular": [],
+            "curricular": self._audit_curricular(md_path, content),
         }
         total = sum(len(v) for v in hallazgos.values())
 
