@@ -2,6 +2,13 @@
 
 **Total de hallazgos en 9 unidades: 33**
 
+> **Nota de ruido conocido (investigado 2026-08-06):** 16 de los 33 hallazgos son ruido confirmado de la heurística, no problemas reales de contenido — no requieren corrección:
+>
+> - **9× "Ciclo del Hilo de Oro incompleto"** (uno por unidad): la heurística exige bloques etiquetados literalmente ` ```pseudocodigo `/` ```pytest ` en cada unidad. El contenido real sí cubre pseudocódigo y pruebas pytest, pero bajo la etiqueta ` ```python ` — verificado en U5: sección completa "7. Suite de Pruebas Unitarias (`pytest`)" con `import pytest` y funciones `test_*` reales (línea 661+), y ejemplo de pseudocódigo dentro de la celda de `PseudocodeAgent` (línea 1012+). El Hilo de Oro está presente; es una discrepancia de convención de etiquetado, no de contenido.
+> - **7× "Error de sintaxis... unexpected indent"** (U4: 6, U5: 1): son fragmentos de método citados a propósito con fines didácticos — el patrón "explica por fragmentos" del curso presenta la función completa una vez y luego la desmenuza en bloques de código sucesivos con explicación intercalada entre cada uno (verificado en U4 líneas 228-264, función `classify_by_geometry_match` dividida en 5 bloques consecutivos). `ast.parse()` no puede parsear un fragmento indentado sin su `def` envolvente, pero el contenido en sí es correcto.
+>
+> Los 17 hallazgos restantes (docstrings faltantes, `eval()`/`exec()`, discrepancias de duración curricular) sí ameritan revisión caso por caso.
+
 ## UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md (1 hallazgos)
 
 ### Pedagogico
