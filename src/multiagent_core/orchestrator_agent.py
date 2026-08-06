@@ -9,6 +9,8 @@ Clasifica automáticamente el tipo de entrada para evitar invocar agentes
 que no aplican (p. ej. CodeAuditorAgent sobre pseudocódigo).
 """
 
+import ast
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -27,6 +29,9 @@ SKILL_METADATA = {
 }
 
 PSEUDOCODE_KEYWORDS = ("INICIO", "FUNCIÓN", "FIN_SI", "FIN_FUNCIÓN", "MIENTRAS", "PARA")
+_PSEUDOCODE_KEYWORD_PATTERN = re.compile(
+    r"\b(" + "|".join(PSEUDOCODE_KEYWORDS) + r")\b"
+)
 
 
 class OrchestratorAgent:
@@ -41,15 +46,30 @@ class OrchestratorAgent:
     def _detect_input_type(self, student_code: str) -> str:
         """Clasifica la entrada del estudiante para decidir qué sub-agentes invocar.
 
+        Un texto que parsea como Python válido (`ast.parse`) nunca se
+        clasifica como pseudocódigo, incluso si contiene palabras clave de
+        la sintaxis UCEMICH dentro de comentarios, docstrings o strings
+        (p. ej. "calcula el área PARA un radio dado") — de lo contrario
+        código Python legítimo perdería la auditoría de estilo y seguridad.
+
         Args:
             student_code: Código o pseudocódigo entregado por el estudiante.
 
         Returns:
-            "pseudocodigo" si contiene palabras clave de la sintaxis UCEMICH;
-            "python_con_funciones" si es Python con al menos un `def`;
-            "python_sin_funciones" en cualquier otro caso.
+            "pseudocodigo" si el texto no parsea como Python válido y
+            contiene alguna palabra clave de la sintaxis UCEMICH como
+            palabra completa; "python_con_funciones" si es Python con al
+            menos un `def`; "python_sin_funciones" en cualquier otro caso.
         """
-        if any(kw in student_code.upper() for kw in PSEUDOCODE_KEYWORDS):
+        try:
+            ast.parse(student_code)
+            es_python_valido = True
+        except SyntaxError:
+            es_python_valido = False
+
+        if not es_python_valido and _PSEUDOCODE_KEYWORD_PATTERN.search(
+            student_code.upper()
+        ):
             return "pseudocodigo"
         if "def " in student_code:
             return "python_con_funciones"

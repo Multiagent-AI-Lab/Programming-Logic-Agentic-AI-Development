@@ -10,8 +10,9 @@ cumplimiento curricular contra el programa oficial. Heurístico puro, sin LLM.
 
 import ast
 import re
+from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from .code_auditor_agent import CodeAuditorAgent
 from .notebook_compiler_agent import extract_fenced_blocks
@@ -32,8 +33,13 @@ LATEX_KNOWN_MALFORMED = {
 }
 
 
+@lru_cache(maxsize=None)
 def _parse_programa_oficial(programa_path: Path) -> Dict[int, dict]:
     """Parsea el programa de asignatura oficial en subtemas y semanas por unidad.
+
+    El resultado se cachea por ruta (`lru_cache`) porque `audit_all_units`
+    invoca esta función una vez por cada unidad auditada, y el archivo no
+    cambia entre esas llamadas dentro de una misma ejecución.
 
     Args:
         programa_path: Ruta al .txt del programa oficial extraído (formato con
@@ -82,8 +88,11 @@ _PROGRAMA_OFICIAL_PATH = (
 class ContentAuditorAgent:
     """Agente que audita el contenido pedagógico de las unidades del curso."""
 
-    def __init__(self) -> None:
+    def __init__(self, programa_path: Optional[Path] = None) -> None:
         self.code_auditor = CodeAuditorAgent()
+        self.programa_path = (
+            Path(programa_path) if programa_path else _PROGRAMA_OFICIAL_PATH
+        )
 
     def _audit_latex(self, content: str) -> List[str]:
         """Detecta delimitadores LaTeX desbalanceados y comandos mal formados.
@@ -96,8 +105,16 @@ class ContentAuditorAgent:
         """
         hallazgos: List[str] = []
 
-        dollar_count = content.count("$") - 2 * content.count("$$")
-        if dollar_count % 2 != 0:
+        sin_fences = re.sub(r"```.*?```", "", content, flags=re.DOTALL)
+        tokens = re.findall(r"\$\$|\$", sin_fences)
+        doble_count = sum(1 for t in tokens if t == "$$")
+        simple_count = sum(1 for t in tokens if t == "$")
+        if doble_count % 2 != 0:
+            hallazgos.append(
+                "Delimitadores '$$' desbalanceados: hay un número impar de "
+                "bloques '$$', lo que sugiere una fórmula en bloque sin cerrar."
+            )
+        if simple_count % 2 != 0:
             hallazgos.append(
                 "Delimitadores '$' desbalanceados: hay un número impar de '$' "
                 "simples fuera de bloques '$$...$$', lo que sugiere una fórmula "
@@ -134,7 +151,7 @@ class ContentAuditorAgent:
                 continue
 
             for node in ast.walk(tree):
-                if not isinstance(node, ast.FunctionDef):
+                if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     continue
                 if ast.get_docstring(node) is None:
                     hallazgos.append(
@@ -171,13 +188,10 @@ class ContentAuditorAgent:
                 f"Python → pytest): faltan bloques de tipo {sorted(faltantes)}."
             )
 
-        if (
-            "### 💡 Analogía" not in content
-            and "### 💡 ANALOGÍA" not in content.upper()
-        ):
+        if not re.search(r"^#{2,4}.*analog", content, re.IGNORECASE | re.MULTILINE):
             hallazgos.append(
                 "No se encontró ninguna sección de Analogía Didáctica "
-                "(patrón '### 💡 Analogía') en esta unidad."
+                "(encabezado H2-H4 que contenga 'analog...') en esta unidad."
             )
 
         return hallazgos
@@ -198,7 +212,7 @@ class ContentAuditorAgent:
             return []
 
         numero_unidad = int(unidad_match.group(1))
-        mapeo = _parse_programa_oficial(_PROGRAMA_OFICIAL_PATH)
+        mapeo = _parse_programa_oficial(self.programa_path)
         if numero_unidad not in mapeo:
             return []
 

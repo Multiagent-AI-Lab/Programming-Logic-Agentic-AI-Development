@@ -1067,7 +1067,7 @@ FIN_FUNCIÓN
 print(agent.pseudocode_to_mermaid(mi_pseudocodigo))
 ```
 
-Copia el resultado en [mermaid.live](https://mermaid.live) para verlo renderizado, o pégalo en una celda Markdown de este notebook dentro de un bloque ```mermaid.
+Copia el resultado en [mermaid.live](https://mermaid.live) para verlo renderizado, o pégalo en una celda Markdown de este notebook dentro de un bloque `` `mermaid ``.
 
 ### CodeAuditorAgent y EvaluatorAgent — audita tu código antes de entregar
 
