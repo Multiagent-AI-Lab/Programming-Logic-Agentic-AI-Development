@@ -28,6 +28,11 @@ Al finalizar esta unidad, el estudiante será capaz de:
 
 ## 📋 MAPA CONTENITIVO DE LA UNIDAD
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/b681a58293930406.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     A[Unidad 2: Metodología y Pruebas] --> B[2.1 Formulación Formal de Problemas]
@@ -38,6 +43,8 @@ graph TD
     A --> G[2.6 Problemas Lógicos Resueltos]
     A --> H[2.7 Banco de Exámenes UCEMICH]
 ```
+
+</details>
 
 ---
 
@@ -92,6 +99,11 @@ Donde $R$ representa el radio de la partícula y $\gamma$ representa la tensión
 
 A continuación, se define el diagrama de flujo en Mermaid que representa este algoritmo de validación y cálculo:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/0a01b9bee68f3496.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     start([Inicio del Algoritmo]) --> input[/Ingresar Radio R en nanómetros/]
@@ -102,6 +114,8 @@ graph TD
     error --> end_p([Fin de Ejecución])
     output --> end_p
 ```
+
+</details>
 
 ---
 
@@ -148,6 +162,11 @@ FIN
 ```
 
 **Paso 2 — Diagrama Mermaid equivalente:**
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/7da4b13062da1e35.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 flowchart TD
     start([Inicio]) --> input[/Leer radio_nm/]
@@ -158,6 +177,8 @@ flowchart TD
     err --> fin([Fin])
     ret --> fin
 ```
+
+</details>
 
 **Paso 3 — Traducción a Python:**
 ```python

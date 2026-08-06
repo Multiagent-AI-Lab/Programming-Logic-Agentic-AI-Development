@@ -86,12 +86,19 @@ Para asentar estos complejos conceptos de programación e IA, utilizaremos tres 
 ### 2.1. Analogía 1: Las Funciones como Electrodomésticos Estandarizados
 Imagine que una función es un **electrodoméstico de cocina estándar**, por ejemplo, una licuadora. 
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/146c6fa1f1805344.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph LR
     A[Ingredientes: Frutas, Agua, Azúcar] --> B[Licuadora: Interfaz Estandarizada]
     C[Energía Eléctrica] --> B
     B --> D[Salida: Jugo Homogéneo]
 ```
+
+</details>
 
 *   **La Entrada:** Corresponde a los ingredientes físicos y la corriente eléctrica (los argumentos de la función). Estos deben cumplir con ciertas características: no se pueden meter piedras en la licuadora (validación de tipo/`TypeError`).
 *   **La Interfaz / Abstracción:** Para usar la licuadora, usted solo interactúa con los botones de velocidad y la tapa. No necesita conocer la física detrás del motor de inducción electromagnética ni el diseño aerodinámico de las aspas de acero inoxidable. Esto representa la **firma de la función** y sus parámetros expuestos.
@@ -118,6 +125,11 @@ Imagine la diferencia de alcances (*scopes*) de las variables dentro del campus 
 ### 2.3. Analogía 3: Servidores MCP y Function Calling: El Asistente Robot y su Caja de Herramientas
 Piense en un modelo de lenguaje de última generación (como un LLM agéntico) como un **asistente robot sumamente inteligente y conversador**.
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/54d1c67361e77426.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     SubGraph1[Cerebro del Robot - LLM]
@@ -127,6 +139,8 @@ graph TD
     C -- 4. Devuelve Lectura/Resultado --> B
     B -- 5. Retorna Texto Estructurado --> SubGraph1
 ```
+
+</details>
 
 *   **El Cerebro del Robot (LLM):** Es capaz de razonar, escribir poesía y formular hipótesis sobre la síntesis de nanopartículas de plata, pero carece de "manos" o "sensores" para interactuar directamente con la realidad física o con la base de datos de la universidad.
 *   **La Caja de Herramientas (Function Calling):** Para que el robot sea verdaderamente útil, le otorgamos una caja de herramientas física. Sin embargo, el robot no puede adivinar qué herramientas contiene la caja ni cómo usarlas. Por tanto, cada herramienta de la caja viene con una **ficha técnica estandarizada** (el **JSON Schema**). Esta ficha describe en un lenguaje lógico: el nombre de la herramienta (ej. `medir_viscosidad`), para qué sirve (descripción) y qué entradas exactas requiere (por ejemplo, `temperatura_c: float`).

@@ -42,6 +42,11 @@ Para asimilar el comportamiento de las estructuras de decisión en Python, es de
 
 Imagina el flujo de ejecución de un programa como un caudaloso río que fluye desde las montañas (el inicio del programa) hacia el océano (el final). A lo largo de su curso, el río se encuentra con un sistema de compuertas de control hidráulico dispuestas en serie (nuestra estructura `if/elif/else`):
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/11fc46fb24086b93.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     Rio[Caudal del Río: Datos] --> C1{"¿Compuerta 1 Abierta?<br>(if: AR en [0.95, 1.05])"}
@@ -52,6 +57,8 @@ graph TD
     C3 -- Sí --> Canal3[Canal de Nanocables]
     C3 -- No --> CanalDefecto["Canal de Escape/Defecto<br>(else: Placas/Discos)"]
 ```
+
+</details>
 
 * **El `if` (Compuerta 1)**: Es el primer punto de control. Si la condición lógica del agua (parámetros de la nanopartícula) cumple con los requisitos de la Compuerta 1, esta se abre de inmediato. El agua fluye por este canal exclusivo y **nunca** llega a las compuertas inferiores.
 * **El `elif` (Compuertas 2 y 3)**: Si la Compuerta 1 permanece cerrada porque la condición fue evaluar falsa, el agua avanza por el canal principal hasta encontrarse con la Compuerta 2. Esta compuerta evalúa una nueva propiedad específica. Si es verdadera, se abre; de lo contrario, el flujo continúa aguas abajo hacia la Compuerta 3.
@@ -67,6 +74,11 @@ Desde la perspectiva de las **compuertas lógicas digitales**, esta estructura e
 
 Introducido en Python 3.10 mediante la especificación PEP 634, el bloque `match/case` representa la **Coincidencia de Patrones Estructurados (Structural Pattern Matching)**. A diferencia de la cascada lineal de compuertas del río, el `match/case` se asemeja al funcionamiento de un sintonizador rotativo analógico o multicanal de un radio antiguo de perilla:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/653c01f61e9e476b.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph LR
     Senal[Datos Estructurados: Tupla de Dimensiones] --> Sintonizador{Sintonizador Rotativo}
@@ -75,6 +87,8 @@ graph LR
     Sintonizador -->|Posición 3: l > 10*w y w >= h| CanalC((Sintonía 3: Nanocable 1D))
     Sintonizador -->|Cualquier otra posición no calibrada| CanalDefault((Ruido Blanco: Morfología Compleja))
 ```
+
+</details>
 
 * **La Perilla Rotativa (`match`)**: Apunta a una estructura compleja de datos (por ejemplo, una tupla con tres coordenadas espaciales `(l, w, h)`). No se limita a evaluar si una variable es verdadera o falsa, sino que inspecciona la "forma" o el patrón de los datos tridimensionales simultáneamente.
 * **Las Muescas de Frecuencia (`case`)**: Cada posición de la perilla representa un canal de radio preestablecido. Al girar la perilla, esta cae firmemente en una muesca física si la estructura de los datos coincide con el patrón esperado. 

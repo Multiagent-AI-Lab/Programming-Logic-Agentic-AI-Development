@@ -33,11 +33,18 @@ La ingeniería moderna en Inteligencia Artificial y Nanotecnología se enfrenta 
 
 Con la madurez de los Modelos de Lenguaje de Gran Escala (LLMs) y los sistemas agénticos de desarrollo de software, la escritura de código sintáctico ha sido parcialmente democratizada y acelerada. No obstante, esto no reduce el rigor intelectual de la ingeniería; al contrario, eleva la responsabilidad del desarrollador:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/bc14c6f1bed9f63c.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 flowchart TD
     A[Desarrollo Tradicional] -->|Enfoque| B(Sintaxis, Escritura de Código Manual, Depuración Local)
     C[Desarrollo Moderno / IA] -->|Enfoque| D(Arquitectura de Sistemas, Especificación de Reglas Lógicas, Auditoría de Código Autogenerado)
 ```
+
+</details>
 
 En la era del desarrollo asistido por IA, el ingeniero de la UCEMICH asume dos roles primordiales:
 *   **Director de Arquitectura**: Su tarea fundamental ya no es redactar bucles `for` simples, sino diseñar la topología y modularidad del sistema. Es decir, cómo interactúan la interfaz de usuario, las bases de datos, las simulaciones físicas y los modelos matemáticos complejos.
@@ -89,6 +96,11 @@ A diferencia de una interfaz gráfica donde el usuario hace clic en carpetas tri
 
 Para comprender el funcionamiento de la terminal (CLI) y la organización del disco duro, podemos visualizar todo el sistema de almacenamiento de la computadora como una **mansión gigante**.
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/bd3c7d47cdc9e4cf.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     Raiz["Raíz (/)"] --> Habitacion1["Habitación: Documentos"]
@@ -96,6 +108,8 @@ graph TD
     Habitacion1 --> Objeto1["Objeto: nota.txt"]
     Habitacion2 --> Objeto2["Objeto: sensor.py"]
 ```
+
+</details>
 
 *   **La Mansión**: Es el disco duro de la computadora.
 *   **Las Habitaciones**: Representan los **directorios (o carpetas)**. Cada habitación puede albergar objetos y también puede tener puertas internas que conducen a habitaciones más pequeñas (subdirectorios).
@@ -430,6 +444,11 @@ Git no se limita a guardar archivos sueltos; gestiona los cambios a través de u
 
 El flujo de trabajo estándar en una computadora local consta de tres áreas lógicas:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/b9063b830a04e5bb.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph LR
     A[Directorio de Trabajo / Working Directory] -->|git add| B[Área de Staging / Preparación]
@@ -440,6 +459,8 @@ graph LR
     style C fill:#fff4e1,stroke:#d08f3b,stroke-width:2px
     style D fill:#e1ffe1,stroke:#2ca02c,stroke-width:2px
 ```
+
+</details>
 
 1.  **Directorio de Trabajo (*Working Directory*)**: Es la carpeta física en su disco duro donde edita los archivos activamente. Los cambios realizados aquí son inestables y Git los considera "no registrados" (*untracked* o *modified*).
 2.  **Área de Staging / Preparación**: Es una zona intermedia de control de calidad. Aquí se seleccionan con precisión qué cambios específicos del directorio de trabajo formarán parte del próximo registro histórico. Permite hacer commits atómicos y limpios.

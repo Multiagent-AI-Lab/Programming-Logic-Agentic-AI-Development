@@ -42,6 +42,11 @@ Para asimilar con claridad el rol que juegan estas estructuras de control, anali
 
 Imagina que eres un corredor entrenando en una pista de atletismo de 400 metros. El entrenador puede darte dos tipos de instrucciones muy distintas:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/68c9275f271114df.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     subgraph forloop ["Ciclo FOR (Determinista)"]
@@ -59,6 +64,8 @@ graph TD
         G -- Sí --> I[Refugiarse y terminar]
     end
 ```
+
+</details>
 
 1. **El Ciclo `for` (Dar 10 vueltas fijas a la pista):** 
    Antes de empezar a correr, sabes exactamente cuándo vas a terminar. Llevas un contador en tu mente del 1 al 10. Cada vez que cruzas la línea de meta, incrementas el contador. Al llegar a la vuelta 10, te detienes inmediatamente. Esto equivale a un bucle `for` en programación: iteramos sobre una secuencia de tamaño conocido a priori (por ejemplo, `for paso in range(1000):`). Es determinista y acotado.
@@ -210,6 +217,11 @@ Un **Sandbox** de software es un entorno aislado que nos permite ejecutar códig
 
 Para construir este entorno de pruebas y autorreparación de código en Python de forma segura y robusta, implementamos los siguientes pasos técnicos:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/1ecb89fbcdcfedbf.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     A[Código Propuesto en String] --> B[compile: Generación de Bytecode]
@@ -220,6 +232,8 @@ graph TD
     F -- Sí --> G[Formatear Traceback como Feedback]
     F -- No --> H[Retornar Resultados y Namespace Local]
 ```
+
+</details>
 
 1.  **Compilación en Bytecode (`compile()`):**
     Antes de ejecutar una cadena de texto que contiene código de Python, la pasamos por la función interna `compile(source, filename, mode)`. Esto compila la cadena a un objeto de código ejecutable de Python. Si hay errores de sintaxis (como la falta de dos puntos `:`), el intérprete lanza un `SyntaxError` inmediatamente durante esta fase, antes de intentar cualquier ejecución en memoria.

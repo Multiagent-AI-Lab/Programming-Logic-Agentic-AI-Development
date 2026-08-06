@@ -160,6 +160,11 @@ Donde:
 
 El flujo de control y datos dentro del MAEC sigue una estructura modular y secuencial. El siguiente diagrama describe cómo los datos fluyen a través de cada uno de los componentes internos del agente:
 
+<img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/37c172a9f58b15e5.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
+
+<details>
+<summary>Ver código fuente Mermaid (editable)</summary>
+
 ```mermaid
 graph TD
     A["Archivo Markdown de Entrega (.md)"] --> B["MarkdownInstructionParser"]
@@ -188,6 +193,8 @@ graph TD
     style K fill:#ffcccc,stroke:#333,stroke-width:2px
     style R fill:#ccffcc,stroke:#333,stroke-width:2px
 ```
+
+</details>
 
 ---
 
