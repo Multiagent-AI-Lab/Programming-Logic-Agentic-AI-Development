@@ -160,3 +160,12 @@ class TestNodeNoDisponible:
         ):
             with pytest.raises(RuntimeError, match="Node.js"):
                 MermaidRenderer(output_dir=tmp_path)
+
+    def test_no_crea_output_dir_si_node_no_esta_disponible(self, tmp_path: Path):
+        output_dir = tmp_path / "no_deberia_existir"
+        with patch(
+            "src.multiagent_core.mermaid_renderer.shutil.which", return_value=None
+        ):
+            with pytest.raises(RuntimeError):
+                MermaidRenderer(output_dir=output_dir)
+        assert not output_dir.exists()

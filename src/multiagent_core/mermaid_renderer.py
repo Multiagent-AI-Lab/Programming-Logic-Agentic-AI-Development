@@ -29,9 +29,6 @@ class MermaidRenderer:
     """Convierte texto Mermaid en SVG, cacheado por hash SHA-256 del contenido."""
 
     def __init__(self, output_dir: Path) -> None:
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-
         npx_path = shutil.which("npx")
         if npx_path is None:
             raise RuntimeError(
@@ -40,6 +37,9 @@ class MermaidRenderer:
                 "Instalar con: winget install OpenJS.NodeJS (Windows) o desde https://nodejs.org"
             )
         self._npx_path = npx_path
+
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def render(self, mermaid_source: str) -> Path:
         """Renderiza texto Mermaid a SVG, reusando el archivo cacheado si existe.
