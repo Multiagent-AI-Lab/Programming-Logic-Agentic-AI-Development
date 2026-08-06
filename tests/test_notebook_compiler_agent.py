@@ -11,7 +11,9 @@ from src.multiagent_core.notebook_compiler_agent import MathAgent, NotebookCompi
 class TestMathAgent:
     def test_traduce_simbolos_unicode_comunes_a_latex(self):
         math_agent = MathAgent()
-        resultado = math_agent.process_latex("La derivada parcial es ∂ y el gradiente ∇")
+        resultado = math_agent.process_latex(
+            "La derivada parcial es ∂ y el gradiente ∇"
+        )
         assert r"\partial" in resultado
         assert r"\nabla" in resultado
 
@@ -42,6 +44,16 @@ class TestIsOnlyMath:
 
 class TestNotebookCompilerAgentCompile:
     @pytest.fixture
+    def mermaid_renderer_mock(self, tmp_path: Path):
+        from unittest.mock import MagicMock
+
+        mock = MagicMock()
+        svg_path = tmp_path / "diagrama_falso.svg"
+        svg_path.write_text("<svg></svg>", encoding="utf-8")
+        mock.render.return_value = svg_path
+        return mock
+
+    @pytest.fixture
     def markdown_fixture(self, tmp_path: Path) -> Path:
         contenido = """# Titulo de Prueba
 
@@ -63,17 +75,19 @@ Texto de cierre.
         md_path.write_text(contenido, encoding="utf-8")
         return md_path
 
-    def test_compile_genera_archivo_ipynb(self, markdown_fixture: Path, tmp_path: Path):
-        compiler = NotebookCompilerAgent()
+    def test_compile_genera_archivo_ipynb(
+        self, markdown_fixture: Path, tmp_path: Path, mermaid_renderer_mock
+    ):
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "notebooks_salida"
         nb_path = compiler.compile(markdown_fixture, output_dir)
         assert nb_path.exists()
         assert nb_path.suffix == ".ipynb"
 
     def test_notebook_generado_tiene_celda_de_codigo_python(
-        self, markdown_fixture: Path, tmp_path: Path
+        self, markdown_fixture: Path, tmp_path: Path, mermaid_renderer_mock
     ):
-        compiler = NotebookCompilerAgent()
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "notebooks_salida"
         nb_path = compiler.compile(markdown_fixture, output_dir)
 
@@ -83,18 +97,28 @@ Texto de cierre.
         assert "def calcular_area" in code_cells[0].source
 
     def test_notebook_generado_incluye_diagrama_mermaid_autogenerado(
-        self, markdown_fixture: Path, tmp_path: Path
+        self, markdown_fixture: Path, tmp_path: Path, mermaid_renderer_mock
     ):
-        compiler = NotebookCompilerAgent()
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "notebooks_salida"
         nb_path = compiler.compile(markdown_fixture, output_dir)
 
         nb = nbformat.read(nb_path, as_version=4)
         markdown_cells = [c for c in nb.cells if c.cell_type == "markdown"]
-        assert any("```mermaid" in c.source for c in markdown_cells)
+        celda_diagrama = next(
+            c for c in markdown_cells if "Diagrama de Flujo Autogenerado" in c.source
+        )
+        assert "<img src=" in celda_diagrama.source
+        assert "<details>" in celda_diagrama.source
+        assert "```mermaid" in celda_diagrama.source
 
-    def test_compile_crea_output_dir_si_no_existe(self, markdown_fixture: Path, tmp_path: Path):
-        compiler = NotebookCompilerAgent()
+        nombre_svg = mermaid_renderer_mock.render.return_value.name
+        assert f'src="assets/diagramas/{nombre_svg}"' in celda_diagrama.source
+
+    def test_compile_crea_output_dir_si_no_existe(
+        self, markdown_fixture: Path, tmp_path: Path, mermaid_renderer_mock
+    ):
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "carpeta_inexistente" / "anidada"
         compiler.compile(markdown_fixture, output_dir)
         assert output_dir.exists()
@@ -142,7 +166,9 @@ Texto final tras el bloque anidado.
 
         nb = nbformat.read(nb_path, as_version=4)
         markdown_cells = [c for c in nb.cells if c.cell_type == "markdown"]
-        bloque = next((c for c in markdown_cells if "Entrega de Alumno" in c.source), None)
+        bloque = next(
+            (c for c in markdown_cells if "Entrega de Alumno" in c.source), None
+        )
         assert bloque is not None
         assert "def suma" in bloque.source
         assert "return a + b" in bloque.source
@@ -158,7 +184,9 @@ Texto final tras el bloque anidado.
 
         nb = nbformat.read(nb_path, as_version=4)
         markdown_cells = [c for c in nb.cells if c.cell_type == "markdown"]
-        bloque = next((c for c in markdown_cells if "Entrega de Alumno" in c.source), None)
+        bloque = next(
+            (c for c in markdown_cells if "Entrega de Alumno" in c.source), None
+        )
         assert bloque.source.strip().startswith("````markdown")
         assert bloque.source.strip().endswith("````")
 

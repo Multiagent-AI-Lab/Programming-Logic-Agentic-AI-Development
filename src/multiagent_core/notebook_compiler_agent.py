@@ -9,10 +9,12 @@ y agregando desgloses didácticos de código.
 
 import re
 from pathlib import Path
+from typing import Optional
 
 import nbformat as nbf
 
 from .flowchart_agent import FlowchartAgent
+from .mermaid_renderer import MermaidRenderer
 
 SKILL_METADATA = {
     "name": "notebook_compiler_agent",
@@ -131,9 +133,12 @@ def extract_fenced_blocks(content: str) -> list[tuple[str, str, str]]:
 class NotebookCompilerAgent:
     """Agente que traduce un Markdown completo a un archivo .ipynb listo para los alumnos."""
 
-    def __init__(self):
+    def __init__(self, mermaid_renderer: Optional[MermaidRenderer] = None) -> None:
         self.math_agent = MathAgent()
         self.flowchart_agent = FlowchartAgent()
+        self.mermaid_renderer = mermaid_renderer or MermaidRenderer(
+            output_dir=Path.cwd() / "notebooks" / "assets" / "diagramas"
+        )
 
     def compile(self, md_filepath: Path, output_dir: Path) -> Path:
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -194,9 +199,15 @@ class NotebookCompilerAgent:
                                 code_content
                             )
                             if "graph TD" in mermaid_flow:
+                                svg_path = self.mermaid_renderer.render(mermaid_flow)
+                                rel_path = f"assets/diagramas/{svg_path.name}"
                                 nb.cells.append(
                                     nbf.v4.new_markdown_cell(
-                                        f"#### 📊 Diagrama de Flujo Autogenerado:\n\n```mermaid\n{mermaid_flow}\n```"
+                                        f"#### 📊 Diagrama de Flujo Autogenerado:\n\n"
+                                        f'<img src="{rel_path}" alt="Diagrama de flujo Mermaid" '
+                                        f'style="max-width: 100%; background-color: white; padding: 8px;">\n\n'
+                                        f"<details>\n<summary>Ver código fuente Mermaid (editable)</summary>\n\n"
+                                        f"```mermaid\n{mermaid_flow}\n```\n\n</details>"
                                     )
                                 )
                     else:
