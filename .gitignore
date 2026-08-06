@@ -17,6 +17,10 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 
+# Secretos (GEMINI_API_KEY para TutorAgent, etc.)
+.env
+.env.*
+
 # ChromaDB persistente (índice del TutorAgent, se regenera localmente)
 .chroma/
 
