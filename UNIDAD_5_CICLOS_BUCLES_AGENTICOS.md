@@ -521,6 +521,16 @@ class CodeSandbox:
     que sirvan como retroalimentación para sistemas agénticos.
     """
     def execute(self, code_str: str) -> SandboxResult:
+        """Compila y ejecuta código de forma aislada, capturando salida y errores.
+
+        Args:
+            code_str: Código fuente de Python a ejecutar en el sandbox.
+
+        Returns:
+            SandboxResult con el éxito de la ejecución, la salida capturada
+            de stdout, el mensaje de error (si lo hubo) y el namespace local
+            resultante de la ejecución.
+        """
         old_stdout, old_stderr = sys.stdout, sys.stderr
         redirected = StringIO()
         sys.stdout, sys.stderr = redirected, redirected
@@ -552,6 +562,17 @@ class AgenticProgrammer:
     defectos comunes de sintaxis, lógica o imports.
     """
     def propose_correction(self, current_code: str, error_feedback: str) -> str:
+        """Aplica heurísticas de reparación sobre el código según el feedback del sandbox.
+
+        Args:
+            current_code: Código fuente actual, potencialmente defectuoso.
+            error_feedback: Mensaje de error capturado en la última ejecución
+                del sandbox (nombre de la excepción y traceback resumido).
+
+        Returns:
+            El código corregido si alguna heurística de reparación aplicó;
+            el código original sin cambios en caso contrario.
+        """
         lines = current_code.splitlines()
 
         # Corrección 1: Falta de dos puntos (:) en la firma de funciones
