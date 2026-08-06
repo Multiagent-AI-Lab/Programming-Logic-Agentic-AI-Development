@@ -50,7 +50,7 @@ graph TD
     C2 -- Sí --> Canal2[Canal de Nanobastones]
     C2 -- No --> C3{"¿Compuerta 3 Abierta?<br>(elif: AR > 10)"}
     C3 -- Sí --> Canal3[Canal de Nanocables]
-    C3 -- No --> CanalDefecto[Canal de Escape/Defecto<br>(else: Placas/Discos)]
+    C3 -- No --> CanalDefecto["Canal de Escape/Defecto<br>(else: Placas/Discos)"]
 ```
 
 * **El `if` (Compuerta 1)**: Es el primer punto de control. Si la condición lógica del agua (parámetros de la nanopartícula) cumple con los requisitos de la Compuerta 1, esta se abre de inmediato. El agua fluye por este canal exclusivo y **nunca** llega a las compuertas inferiores.

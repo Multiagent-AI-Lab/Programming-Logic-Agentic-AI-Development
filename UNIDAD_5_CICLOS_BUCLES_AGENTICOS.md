@@ -44,7 +44,7 @@ Imagina que eres un corredor entrenando en una pista de atletismo de 400 metros.
 
 ```mermaid
 graph TD
-    subgraph Ciclo FOR (Determinista)
+    subgraph forloop ["Ciclo FOR (Determinista)"]
         A[Inicio del Entrenamiento] --> B[Establecer N = 10 vueltas]
         B --> C[Correr vuelta actual]
         C --> D{¿Vueltas completadas == 10?}
@@ -52,7 +52,7 @@ graph TD
         D -- Sí --> E[Terminar entrenamiento]
     end
 
-    subgraph Ciclo WHILE (Condicional)
+    subgraph whileloop ["Ciclo WHILE (Condicional)"]
         F[Inicio del Entrenamiento] --> G{¿Está lloviendo?}
         G -- No --> H[Correr una vuelta]
         H --> G
