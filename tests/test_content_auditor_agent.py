@@ -138,6 +138,64 @@ class TestDimensionCodigo:
         resultado = auditor.audit_unit(md_path)
         assert any("eval" in h.lower() for h in resultado["hallazgos"]["codigo"])
 
+    def test_no_marca_longitud_de_linea_en_codigo_de_ejemplo(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        linea_larga = (
+            "x = " + "1 + " * 30 + "1  # comentario explicativo largo en español"
+        )
+        md_path.write_text(
+            f'# Test\n\n```python\ndef f(x: int) -> int:\n    """Doc."""\n    {linea_larga}\n    return x\n```\n',
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any("79 caracteres" in h for h in resultado["hallazgos"]["codigo"])
+
+    def test_no_exige_docstring_ni_type_hints_en_funciones_test(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            "# Test\n\n```python\ndef test_calcula_volumen():\n    assert calcular(1) == 2\n```\n",
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any(
+            "docstring" in h.lower() or "type hint" in h.lower()
+            for h in resultado["hallazgos"]["codigo"]
+        )
+
+    def test_no_marca_error_de_sintaxis_en_celda_magica_de_ipython(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            "# Test\n\n```python\nimport sys\nif 'google.colab' in sys.modules:\n"
+            "    %pip install -q rich\n```\n",
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any(
+            "sintaxis" in h.lower() for h in resultado["hallazgos"]["codigo"]
+        )
+
+    def test_no_marca_self_ni_cls_como_argumento_sin_tipo(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            "# Test\n\n```python\nclass Ejemplo:\n"
+            '    def metodo(self) -> None:\n        """Doc."""\n        pass\n\n'
+            '    @classmethod\n    def crear(cls) -> "Ejemplo":\n'
+            '        """Doc."""\n        return cls()\n```\n',
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any(
+            "type hint" in h.lower() for h in resultado["hallazgos"]["codigo"]
+        )
+
 
 class TestDimensionPedagogico:
     def test_detecta_ausencia_de_ciclo_pseudocodigo_mermaid_python(

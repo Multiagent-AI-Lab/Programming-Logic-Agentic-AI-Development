@@ -32,6 +32,9 @@ LATEX_KNOWN_MALFORMED = {
     r"\DeltaS": r"\Delta S",
 }
 
+_CELDA_MAGICA_IPYTHON = re.compile(r"^\s*[%!]", re.MULTILINE)
+_ARGUMENTOS_SIN_TIPO_ESPERADO = {"self", "cls"}
+
 
 @lru_cache(maxsize=None)
 def _parse_programa_oficial(programa_path: Path) -> Dict[int, dict]:
@@ -133,6 +136,15 @@ class ContentAuditorAgent:
     def _audit_codigo(self, python_blocks: List[str]) -> List[str]:
         """Audita bloques de código Python de ejemplo (docstrings, type hints, estilo).
 
+        Ignora la longitud de línea (PEP8 79 cols) porque el código de
+        ejemplo del curso prioriza claridad didáctica en español sobre ese
+        límite, y excluye funciones ``test_*`` de la exigencia de docstring/
+        type hints (son ejemplos de pytest, no funciones de producción).
+        Bloques con sintaxis mágica de IPython/Colab (``%pip install``,
+        ``!comando``) se tratan como válidos y no generan un falso positivo
+        de "error de sintaxis". ``self`` y ``cls`` nunca se marcan como
+        "argumento sin tipo" — anotarlos no es válido en Python idiomático.
+
         Args:
             python_blocks: Lista de bloques de código Python extraídos del MD.
 
@@ -142,7 +154,12 @@ class ContentAuditorAgent:
         hallazgos: List[str] = []
 
         for code in python_blocks:
-            hallazgos.extend(self.code_auditor.audit_style(code))
+            if _CELDA_MAGICA_IPYTHON.search(code):
+                continue
+
+            hallazgos.extend(
+                h for h in self.code_auditor.audit_style(code) if "PEP 8" not in h
+            )
             hallazgos.extend(self.code_auditor.audit_security(code))
 
             try:
@@ -153,11 +170,18 @@ class ContentAuditorAgent:
             for node in ast.walk(tree):
                 if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                     continue
+                if node.name.startswith("test_"):
+                    continue
                 if ast.get_docstring(node) is None:
                     hallazgos.append(
                         f"Función '{node.name}' sin docstring en el código de ejemplo."
                     )
-                args_sin_tipo = [a.arg for a in node.args.args if a.annotation is None]
+                args_sin_tipo = [
+                    a.arg
+                    for a in node.args.args
+                    if a.annotation is None
+                    and a.arg not in _ARGUMENTOS_SIN_TIPO_ESPERADO
+                ]
                 if args_sin_tipo or node.returns is None:
                     hallazgos.append(
                         f"Función '{node.name}' sin type hints completos "
