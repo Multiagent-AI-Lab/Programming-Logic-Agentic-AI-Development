@@ -5,8 +5,7 @@
 **Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
 **Carrera:** Ingeniería en Inteligencia Artificial y Nanotecnología  
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_2_METODOLOGIA_ALGORITMOS_PRUEBAS.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_2_METODOLOGIA_ALGORITMOS_PRUEBAS.ipynb)
 
 ```python
 import sys

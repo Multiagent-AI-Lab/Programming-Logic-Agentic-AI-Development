@@ -5,8 +5,7 @@
 **Carrera:** Ingeniería en Inteligencia Artificial y Nanotecnología
 **Nivel:** Primer Semestre
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.ipynb)
 
 ```python
 import sys

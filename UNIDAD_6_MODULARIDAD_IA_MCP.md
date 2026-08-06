@@ -4,8 +4,7 @@ Este documento constituye la guía oficial de estudio, repositorio de código de
 
 El objetivo primordial de esta unidad es capacitar a los estudiantes de primer semestre de Ingeniería de la **Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)** en el diseño de software altamente cohesivo, débilmente acoplado y preparado para interactuar con sistemas de Inteligencia Artificial (IA) avanzados. A través del estudio de la modularidad y el **Model Context Protocol (MCP)**, los estudiantes comprenderán cómo los modelos de lenguaje a gran escala (LLMs) pueden descubrir, entender y ejecutar de manera autónoma herramientas programadas en Python.
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_6_MODULARIDAD_IA_MCP.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_6_MODULARIDAD_IA_MCP.ipynb)
 
 ```python
 import sys

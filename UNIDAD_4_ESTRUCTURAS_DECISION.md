@@ -4,8 +4,7 @@ Este documento corresponde a la **Unidad 4** del curso *"Lógica de Programació
 
 Aprenderás a construir un motor de clasificación morfológica para nanopartículas utilizando estructuras condicionales tradicionales (`if/elif/else`), la moderna coincidencia de patrones estructurada (`match/case`), técnicas avanzadas de refactorización condicional y pruebas unitarias de nivel profesional con `pytest`.
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_4_ESTRUCTURAS_DECISION.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_4_ESTRUCTURAS_DECISION.ipynb)
 
 ```python
 import sys

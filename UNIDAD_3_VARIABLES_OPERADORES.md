@@ -5,8 +5,7 @@
 **Institución:** Universidad de la Ciénega del Estado de Michoacán (UCEMICH)  
 **Dirigido a:** Ingeniería en Inteligencia Artificial y Nanotecnología (1er Semestre)  
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_3_VARIABLES_OPERADORES.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_3_VARIABLES_OPERADORES.ipynb)
 
 ```python
 import sys

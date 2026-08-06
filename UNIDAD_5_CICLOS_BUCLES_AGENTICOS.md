@@ -6,8 +6,7 @@ Bienvenido a la **Unidad 5** del curso *"Lógica de Programación y Desarrollo A
 
 Al finalizar esta unidad, comprenderás cómo los ciclos permiten modelar el comportamiento dinámico de la materia a escala nanométrica y cómo se estructuran los sistemas de software autónomos que corrigen sus propios errores.
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_5_CICLOS_BUCLES_AGENTICOS.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_5_CICLOS_BUCLES_AGENTICOS.ipynb)
 
 ```python
 import sys

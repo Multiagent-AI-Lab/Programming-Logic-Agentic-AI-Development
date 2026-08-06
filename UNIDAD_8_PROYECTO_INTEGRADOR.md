@@ -1,8 +1,7 @@
 # Unidad 8: Proyecto Integrador - Desarrollo Agéntico y Lógica de Programación
 ## El Mini-Agente de Evaluación de Código (MAEC) para el Análisis y Calificación Automatizada
 
-<!-- Reemplaza <org>/<repo> por la ruta real del repositorio en GitHub al publicarlo -->
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/<org>/<repo>/blob/main/notebooks/UNIDAD_8_PROYECTO_INTEGRADOR.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_8_PROYECTO_INTEGRADOR.ipynb)
 
 ```python
 import sys
