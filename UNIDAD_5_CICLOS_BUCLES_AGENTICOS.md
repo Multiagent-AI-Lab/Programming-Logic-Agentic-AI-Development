@@ -1046,7 +1046,18 @@ from pathlib import Path
 
 if 'google.colab' in sys.modules:
     from google.colab import userdata
-    os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
+    for nombre_secreto in ("GEMINI_API_KEY", "GOOGLE_API_KEY"):
+        try:
+            os.environ["GEMINI_API_KEY"] = userdata.get(nombre_secreto)
+            break
+        except Exception:
+            continue
+    else:
+        print(
+            "⚠️ No se encontró el secreto GEMINI_API_KEY ni GOOGLE_API_KEY en Colab. "
+            "Créalo en el ícono de llave 🔑 de la barra lateral izquierda "
+            "(ver Unidad 0, sección 0.9)."
+        )
 
 from src.multiagent_core.tutor_agent import TutorAgent
 

@@ -222,7 +222,7 @@ El curso incluye un agente tutor que responde dudas conceptuales citando exactam
      ```powershell
      $env:GEMINI_API_KEY = "tu_clave_aqui"
      ```
-   - **En Google Colab**, usa el gestor de Secrets (ícono de llave 🔑 en la barra lateral izquierda): crea un secreto llamado `GEMINI_API_KEY` con tu key como valor, y actívalo para este notebook ("Notebook access"). Nunca pegues la key directamente en una celda, ya que quedaría guardada en el notebook si lo compartes.
+   - **En Google Colab**, usa el gestor de Secrets (ícono de llave 🔑 en la barra lateral izquierda): crea un secreto llamado `GEMINI_API_KEY` (o `GOOGLE_API_KEY`, la celda de abajo acepta cualquiera de los dos nombres) con tu key como valor, y actívalo para este notebook ("Notebook access" / "Acceso al notebook"). Nunca pegues la key directamente en una celda, ya que quedaría guardada en el notebook si lo compartes.
 
 > [!IMPORTANT]
 > Cada alumno debe generar **su propia** API key. No compartas la tuya ni uses una key ajena — el tier gratuito tiene un límite de peticiones por minuto/día, y compartir una sola key entre el grupo la agotaría rápido para todos.
@@ -232,7 +232,7 @@ El curso incluye un agente tutor que responde dudas conceptuales citando exactam
 
 ## Cómo usar TutorAgent en cualquier notebook
 
-Cada unidad de este curso incluye una celda "🛠️ Herramientas de esta unidad" al final. Para `TutorAgent`, instáncialo **una sola vez** por notebook y reutiliza la misma variable. En Colab, esta celda lee tu key desde Secrets **antes** de importar el módulo:
+Cada unidad de este curso incluye una celda "🛠️ Herramientas de esta unidad" al final. Para `TutorAgent`, instáncialo **una sola vez** por notebook y reutiliza la misma variable. En Colab, esta celda lee tu key desde Secrets **antes** de importar el módulo — prueba primero `GEMINI_API_KEY` y, si no existe con ese nombre, `GOOGLE_API_KEY`:
 
 ```python
 import os
@@ -241,7 +241,18 @@ from pathlib import Path
 
 if 'google.colab' in sys.modules:
     from google.colab import userdata
-    os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
+    for nombre_secreto in ("GEMINI_API_KEY", "GOOGLE_API_KEY"):
+        try:
+            os.environ["GEMINI_API_KEY"] = userdata.get(nombre_secreto)
+            break
+        except Exception:
+            continue
+    else:
+        print(
+            "⚠️ No se encontró el secreto GEMINI_API_KEY ni GOOGLE_API_KEY en Colab. "
+            "Créalo en el ícono de llave 🔑 de la barra lateral izquierda "
+            "(ver Unidad 0, sección 0.9)."
+        )
 
 from src.multiagent_core.tutor_agent import TutorAgent
 
