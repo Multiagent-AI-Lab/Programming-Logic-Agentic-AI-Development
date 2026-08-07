@@ -16,13 +16,12 @@ from pathlib import Path
 from typing import Optional
 
 import chromadb
-import google.generativeai as genai
+from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from dotenv import load_dotenv
+from google import genai
 
 # Cargar API Keys de .env
 load_dotenv()
-if "GEMINI_API_KEY" in os.environ:
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +39,7 @@ TOP_K_RESULTS = 3
 DEFAULT_MEMORY_FILENAME = ".tutor_memory.json"
 MAX_EPISODIOS = 50
 PREFIJO_LONGITUD = 5
+EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
 
 _SOCRATIC_RULES: dict[str, str] = {
     "zerodivisionerror": (
@@ -93,8 +93,40 @@ class TutorAgent:
         )
         self.chroma_path.mkdir(parents=True, exist_ok=True)
         self.chroma_client = chromadb.PersistentClient(path=str(self.chroma_path))
-        self.collection = self.chroma_client.get_or_create_collection("lecciones_curso")
+        self.collection = self._get_or_create_collection()
         self._build_index()
+
+    def _get_or_create_collection(self) -> chromadb.Collection:
+        """Abre (o crea) la colección del curso con el embedding multilingüe.
+
+        Si ya existe una colección persistida con un embedding function
+        distinto (p. ej. de una versión anterior de TutorAgent, o de una
+        sesión previa de un alumno con el default en inglés de ChromaDB),
+        la reconstruye desde cero en vez de fallar — el índice se regenera
+        automáticamente en `_build_index()`.
+
+        Returns:
+            La colección "lecciones_curso" lista para indexar/consultar.
+        """
+        embedding_function = SentenceTransformerEmbeddingFunction(
+            model_name=EMBEDDING_MODEL_NAME
+        )
+        try:
+            return self.chroma_client.get_or_create_collection(
+                "lecciones_curso", embedding_function=embedding_function
+            )
+        except ValueError as e:
+            if "Embedding function conflict" not in str(e):
+                raise
+            logger.warning(
+                "Colección 'lecciones_curso' indexada con un embedding "
+                "distinto; reconstruyendo con %s.",
+                EMBEDDING_MODEL_NAME,
+            )
+            self.chroma_client.delete_collection("lecciones_curso")
+            return self.chroma_client.get_or_create_collection(
+                "lecciones_curso", embedding_function=embedding_function
+            )
 
     def _get_markdown_files(self) -> list[Path]:
         """Obtiene todos los archivos Markdown de las unidades del curso."""
@@ -313,8 +345,10 @@ PREGUNTA DEL ALUMNO:
 Responde en español de forma estructurada, usando Markdown. Explica el paso a paso del razonamiento lógico.
 """
         try:
-            model = genai.GenerativeModel(self.model_name)
-            response = model.generate_content(prompt)
+            client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+            response = client.models.generate_content(
+                model=self.model_name, contents=prompt
+            )
             respuesta_texto = response.text
         except Exception as e:
             logger.exception("Fallo al invocar al modelo Gemini")
