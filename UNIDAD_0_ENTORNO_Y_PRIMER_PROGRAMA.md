@@ -222,23 +222,27 @@ El curso incluye un agente tutor que responde dudas conceptuales citando exactam
      ```powershell
      $env:GEMINI_API_KEY = "tu_clave_aqui"
      ```
-   - **En Google Colab**, usa el gestor de Secrets (ícono de llave 🔑 en la barra lateral izquierda): crea un secreto llamado `GEMINI_API_KEY` con tu key como valor, y actívalo para este notebook ("Notebook access"). Luego agrega esta celda **antes** de la celda que crea `tutor = TutorAgent(...)` — nunca pegues la key directamente en una celda, ya que quedaría guardada en el notebook si lo compartes:
-     ```python
-     import os
-     if 'google.colab' in sys.modules:
-         from google.colab import userdata
-         os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
-     ```
+   - **En Google Colab**, usa el gestor de Secrets (ícono de llave 🔑 en la barra lateral izquierda): crea un secreto llamado `GEMINI_API_KEY` con tu key como valor, y actívalo para este notebook ("Notebook access"). Nunca pegues la key directamente en una celda, ya que quedaría guardada en el notebook si lo compartes.
 
 > [!IMPORTANT]
 > Cada alumno debe generar **su propia** API key. No compartas la tuya ni uses una key ajena — el tier gratuito tiene un límite de peticiones por minuto/día, y compartir una sola key entre el grupo la agotaría rápido para todos.
 
+> [!WARNING]
+> `TutorAgent` lee `GEMINI_API_KEY` de `os.environ` **una sola vez, al importar el módulo** (no en cada pregunta). Si en Colab lees el secreto en una celda separada y DESPUÉS ejecutas el import, la key llega tarde y `tutor.ask(...)` fallará con `DefaultCredentialsError` aunque el secreto esté bien configurado. Por eso la celda de abajo establece la variable de entorno **antes** del `import` — no la separes en dos celdas.
+
 ## Cómo usar TutorAgent en cualquier notebook
 
-Cada unidad de este curso incluye una celda "🛠️ Herramientas de esta unidad" al final. Para `TutorAgent`, instáncialo **una sola vez** por notebook y reutiliza la misma variable:
+Cada unidad de este curso incluye una celda "🛠️ Herramientas de esta unidad" al final. Para `TutorAgent`, instáncialo **una sola vez** por notebook y reutiliza la misma variable. En Colab, esta celda lee tu key desde Secrets **antes** de importar el módulo:
 
 ```python
+import os
+import sys
 from pathlib import Path
+
+if 'google.colab' in sys.modules:
+    from google.colab import userdata
+    os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
+
 from src.multiagent_core.tutor_agent import TutorAgent
 
 # Instanciar una sola vez (abrir el índice tiene un costo fijo ~0.3s)

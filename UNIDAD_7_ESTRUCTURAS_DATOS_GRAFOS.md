@@ -1013,7 +1013,14 @@ Esta unidad se evalúa con la **Rúbrica Genérica de Laboratorio** (4 criterios
 **TutorAgent** — resuelve tus dudas conceptuales sobre el contenido de esta unidad, citando la sección exacta de origen:
 
 ```python
+import os
+import sys
 from pathlib import Path
+
+if 'google.colab' in sys.modules:
+    from google.colab import userdata
+    os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
+
 from src.multiagent_core.tutor_agent import TutorAgent
 
 tutor = TutorAgent(course_dir=Path("."))
