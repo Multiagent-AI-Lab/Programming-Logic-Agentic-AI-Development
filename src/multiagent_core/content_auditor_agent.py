@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from .code_auditor_agent import CodeAuditorAgent
+from .mermaid_renderer import MermaidRenderer
 from .notebook_compiler_agent import extract_fenced_blocks
 
 SKILL_METADATA = {
@@ -91,10 +92,17 @@ _PROGRAMA_OFICIAL_PATH = (
 class ContentAuditorAgent:
     """Agente que audita el contenido pedagógico de las unidades del curso."""
 
-    def __init__(self, programa_path: Optional[Path] = None) -> None:
+    def __init__(
+        self,
+        programa_path: Optional[Path] = None,
+        mermaid_renderer: Optional[MermaidRenderer] = None,
+    ) -> None:
         self.code_auditor = CodeAuditorAgent()
         self.programa_path = (
             Path(programa_path) if programa_path else _PROGRAMA_OFICIAL_PATH
+        )
+        self.mermaid_renderer = mermaid_renderer or MermaidRenderer(
+            output_dir=Path.cwd() / "notebooks" / "assets" / "diagramas"
         )
 
     def _audit_latex(self, content: str) -> List[str]:
@@ -192,7 +200,7 @@ class ContentAuditorAgent:
         return hallazgos
 
     def _audit_pedagogico(self, bloques: List[tuple], content: str) -> List[str]:
-        """Verifica coherencia pedagógica: Hilo de Oro y presencia de analogías.
+        """Verifica coherencia pedagógica: Hilo de Oro, analogías, y sintaxis Mermaid.
 
         Args:
             bloques: Bloques de código extraídos vía extract_fenced_blocks.
@@ -217,6 +225,16 @@ class ContentAuditorAgent:
                 "No se encontró ninguna sección de Analogía Didáctica "
                 "(encabezado H2-H4 que contenga 'analog...') en esta unidad."
             )
+
+        mermaid_blocks = [code for _, lang, code in bloques if lang == "mermaid"]
+        for diagrama in mermaid_blocks:
+            try:
+                self.mermaid_renderer.render(diagrama)
+            except RuntimeError as e:
+                if "Parse error" in str(e):
+                    hallazgos.append(
+                        f"Diagrama Mermaid con error de sintaxis: {str(e).splitlines()[0]}"
+                    )
 
         return hallazgos
 

@@ -312,3 +312,44 @@ class TestAuditAllUnits:
         reporte = auditor.audit_all_units(tmp_path)
         assert "# Reporte de Auditoría de Contenido" in reporte
         assert "UNIDAD_1_TEST.md" in reporte
+
+
+class TestValidacionSintaxisMermaid:
+    @pytest.fixture
+    def auditor_con_mermaid_mock(self):
+        from unittest.mock import MagicMock
+
+        mock_renderer = MagicMock()
+        return ContentAuditorAgent(mermaid_renderer=mock_renderer), mock_renderer
+
+    def test_detecta_diagrama_mermaid_con_error_de_sintaxis(
+        self, auditor_con_mermaid_mock, tmp_path: Path
+    ):
+        auditor, mock_renderer = auditor_con_mermaid_mock
+        mock_renderer.render.side_effect = RuntimeError(
+            "Parse error on line 1: Expecting 'TEXT', got 'PS'"
+        )
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            "# Test\n\n```mermaid\ngraph TD\n    A[Roto(sin comillas)]\n```\n",
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert any(
+            "sintaxis" in h.lower() for h in resultado["hallazgos"]["pedagogico"]
+        )
+
+    def test_no_marca_diagrama_mermaid_valido_como_error(
+        self, auditor_con_mermaid_mock, tmp_path: Path
+    ):
+        auditor, mock_renderer = auditor_con_mermaid_mock
+        mock_renderer.render.return_value = tmp_path / "hash123.svg"
+        md_path = tmp_path / "UNIDAD_TEST.md"
+        md_path.write_text(
+            "# Test\n\n```mermaid\ngraph TD\n    A[Inicio] --> B[Fin]\n```\n",
+            encoding="utf-8",
+        )
+        resultado = auditor.audit_unit(md_path)
+        assert not any(
+            "sintaxis" in h.lower() for h in resultado["hallazgos"]["pedagogico"]
+        )
