@@ -25,6 +25,11 @@ SKILL_METADATA = {
     "requires_api_key": False,
 }
 
+_RAW_ASSETS_BASE_URL = (
+    "https://raw.githubusercontent.com/Multiagent-AI-Lab/"
+    "Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas"
+)
+
 
 class MathAgent:
     """Sub-Agente que traduce caracteres matemáticos UTF-8 comunes a su equivalente en LaTeX."""
@@ -133,12 +138,17 @@ def extract_fenced_blocks(content: str) -> list[tuple[str, str, str]]:
 class NotebookCompilerAgent:
     """Agente que traduce un Markdown completo a un archivo .ipynb listo para los alumnos."""
 
-    def __init__(self, mermaid_renderer: Optional[MermaidRenderer] = None) -> None:
+    def __init__(
+        self,
+        mermaid_renderer: Optional[MermaidRenderer] = None,
+        asset_base_url: str = _RAW_ASSETS_BASE_URL,
+    ) -> None:
         self.math_agent = MathAgent()
         self.flowchart_agent = FlowchartAgent()
         self.mermaid_renderer = mermaid_renderer or MermaidRenderer(
             output_dir=Path.cwd() / "notebooks" / "assets" / "diagramas"
         )
+        self.asset_base_url = asset_base_url
 
     def compile(self, md_filepath: Path, output_dir: Path) -> Path:
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -199,12 +209,20 @@ class NotebookCompilerAgent:
                                 code_content
                             )
                             if "graph TD" in mermaid_flow:
-                                svg_path = self.mermaid_renderer.render(mermaid_flow)
-                                rel_path = f"assets/diagramas/{svg_path.name}"
+                                try:
+                                    svg_path = self.mermaid_renderer.render(
+                                        mermaid_flow
+                                    )
+                                except RuntimeError as e:
+                                    raise RuntimeError(
+                                        f"Fallo al renderizar diagrama Mermaid en "
+                                        f"{md_filepath.name}: {e}"
+                                    ) from e
+                                img_url = f"{self.asset_base_url}/{svg_path.name}"
                                 nb.cells.append(
                                     nbf.v4.new_markdown_cell(
                                         f"#### 📊 Diagrama de Flujo Autogenerado:\n\n"
-                                        f'<img src="{rel_path}" alt="Diagrama de flujo Mermaid" '
+                                        f'<img src="{img_url}" alt="Diagrama de flujo Mermaid" '
                                         f'style="max-width: 100%; background-color: white; padding: 8px;">\n\n'
                                         f"<details>\n<summary>Ver código fuente Mermaid (editable)</summary>\n\n"
                                         f"```mermaid\n{mermaid_flow}\n```\n\n</details>"

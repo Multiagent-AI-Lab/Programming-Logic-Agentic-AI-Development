@@ -5,7 +5,25 @@ from pathlib import Path
 import nbformat
 import pytest
 
-from src.multiagent_core.notebook_compiler_agent import MathAgent, NotebookCompilerAgent
+from src.multiagent_core.notebook_compiler_agent import (
+    _RAW_ASSETS_BASE_URL,
+    MathAgent,
+    NotebookCompilerAgent,
+)
+
+
+@pytest.fixture
+def mermaid_renderer_mock(tmp_path: Path):
+    """Mock de MermaidRenderer compartido por todo el archivo: evita que
+    NotebookCompilerAgent() invoque shutil.which("npx") / cree directorios
+    reales cuando ningún test necesita renderizado real."""
+    from unittest.mock import MagicMock
+
+    mock = MagicMock()
+    svg_path = tmp_path / "diagrama_falso.svg"
+    svg_path.write_text("<svg></svg>", encoding="utf-8")
+    mock.render.return_value = svg_path
+    return mock
 
 
 class TestMathAgent:
@@ -24,14 +42,18 @@ class TestMathAgent:
 
 
 class TestIsOnlyMath:
-    def test_formula_simple_de_una_linea_es_matematica_pura(self):
-        compiler = NotebookCompilerAgent()
+    def test_formula_simple_de_una_linea_es_matematica_pura(
+        self, mermaid_renderer_mock
+    ):
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         assert compiler._is_only_math("F = ∇ × E") is True
 
-    def test_diagrama_ascii_con_simbolo_griego_no_es_matematica_pura(self):
+    def test_diagrama_ascii_con_simbolo_griego_no_es_matematica_pura(
+        self, mermaid_renderer_mock
+    ):
         """Regresión: un diagrama de ejes/curvas en texto no debe tratarse como
         fórmula LaTeX solo porque contiene un símbolo griego (ej. Δ)."""
-        compiler = NotebookCompilerAgent()
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         diagrama = (
             "Energía ΔG\n"
             "   ^\n"
@@ -43,16 +65,6 @@ class TestIsOnlyMath:
 
 
 class TestNotebookCompilerAgentCompile:
-    @pytest.fixture
-    def mermaid_renderer_mock(self, tmp_path: Path):
-        from unittest.mock import MagicMock
-
-        mock = MagicMock()
-        svg_path = tmp_path / "diagrama_falso.svg"
-        svg_path.write_text("<svg></svg>", encoding="utf-8")
-        mock.render.return_value = svg_path
-        return mock
-
     @pytest.fixture
     def markdown_fixture(self, tmp_path: Path) -> Path:
         contenido = """# Titulo de Prueba
@@ -113,7 +125,7 @@ Texto de cierre.
         assert "```mermaid" in celda_diagrama.source
 
         nombre_svg = mermaid_renderer_mock.render.return_value.name
-        assert f'src="assets/diagramas/{nombre_svg}"' in celda_diagrama.source
+        assert f'src="{_RAW_ASSETS_BASE_URL}/{nombre_svg}"' in celda_diagrama.source
 
     def test_compile_crea_output_dir_si_no_existe(
         self, markdown_fixture: Path, tmp_path: Path, mermaid_renderer_mock
@@ -123,8 +135,10 @@ Texto de cierre.
         compiler.compile(markdown_fixture, output_dir)
         assert output_dir.exists()
 
-    def test_lanza_error_si_markdown_no_existe(self, tmp_path: Path):
-        compiler = NotebookCompilerAgent()
+    def test_lanza_error_si_markdown_no_existe(
+        self, tmp_path: Path, mermaid_renderer_mock
+    ):
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         with pytest.raises(FileNotFoundError):
             compiler.compile(tmp_path / "no_existe.md", tmp_path / "salida")
 
@@ -158,9 +172,9 @@ Texto final tras el bloque anidado.
         return md_path
 
     def test_bloque_anidado_se_preserva_como_una_sola_celda_markdown(
-        self, markdown_con_fence_anidado: Path, tmp_path: Path
+        self, markdown_con_fence_anidado: Path, tmp_path: Path, mermaid_renderer_mock
     ):
-        compiler = NotebookCompilerAgent()
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "notebooks_salida"
         nb_path = compiler.compile(markdown_con_fence_anidado, output_dir)
 
@@ -174,11 +188,11 @@ Texto final tras el bloque anidado.
         assert "return a + b" in bloque.source
 
     def test_fence_de_salida_preserva_la_cantidad_de_backticks_del_original(
-        self, markdown_con_fence_anidado: Path, tmp_path: Path
+        self, markdown_con_fence_anidado: Path, tmp_path: Path, mermaid_renderer_mock
     ):
         """El fence exterior debe seguir teniendo 4 backticks en la celda de salida;
         con solo 3 sería ambiguo frente al ```python anidado en su interior."""
-        compiler = NotebookCompilerAgent()
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "notebooks_salida"
         nb_path = compiler.compile(markdown_con_fence_anidado, output_dir)
 
@@ -191,9 +205,9 @@ Texto final tras el bloque anidado.
         assert bloque.source.strip().endswith("````")
 
     def test_texto_posterior_al_bloque_anidado_no_se_pierde(
-        self, markdown_con_fence_anidado: Path, tmp_path: Path
+        self, markdown_con_fence_anidado: Path, tmp_path: Path, mermaid_renderer_mock
     ):
-        compiler = NotebookCompilerAgent()
+        compiler = NotebookCompilerAgent(mermaid_renderer=mermaid_renderer_mock)
         output_dir = tmp_path / "notebooks_salida"
         nb_path = compiler.compile(markdown_con_fence_anidado, output_dir)
 
