@@ -73,3 +73,6 @@ if __name__ == "__main__":
         for f in missing:
             print(f"  - {f}")
     print("=" * 75)
+
+    if missing or converted < len(files_to_convert):
+        sys.exit(1)
