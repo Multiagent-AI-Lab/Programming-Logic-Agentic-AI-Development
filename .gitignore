@@ -30,3 +30,6 @@ __pycache__/
 # Material histórico del curso 2023-2024 (planeaciones, PSeInt, código previo).
 # Se conserva localmente en docs/legado/ pero no se publica en GitHub.
 docs/legado/
+
+# Worktrees locales para trabajo aislado (sandboxes de desarrollo)
+.worktrees/
