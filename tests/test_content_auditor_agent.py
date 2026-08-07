@@ -9,7 +9,11 @@ from src.multiagent_core.content_auditor_agent import ContentAuditorAgent
 
 @pytest.fixture
 def auditor() -> ContentAuditorAgent:
-    return ContentAuditorAgent()
+    from unittest.mock import MagicMock
+
+    mock_renderer = MagicMock()
+    mock_renderer.render.return_value = Path("fake.svg")
+    return ContentAuditorAgent(mermaid_renderer=mock_renderer)
 
 
 class TestAuditUnitEstructura:
