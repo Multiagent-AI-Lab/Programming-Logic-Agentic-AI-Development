@@ -26,6 +26,21 @@ Para poder abrir y ejecutar los notebooks utilizando este entorno:
 python -m ipykernel install --user --name=ia_logprog --display-name "Python 3.11 (ia_logprog)"
 ```
 
+### 4. Instalar Node.js (requerido para diagramas Mermaid)
+
+Los diagramas de flujo del curso se renderizan como imágenes SVG estáticas
+(para verse igual en VS Code, GitHub y Google Colab), usando
+`@mermaid-js/mermaid-cli` vía `npx`. Esto requiere Node.js instalado en el
+sistema — no es un paquete de Python, no se instala vía conda/pip:
+
+```bash
+winget install OpenJS.NodeJS
+```
+
+O descárgalo desde [nodejs.org](https://nodejs.org). `convert_to_notebooks_smart.py`
+verifica automáticamente si Node.js está disponible al iniciar y muestra
+instrucciones si falta.
+
 ---
 
 ## 🛠️ Guía de Herramientas: Cuándo Usar Cada Una

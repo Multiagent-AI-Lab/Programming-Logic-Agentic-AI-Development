@@ -28,6 +28,7 @@ python -m ruff check src/multiagent_core/<archivo>.py
 
 # Regenerar los 9 notebooks tras editar cualquier UNIDAD_*.md
 python convert_to_notebooks_smart.py
+Requiere Node.js instalado (`npx` en el PATH) — los diagramas Mermaid se renderizan a SVG vía `@mermaid-js/mermaid-cli`; el script verifica esto al inicio y falla con instrucciones claras si falta.
 ```
 
 No hay `pyproject.toml`/`pytest.ini` — el descubrimiento de tests funciona porque `conftest.py` en la raíz inserta el proyecto en `sys.path`, y `src/` y `src/multiagent_core/` tienen `__init__.py`. Los imports en el código y en los tests son siempre absolutos desde la raíz: `from src.multiagent_core.tutor_agent import TutorAgent`.
