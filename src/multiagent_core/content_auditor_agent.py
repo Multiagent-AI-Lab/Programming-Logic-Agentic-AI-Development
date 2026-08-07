@@ -235,6 +235,11 @@ class ContentAuditorAgent:
                     hallazgos.append(
                         f"Diagrama Mermaid con error de sintaxis: {str(e).splitlines()[0]}"
                     )
+                else:
+                    hallazgos.append(
+                        "No se pudo validar el diagrama Mermaid (fallo de "
+                        f"infraestructura, no de sintaxis): {str(e).splitlines()[0]}"
+                    )
 
         return hallazgos
 
