@@ -91,6 +91,7 @@ class TutorAgent:
             if memory_path
             else self.course_dir / DEFAULT_MEMORY_FILENAME
         )
+        self.chroma_path.mkdir(parents=True, exist_ok=True)
         self.chroma_client = chromadb.PersistentClient(path=str(self.chroma_path))
         self.collection = self.chroma_client.get_or_create_collection("lecciones_curso")
         self._build_index()

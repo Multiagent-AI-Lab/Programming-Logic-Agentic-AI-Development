@@ -40,6 +40,24 @@ class TestGetMarkdownFiles:
         assert nombres == {"UNIDAD_1_TEST.md", "UNIDAD_2_TEST.md"}
 
 
+class TestChromaPathCreation:
+    def test_crea_chroma_path_si_ni_el_directorio_padre_existe(
+        self, course_dir: Path, tmp_path: Path
+    ):
+        """Regresión: tras un git clone fresco (p. ej. en Colab), '.chroma/'
+        está en .gitignore y no existe — ni siquiera su directorio padre,
+        si chroma_path apunta a una ruta anidada nueva. PersistentClient de
+        ChromaDB no garantiza crear rutas anidadas por sí solo en todos los
+        entornos; TutorAgent debe crearlo explícitamente antes de instanciar
+        el cliente."""
+        chroma_path_anidado = tmp_path / "nivel_a" / "nivel_b" / ".chroma"
+        assert not chroma_path_anidado.parent.exists()
+
+        TutorAgent(course_dir=course_dir, chroma_path=chroma_path_anidado)
+
+        assert chroma_path_anidado.exists()
+
+
 class TestSearchLocalDocs:
     def test_encuentra_seccion_relevante_por_busqueda_semantica(
         self, course_dir: Path, chroma_path: Path
