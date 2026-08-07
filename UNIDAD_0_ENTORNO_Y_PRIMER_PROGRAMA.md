@@ -8,8 +8,14 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.ipynb)
 
 ```python
+import os
 import sys
+
 if 'google.colab' in sys.modules:
+    repo_dir = "Programming-Logic-Agentic-AI-Development"
+    if not os.path.exists(repo_dir):
+        !git clone -q https://github.com/Multiagent-AI-Lab/{repo_dir}.git
+    os.chdir(repo_dir)
     %pip install -q mcp fastmcp chromadb rich
 ```
 
@@ -207,14 +213,22 @@ El curso incluye un agente tutor que responde dudas conceptuales citando exactam
 1. Ir a [aistudio.google.com/apikey](https://aistudio.google.com/apikey) e iniciar sesión con tu cuenta de Google.
 2. Hacer clic en "Create API Key" — es gratuito, no requiere tarjeta de crédito para el tier básico.
 3. Copiar la key generada.
-4. Guardarla como variable de entorno antes de abrir el notebook:
-   ```powershell
-   $env:GEMINI_API_KEY = "tu_clave_aqui"
-   ```
-   O, si usas un archivo `.env` en la raíz del proyecto (recomendado):
-   ```
-   GEMINI_API_KEY=tu_clave_aqui
-   ```
+4. Guardarla como variable de entorno **antes** de instanciar `TutorAgent`:
+   - **En tu máquina local (VS Code)**, con un archivo `.env` en la raíz del proyecto (recomendado):
+     ```
+     GEMINI_API_KEY=tu_clave_aqui
+     ```
+     o en PowerShell, para la sesión actual:
+     ```powershell
+     $env:GEMINI_API_KEY = "tu_clave_aqui"
+     ```
+   - **En Google Colab**, usa el gestor de Secrets (ícono de llave 🔑 en la barra lateral izquierda): crea un secreto llamado `GEMINI_API_KEY` con tu key como valor, y actívalo para este notebook ("Notebook access"). Luego agrega esta celda **antes** de la celda que crea `tutor = TutorAgent(...)` — nunca pegues la key directamente en una celda, ya que quedaría guardada en el notebook si lo compartes:
+     ```python
+     import os
+     if 'google.colab' in sys.modules:
+         from google.colab import userdata
+         os.environ["GEMINI_API_KEY"] = userdata.get("GEMINI_API_KEY")
+     ```
 
 > [!IMPORTANT]
 > Cada alumno debe generar **su propia** API key. No compartas la tuya ni uses una key ajena — el tier gratuito tiene un límite de peticiones por minuto/día, y compartir una sola key entre el grupo la agotaría rápido para todos.

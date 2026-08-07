@@ -7,8 +7,14 @@ Aprenderás a construir un motor de clasificación morfológica para nanopartíc
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_4_ESTRUCTURAS_DECISION.ipynb)
 
 ```python
+import os
 import sys
+
 if 'google.colab' in sys.modules:
+    repo_dir = "Programming-Logic-Agentic-AI-Development"
+    if not os.path.exists(repo_dir):
+        !git clone -q https://github.com/Multiagent-AI-Lab/{repo_dir}.git
+    os.chdir(repo_dir)
     %pip install -q mcp fastmcp chromadb rich
 ```
 

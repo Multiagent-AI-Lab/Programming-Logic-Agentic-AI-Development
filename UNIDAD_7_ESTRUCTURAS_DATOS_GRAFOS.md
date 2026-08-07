@@ -5,8 +5,14 @@ Esta unidad presenta el diseño, implementación y validación de estructuras de
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_7_ESTRUCTURAS_DATOS_GRAFOS.ipynb)
 
 ```python
+import os
 import sys
+
 if 'google.colab' in sys.modules:
+    repo_dir = "Programming-Logic-Agentic-AI-Development"
+    if not os.path.exists(repo_dir):
+        !git clone -q https://github.com/Multiagent-AI-Lab/{repo_dir}.git
+    os.chdir(repo_dir)
     %pip install -q mcp fastmcp chromadb rich
 ```
 
