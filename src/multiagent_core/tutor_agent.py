@@ -80,7 +80,7 @@ class TutorAgent:
         memory_path: Optional[Path] = None,
     ) -> None:
         self.course_dir = Path(course_dir)
-        self.model_name = "gemini-1.5-flash"
+        self.model_name = "gemini-2.5-flash"
         self.chroma_path = (
             Path(chroma_path)
             if chroma_path
