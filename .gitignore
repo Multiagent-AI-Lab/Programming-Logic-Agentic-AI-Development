@@ -33,3 +33,9 @@ docs/legado/
 
 # Worktrees locales para trabajo aislado (sandboxes de desarrollo)
 .worktrees/
+
+# Artefactos internos del flujo de trabajo con Claude Code (specs, planes,
+# reportes de auditoría, lockfiles). Se conservan localmente pero no se
+# publican en el repo público — mismo patrón que docs/legado/.
+docs/superpowers/
+.claude/scheduled_tasks.lock
