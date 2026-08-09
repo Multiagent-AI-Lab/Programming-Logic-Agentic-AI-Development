@@ -175,9 +175,26 @@ import requests
 url = "https://pubchem.ncbi.nlm.nih.gov/compound/Gold"
 response = requests.get(url)
 print(response)  # <Response [200]> indica que la petición fue exitosa
+
+soup = BeautifulSoup(response.text, "html.parser")
+parrafos = soup.find_all("p")
+print(len(parrafos), "párrafos encontrados")
+print("".join(p.get_text() for p in parrafos)[:200])
 ```
 
+Si ejecutaste la celda anterior, verás algo como `Please enable Javascript...` y
+0 párrafos reales: PubChem renderiza esta página con JavaScript en el navegador,
+y `requests` solo descarga el HTML inicial (sin ejecutar JavaScript), así que el
+contenido real nunca llega a `response.text`. **Este es precisamente el riesgo
+que la nota de abajo advierte** — no todas las páginas son estáticas.
+
+Para esta técnica necesitas una página que sirva su HTML completo desde el
+servidor, sin depender de JavaScript. Wikipedia es un buen ejemplo:
+
 ```python
+url = "https://en.wikipedia.org/wiki/Gold_nanoparticle"
+response = requests.get(url)
+
 soup = BeautifulSoup(response.text, "html.parser")
 parrafos = soup.find_all("p")
 
@@ -203,7 +220,11 @@ print(get_llm_response(prompt))
 
 **Nota:** la estructura HTML de una página puede cambiar con el tiempo, lo que
 puede romper este código — es normal en web scraping y requiere revisar la página
-si algo deja de funcionar.
+si algo deja de funcionar. Wikipedia sirve bien para *practicar la técnica* de
+extracción de texto, pero para un reporte científico formal la fuente confiable
+sigue siendo PubChem — solo que, al ser una aplicación moderna renderizada con
+JavaScript, requeriría herramientas adicionales (como `selenium` o su propia API
+REST, ya usada en la sección 15) en vez de scraping directo con `requests`.
 
 📖 [Leer archivos](https://ellibrodepython.com/leer-archivos-python)
 
