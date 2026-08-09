@@ -113,6 +113,17 @@ pytest tests/ -v --tb=short
 
 ---
 
+## 🐍 Material Complementario: Python + IA en Nanotecnología
+
+Además de las 9 unidades principales, el repositorio incluye una pieza opcional
+en 3 partes (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE{1,2,3}_*.md`), adaptada del
+curso público ["AI Python for Beginners"](https://www.deeplearning.ai/courses/ai-python-for-beginners)
+de DeepLearning.AI. Refuerza el patrón "Python como orquestador de llamadas a un
+LLM" con ejemplos 100% de nanotecnología, en español, usando Gemini. No forma
+parte de la secuencia evaluada del semestre — es material de práctica libre.
+
+---
+
 ## 🔄 Pipeline de Conversión de Notebooks
 
 Si realizas cambios en los archivos teóricos Markdown de las unidades (por ejemplo, `UNIDAD_1_PENSAMIENTO_COMPUTACIONAL_CLI.md`), puedes regenerar los notebooks ejecutando:

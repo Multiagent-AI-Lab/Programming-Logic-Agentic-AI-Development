@@ -56,6 +56,7 @@ No hay `pyproject.toml`/`pytest.ini` — el descubrimiento de tests funciona por
 - **Contexto de nanotecnología obligatorio**: todo ejemplo de código usa datos/problemas de nanotecnología (radios de nanopartículas, redes cristalinas, coeficientes de difusión), nunca ejemplos genéricos de programación.
 - **Links a ellibrodepython.com**: aparecen al final de secciones teóricas en U1-U6 (fundamentos de sintaxis Python); deliberadamente ausentes en U7-U8 (código de producción/proyecto integrador, no fundamentos). No agregar sin verificar que la unidad efectivamente enseña sintaxis básica nueva.
 - **`docs/legado/`** contiene material histórico del curso 2023-2024 y el programa de asignatura oficial (`docs/legado/planeacion_2023_2024/Programa_de_Asignatura_Logica_Programacion_IA_v2_extracted.txt`, texto plano con numeración `N.M` parseable por regex) — está en `.gitignore`, existe localmente pero no se publica en GitHub.
+- **Material complementario (`EXTRA_*.md`)**: piezas opcionales fuera de la secuencia U0-U8, no evaluadas, no sujetas al Hilo de Oro completo. `EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE{1,2,3}_*.md` es la primera: adaptación en 3 partes del curso público "AI Python for Beginners" de DeepLearning.AI, con el patrón Python+LLM y ejemplos de nanotecnología.
 
 ## Flujo de trabajo esperado para cambios grandes
 
