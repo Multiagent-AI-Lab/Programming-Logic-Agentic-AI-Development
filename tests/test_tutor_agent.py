@@ -57,6 +57,69 @@ class TestChromaPathCreation:
 
         assert chroma_path_anidado.exists()
 
+    def test_reindexar_automaticamente_si_chroma_existente_usa_otro_embedding(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        """Regresión: un .chroma/ ya indexado con un embedding function
+        distinto (p. ej. de una versión anterior de TutorAgent, o de una
+        sesión previa de un alumno) hacía que get_or_create_collection
+        lanzara ValueError('Embedding function conflict...') y TutorAgent()
+        crasheara por completo al instanciarse. Debe detectar el conflicto y
+        reindexar automáticamente en vez de fallar."""
+        import chromadb
+        from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
+
+        chroma_client = chromadb.PersistentClient(path=str(chroma_path))
+        coleccion_vieja = chroma_client.get_or_create_collection(
+            "lecciones_curso", embedding_function=DefaultEmbeddingFunction()
+        )
+        coleccion_vieja.add(documents=["contenido viejo de prueba"], ids=["viejo_1"])
+        del chroma_client, coleccion_vieja
+
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        resultado = tutor._search_local_docs("¿qué es una variable?")
+
+        assert "UNIDAD_1_TEST.md" in resultado
+
+
+class TestEmbeddingMultilingue:
+    @pytest.fixture
+    def course_dir_con_seccion_conceptual(self, tmp_path: Path) -> Path:
+        """Reproduce el patrón del bug real: una sección corta dominada por
+        código (el 'Paso 2' real de U3) compite contra una sección larga con
+        una analogía conceptual extensa en español (la 'ANALOGÍA DIDÁCTICA 1'
+        real de U3). Con el embedding en inglés (all-MiniLM-L6-v2, default de
+        ChromaDB), la analogía nunca aparecía en el top-30 para preguntas
+        conceptuales en español."""
+        (tmp_path / "UNIDAD_TEST.md").write_text(
+            "# Unidad de prueba\n\n"
+            "### Paso 2: Guardar un dato en una variable\n\n"
+            "```python\n"
+            "radio_nm = 5.2\n"
+            "print(radio_nm)\n"
+            "```\n\n"
+            "Aquí `radio_nm` es una variable.\n\n"
+            "### Analogía Didáctica: Variables como Etiquetas en un Almacén\n\n"
+            "Para comprender qué es una variable, imaginemos un almacén de "
+            "materiales. Una variable es una etiqueta de papel colgante donde "
+            "escribimos un nombre legible. Esta etiqueta no contiene la "
+            "sustancia; es solo un trozo de papel que se puede colgar del asa "
+            "de un recipiente físico que guarda el valor real. El nombre de la "
+            "variable identifica el dato, pero el dato en sí vive en otro "
+            "lugar de la memoria de la computadora.\n",
+            encoding="utf-8",
+        )
+        return tmp_path
+
+    def test_pregunta_conceptual_recupera_seccion_de_analogia_no_solo_codigo(
+        self, course_dir_con_seccion_conceptual: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(
+            course_dir=course_dir_con_seccion_conceptual, chroma_path=chroma_path
+        )
+        resultado = tutor._search_local_docs("¿qué es una variable?")
+        assert "Analogía Didáctica" in resultado
+
 
 class TestSearchLocalDocs:
     def test_encuentra_seccion_relevante_por_busqueda_semantica(
@@ -85,20 +148,23 @@ class TestSearchLocalDocs:
 
 class TestAsk:
     def test_construye_prompt_con_contexto_y_pregunta(
-        self, course_dir: Path, chroma_path: Path
+        self, course_dir: Path, chroma_path: Path, monkeypatch: pytest.MonkeyPatch
     ):
+        monkeypatch.setenv("GEMINI_API_KEY", "key-de-prueba")
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         mock_response = MagicMock()
         mock_response.text = "Respuesta simulada del tutor"
 
-        with patch(
-            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
-        ) as mock_model_cls:
-            mock_model_cls.return_value.generate_content.return_value = mock_response
+        with patch("src.multiagent_core.tutor_agent.genai.Client") as mock_client_cls:
+            mock_client_cls.return_value.models.generate_content.return_value = (
+                mock_response
+            )
             respuesta = tutor.ask("¿Qué es una variable?")
 
         assert respuesta == "Respuesta simulada del tutor"
-        prompt_enviado = mock_model_cls.return_value.generate_content.call_args[0][0]
+        llamada = mock_client_cls.return_value.models.generate_content.call_args
+        assert llamada.kwargs["model"] == tutor.model_name
+        prompt_enviado = llamada.kwargs["contents"]
         assert "¿Qué es una variable?" in prompt_enviado
         assert "Variables" in prompt_enviado
 
@@ -107,13 +173,25 @@ class TestAsk:
     ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
 
-        with patch(
-            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
-        ) as mock_model_cls:
-            mock_model_cls.return_value.generate_content.side_effect = RuntimeError(
-                "fallo de red"
+        with patch("src.multiagent_core.tutor_agent.genai.Client") as mock_client_cls:
+            mock_client_cls.return_value.models.generate_content.side_effect = (
+                RuntimeError("fallo de red")
             )
             respuesta = tutor.ask("¿Qué es una variable?")
+
+        assert "Error al invocar al modelo Gemini" in respuesta
+        assert "Contexto Local Recuperado" in respuesta
+
+    def test_sin_api_key_en_entorno_no_falla_construir_tutoragent(
+        self, course_dir: Path, chroma_path: Path, monkeypatch: pytest.MonkeyPatch
+    ):
+        """Regresión: TutorAgent debe poder instanciarse sin GEMINI_API_KEY en
+        el entorno (p. ej. un alumno que aún no configuró su key) — solo
+        ask() debe fallar de forma controlada, nunca el constructor."""
+        monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        respuesta = tutor.ask("¿Qué es una variable?")
 
         assert "Error al invocar al modelo Gemini" in respuesta
         assert "Contexto Local Recuperado" in respuesta
@@ -159,8 +237,9 @@ class TestDiagnoseError:
 
 class TestAskConTraceback:
     def test_pregunta_con_traceback_recibe_pista_socratica_antes_de_la_respuesta(
-        self, course_dir: Path, chroma_path: Path
+        self, course_dir: Path, chroma_path: Path, monkeypatch: pytest.MonkeyPatch
     ):
+        monkeypatch.setenv("GEMINI_API_KEY", "key-de-prueba")
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         mock_response = MagicMock()
         mock_response.text = "Respuesta completa del LLM"
@@ -170,25 +249,26 @@ class TestAskConTraceback:
             "ZeroDivisionError: division by zero\n¿Qué hago?"
         )
 
-        with patch(
-            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
-        ) as mock_model_cls:
-            mock_model_cls.return_value.generate_content.return_value = mock_response
+        with patch("src.multiagent_core.tutor_agent.genai.Client") as mock_client_cls:
+            mock_client_cls.return_value.models.generate_content.return_value = (
+                mock_response
+            )
             respuesta = tutor.ask(pregunta_con_error)
 
         assert "denominador" in respuesta.lower() or "cero" in respuesta.lower()
 
     def test_pregunta_conceptual_sin_traceback_no_recibe_pista_socratica(
-        self, course_dir: Path, chroma_path: Path
+        self, course_dir: Path, chroma_path: Path, monkeypatch: pytest.MonkeyPatch
     ):
+        monkeypatch.setenv("GEMINI_API_KEY", "key-de-prueba")
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         mock_response = MagicMock()
         mock_response.text = "Una variable es un espacio en memoria."
 
-        with patch(
-            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
-        ) as mock_model_cls:
-            mock_model_cls.return_value.generate_content.return_value = mock_response
+        with patch("src.multiagent_core.tutor_agent.genai.Client") as mock_client_cls:
+            mock_client_cls.return_value.models.generate_content.return_value = (
+                mock_response
+            )
             respuesta = tutor.ask("¿Qué es una variable?")
 
         assert respuesta == "Una variable es un espacio en memoria."
@@ -265,24 +345,30 @@ class TestMemoriaEpisodica:
 
 class TestAskUsaMemoria:
     def test_ask_incluye_contexto_de_pregunta_anterior_relacionada(
-        self, course_dir: Path, chroma_path: Path, memory_path: Path
+        self,
+        course_dir: Path,
+        chroma_path: Path,
+        memory_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
     ):
+        monkeypatch.setenv("GEMINI_API_KEY", "key-de-prueba")
         tutor = TutorAgent(
             course_dir=course_dir, chroma_path=chroma_path, memory_path=memory_path
         )
         mock_response = MagicMock()
         mock_response.text = "Respuesta simulada"
 
-        with patch(
-            "src.multiagent_core.tutor_agent.genai.GenerativeModel"
-        ) as mock_model_cls:
-            mock_model_cls.return_value.generate_content.return_value = mock_response
+        with patch("src.multiagent_core.tutor_agent.genai.Client") as mock_client_cls:
+            mock_client_cls.return_value.models.generate_content.return_value = (
+                mock_response
+            )
             tutor.ask("¿qué es una variable en Python?")
 
-            mock_model_cls.return_value.generate_content.reset_mock()
+            mock_client_cls.return_value.models.generate_content.reset_mock()
             tutor.ask("y las variables, se pueden reasignar?")
 
-        prompt_enviado = mock_model_cls.return_value.generate_content.call_args[0][0]
+        llamada = mock_client_cls.return_value.models.generate_content.call_args
+        prompt_enviado = llamada.kwargs["contents"]
         assert (
             "sesiones anteriores" in prompt_enviado.lower()
             or "pregunta anterior" in prompt_enviado.lower()
