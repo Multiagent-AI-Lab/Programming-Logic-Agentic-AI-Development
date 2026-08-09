@@ -36,6 +36,7 @@ if __name__ == "__main__":
         "UNIDAD_6_MODULARIDAD_IA_MCP.md",
         "UNIDAD_7_ESTRUCTURAS_DATOS_GRAFOS.md",
         "UNIDAD_8_PROYECTO_INTEGRADOR.md",
+        "EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.md",
     ]
 
     print("=" * 75)
