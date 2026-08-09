@@ -23,7 +23,7 @@ if 'google.colab' in sys.modules:
     if not os.path.exists(repo_dir):
         !git clone -q https://github.com/Multiagent-AI-Lab/{repo_dir}.git
     os.chdir(repo_dir)
-    %pip install -q mcp fastmcp chromadb rich
+    %pip install -q mcp fastmcp chromadb rich ipytest
 ```
 
 ---
@@ -211,6 +211,14 @@ def calcular_volumen_esfera(radio_nm: float) -> float:
     return volumen
 ```
 
+Pruébala con un par de radios de ejemplo:
+
+```python
+print(f"Volumen (radio=1.0 nm): {calcular_volumen_esfera(1.0):.5f} nm³")
+print(f"Volumen (radio=5.0 nm): {calcular_volumen_esfera(5.0):.5f} nm³")
+print(f"Radio inválido (0 nm): {calcular_volumen_esfera(0)}")
+```
+
 **Paso 4 — Prueba unitaria con pytest:**
 ```python
 import pytest
@@ -319,6 +327,18 @@ def calcular_area_nanoparticula(radio: Union[float, int]) -> float:
         
     # 4. CÁLCULO MATEMÁTICO DE PRODUCCIÓN
     return 4.0 * math.pi * (radio ** 2)
+```
+
+Pruébala con un radio válido y confirma que un radio inválido lanza el error esperado:
+
+```python
+print(f"Área (radio=1.0 nm): {calcular_area_nanoparticula(1.0):.6f} nm²")
+print(f"Área (radio=5 nm): {calcular_area_nanoparticula(5):.6f} nm²")
+
+try:
+    calcular_area_nanoparticula(-1.5)
+except ValueError as e:
+    print(f"Error esperado: {e}")
 ```
 
 ---
@@ -827,6 +847,13 @@ def test_calcular_coordinacion_excepciones() -> None:
         calcular_coordinacion_promedio(0.1, 0.3)
 ```
 
+Pruébala con los mismos valores del test:
+
+```python
+cn = calcular_coordinacion_promedio(radio_np=2.0, diametro_atomo=0.2)
+print(f"Coordinación promedio (R=2.0 nm, átomo=0.2 nm): {cn:.2f}")
+```
+
 #### Síntesis de Resultados
 El algoritmo permite evaluar cómo disminuye el número de coordinación al contraerse el tamaño de la nanopartícula, evidenciando por qué a escala nanométrica los materiales modifican de manera tan radical su reactividad química catalítica.
 
@@ -894,6 +921,13 @@ def test_calcular_dispersion_error_limite() -> None:
     # Si R < 3 * r_atomo, debe lanzar ValueError
     with pytest.raises(ValueError, match="El radio de la nanopartícula es inferior al límite"):
         calcular_dispersion_metalica(0.3, 0.15)
+```
+
+Pruébala con los mismos valores del test:
+
+```python
+dispersion = calcular_dispersion_metalica(radio_np=1.5, radio_atomo=0.15)
+print(f"Dispersión metálica (R=1.5 nm, r_atomo=0.15 nm): {dispersion:.2%}")
 ```
 
 #### Síntesis de Resultados
@@ -982,6 +1016,15 @@ def test_filtrar_lecturas_afm_excepciones() -> None:
     # Error por límites incoherentes
     with pytest.raises(ValueError, match="El límite mínimo h_min debe ser estrictamente menor"):
         filtrar_lecturas_afm([1.0, 2.0], 5.0, 2.0)
+```
+
+Pruébala con los mismos datos del test:
+
+```python
+datos = [1.2, 5.5, 10.0, -0.5, float('nan'), 120.0, 3.4]
+resultado = filtrar_lecturas_afm(datos, h_min=0.0, h_max=10.0)
+print(f"Lecturas originales: {datos}")
+print(f"Lecturas filtradas (0.0-10.0 nm): {resultado}")
 ```
 
 #### Síntesis de Resultados
