@@ -1,0 +1,16 @@
+Bitácora de síntesis — Nanopartículas de TiO2
+Fecha: 20 de abril de 2026
+Investigador: M. Herrera
+
+Síntesis por método sol-gel: hidrólisis controlada de isopropóxido de
+titanio (TTIP) en etanol anhidro, con adición gota a gota de agua
+desionizada bajo atmósfera de nitrógeno. El gel resultante se secó a
+80°C durante 12 horas y se calcinó a 450°C por 3 horas para inducir la
+fase cristalina anatasa.
+
+El TTIP fue el reactivo límite. Rendimiento del proceso: 78%,
+considerando pérdidas durante la etapa de calcinación.
+Diámetro promedio de cristalita (Scherrer, XRD): 22.4 nm.
+
+La fase anatasa fue confirmada por difracción de rayos X, sin señales
+significativas de la fase rutilo.

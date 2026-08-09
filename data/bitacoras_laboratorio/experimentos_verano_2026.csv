@@ -1,0 +1,9 @@
+fecha,material,diametro_nm,rendimiento_pct,metodo
+2026-03-14,Au,15.3,87,reduccion_citrato
+2026-04-02,Ag,8.7,92,reduccion_borohidruro
+2026-04-20,TiO2,22.4,78,sol_gel
+2026-05-05,Au,12.1,90,reduccion_citrato
+2026-05-12,Ag,9.4,88,reduccion_borohidruro
+2026-05-19,TiO2,19.8,81,sol_gel
+2026-05-26,Au,17.6,84,reduccion_citrato
+2026-06-02,Ag,7.9,95,reduccion_borohidruro

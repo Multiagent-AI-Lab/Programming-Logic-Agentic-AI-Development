@@ -1,0 +1,16 @@
+Bitácora de síntesis — Nanopartículas de plata (Ag)
+Fecha: 2 de abril de 2026
+Investigador: J. Torres
+
+Reducción de AgNO3 (0.001 M, 50 mL) con NaBH4 (0.002 M, 15 mL) en baño
+de hielo, bajo agitación vigorosa durante 30 minutos. La adición lenta
+del agente reductor fue crítica para evitar la agregación de partículas.
+
+El NaBH4 actuó como reactivo límite. Rendimiento reportado: 92%.
+El diámetro promedio de las nanopartículas, medido por TEM, fue de
+8.7 nm, con morfología predominantemente esférica y baja dispersión
+de tamaño.
+
+La suspensión coloidal resultante presentó un color amarillo característico,
+consistente con el plasmón de resonancia superficial esperado para
+nanopartículas de plata de este tamaño.

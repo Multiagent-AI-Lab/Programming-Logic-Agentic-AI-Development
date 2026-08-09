@@ -1,0 +1,17 @@
+Bitácora de síntesis — Nanopartículas de oro (Au)
+Fecha: 14 de marzo de 2026
+Investigador: L. Ramírez
+
+Se preparó una solución de HAuCl4 0.01% (25 mL) y se calentó a ebullición
+bajo agitación constante. Al alcanzar el punto de ebullición, se añadió
+citrato de sodio al 1% (2.5 mL) de forma rápida, observándose un cambio
+de color de amarillo pálido a azul oscuro y finalmente a rojo rubí en un
+lapso de 8 minutos, confirmando la formación de nanopartículas esféricas.
+
+El reactivo límite fue el citrato de sodio, dado que se usó en proporción
+estequiométrica menor respecto al HAuCl4. Rendimiento estimado: 87%.
+Diámetro promedio determinado por DLS: 15.3 nm, con índice de
+polidispersidad de 0.18.
+
+Observación adicional: la solución permaneció estable (sin agregación
+visible) durante al menos 72 horas de almacenamiento a 4°C.
