@@ -3,8 +3,8 @@
 Continuación de la [Parte 1: Fundamentos](EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.md).
 Esta parte es autocontenida — no necesitas haber ejecutado la Parte 1 en esta sesión.
 
-**Contenido de esta parte:** manejo de excepciones, lectura de archivos de texto y
-CSV, funciones propias, `*args`/`**kwargs`.
+**Contenido de esta parte:** manejo de excepciones, lectura de archivos de texto,
+funciones propias, `*args`/`**kwargs`.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE2_DATOS_Y_ARCHIVOS.ipynb)
 
