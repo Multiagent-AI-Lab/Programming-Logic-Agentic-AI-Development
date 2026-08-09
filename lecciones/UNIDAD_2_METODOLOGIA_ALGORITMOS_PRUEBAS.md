@@ -80,7 +80,7 @@ La formulación formal consiste en descomponer cualquier problema en tres etapas
 
 Imagina que deseas construir un puente colgante de gran envergadura. Ningún ingeniero civil comenzaría a verter concreto o a soldar vigas de acero de inmediato sin antes dibujar esquemas detallados de la estructura, calcular las fuerzas de tensión, mapear la cimentación y someter los planos a revisiones rigurosas. 
 
-```
+```text
 ┌────────────────────────────────────────────────────────┐
 │               CONSTRUCCIÓN ESTRUCTURAL                 │
 ├──────────────────────────┬─────────────────────────────┤
@@ -357,7 +357,7 @@ Las **pruebas unitarias automatizadas** son bloques de código externos diseñad
 
 Si fabricaras una serie de transistores nanométricos con compuertas de grafeno para un chip cuántico, no los ensamblarías en el circuito final esperando "a ver si funcionan". En su lugar, someterías a cada transistor individual a un proceso de inspección metrológica bajo un microscopio electrónico de barrido (SEM) o un microscopio de fuerza atómica (AFM). Medirías el ancho exacto del canal, la tolerancia de los átomos expuestos y su respuesta de conductancia ante pequeños voltajes. Si un componente individual se desvía de los límites definidos, es rechazado inmediatamente antes de integrarse al sistema.
 
-```
+```text
                   [ FUNCIÓN BAJO PRUEBA ]
                              │
             ┌────────────────┴────────────────┐
@@ -515,7 +515,7 @@ El fenómeno conocido como *"Vibe Coding"* ocurre cuando un programador escribe 
 
 Esto es equivalente a construir un puente masivo simplemente contratando operarios para que vayan uniendo vigas metálicas que encontraron tiradas, sin planos validados matemáticamente y sin la firma de responsabilidad de un Ingeniero Civil matriculado. El puente podría mantenerse en pie temporalmente debido a la gravedad, pero se derrumbará catastróficamente al experimentar las vibraciones del tráfico o al recibir el impacto de un viento moderado.
 
-```
+```text
        [ CONSTRUCTORES DE PUENTES ]
 ┌───────────────────────────────────────┐
 │  Vibe Coder (Sin Auditoría)          │

@@ -329,7 +329,7 @@ La técnica de refactorización clave para eliminar esta anidación es la aplica
 Observemos el flujo de ejecución comparativo de ambas lógicas:
 
 ##### Flujo con Anidación (Código Espagueti)
-```
+```text
 [Inicio de Función]
   └── ¿Los datos son válidos? (Sí)
         └── ¿Existe la clave 'dim'? (Sí)
@@ -339,7 +339,7 @@ Observemos el flujo de ejecución comparativo de ambas lógicas:
 ```
 
 ##### Flujo con Cláusulas de Guarda
-```
+```text
 [Inicio de Función]
   ├── ¿Los datos son Inválidos? ──> [Sí] ──> [Lanzar Excepción / Salida Inmediata]
   ├── ¿Falta clave 'dim'? ────────> [Sí] ──> [Lanzar Excepción / Salida Inmediata]

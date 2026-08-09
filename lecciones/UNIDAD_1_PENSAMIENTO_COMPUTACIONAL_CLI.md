@@ -521,7 +521,7 @@ Los tokens no coinciden necesariamente con palabras enteras. Los tokenizadores m
 
 Imagine que tiene que construir una réplica de una mansión y otros objetos empleando piezas de **LEGO**.
 
-```
+```text
 Texto original: "desarmadamente"
 Tokenización:  [ "des" ] [ "##arma" ] [ "##damente" ]
 ```
@@ -873,7 +873,9 @@ class TestTokenizerAnalyzer(unittest.TestCase):
         self.assertEqual(olvidados, ["El", "nanotubo", "tiene"])
 
 if __name__ == "__main__":
-    unittest.main()
+    # argv=[...] y exit=False evitan que unittest interprete los argumentos
+    # del kernel de Jupyter/Colab como nombres de tests y cierre el notebook.
+    unittest.main(argv=["primer-argumento-ignorado"], exit=False)
 ```
 
 ---

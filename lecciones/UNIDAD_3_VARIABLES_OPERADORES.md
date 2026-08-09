@@ -382,7 +382,7 @@ El **cortocircuito lógico** (short-circuit evaluation) es un mecanismo optimiza
 
 Imaginemos las alarmas de seguridad de un **Reactor Químico Nanotecnológico** en la UCEMICH:
 
-```
+```text
 [ Sensor Presión (A) ] ────(¿Límite de Presión Crítico?)────┐
                                                             ├─► [ Alarma Evacuación (OR) ]
 [ Sensor Temperatura (B) ] ──(¿Temperatura Crítica?)────────┘
@@ -390,7 +390,7 @@ Imaginemos las alarmas de seguridad de un **Reactor Químico Nanotecnológico** 
 1.  **Evaluación OR (Alarma Crítica)**: 
     El protocolo dicta la regla lógica: `presión_excedida or temperatura_excedida`. Si la presión del reactor se dispara a valores críticos de explosión (`True`), el sistema no pierde microsegundos valiosos en consultar la temperatura del reactor (un proceso lento a través del bus de datos). La alarma física de evacuación de la UCEMICH se activa de forma instantánea. Este salto directo se conoce como cortocircuito del operador `or`.
 
-```
+```text
 [ Sensor Válvula 1 (A) ] ────(¿Válvula Abierta?)────┐
                                                     ├─► [ Flujo Reactivos Seguro (AND) ]
 [ Sensor Válvula 2 (B) ] ────(¿Válvula Abierta?)────┘

@@ -252,7 +252,7 @@ Donde:
 ### Comportamiento Físico de la Curva de Energía
 El término superficial crece proporcionalmente a $r^2$ (positivo), dominando a radios atómicos muy pequeños. El término volumétrico decrece proporcionalmente a $r^3$ (negativo), dominando a radios grandes. Esto genera una barrera de energía máxima en un radio crítico ($r^*$):
 
-```
+```text
 Energía ΔG
    ^
    |        * * * (Barrera de energía crítica ΔG*)

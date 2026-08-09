@@ -64,7 +64,7 @@ La ejecución de código ajeno (el código de un estudiante o el código generad
 
 Para comprender cómo funciona el MAEC, imaginemos el flujo de trabajo de un **Profesor Asistente de Laboratorio Robótico** que audita las bitácoras y experimentos de los alumnos de ingeniería en nanotecnología.
 
-```
+```text
 +---------------------------------------------------------------------------------+
 |                       EL PROFESOR ASISTENTE ROBÓTICO                            |
 +---------------------------------------------------------------------------------+
