@@ -18,7 +18,7 @@ if 'google.colab' in sys.modules:
     if not os.path.exists(repo_dir):
         !git clone -q https://github.com/Multiagent-AI-Lab/{repo_dir}.git
     os.chdir(repo_dir)
-    %pip install -q google-genai beautifulsoup4
+    %pip install -q google-genai beautifulsoup4 lxml
 ```
 
 ```python
@@ -223,8 +223,35 @@ puede romper este código — es normal en web scraping y requiere revisar la p�
 si algo deja de funcionar. Wikipedia sirve bien para *practicar la técnica* de
 extracción de texto, pero para un reporte científico formal la fuente confiable
 sigue siendo PubChem — solo que, al ser una aplicación moderna renderizada con
-JavaScript, requeriría herramientas adicionales (como `selenium` o su propia API
-REST, ya usada en la sección 15) en vez de scraping directo con `requests`.
+JavaScript, requeriría herramientas adicionales (como `selenium`) para el HTML
+de su página de compuesto.
+
+### Extraer contenido real de PubChem con XML
+
+En vez de renunciar a PubChem, hay una vía intermedia: su API REST también
+sirve descripciones de compuestos en formato XML (no solo JSON, como en la
+sección 15), y `BeautifulSoup` puede parsear XML igual que HTML:
+
+```python
+from bs4 import BeautifulSoup
+import requests
+
+url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/titanium%20dioxide/description/XML"
+response = requests.get(url)
+
+soup = BeautifulSoup(response.text, "xml")
+descripciones = soup.find_all("Description")
+
+for descripcion in descripciones:
+    print(descripcion.get_text())
+    print("---")
+```
+
+`features="xml"` (en vez de `"html.parser"`) le indica a `BeautifulSoup` que use
+un parser de XML — requiere el paquete `lxml`, ya instalado en la celda de setup
+de esta parte. El contenido es más breve que el de Wikipedia (PubChem prioriza
+datos estructurados sobre prosa), pero es la fuente formal, sin depender de
+JavaScript.
 
 📖 [Leer archivos](https://ellibrodepython.com/leer-archivos-python)
 
