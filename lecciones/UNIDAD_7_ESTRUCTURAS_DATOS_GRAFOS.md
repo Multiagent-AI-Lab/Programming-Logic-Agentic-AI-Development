@@ -1,5 +1,12 @@
 # Unidad 7: Estructuras de Datos Complejas y Modelado de Grafos en Nanotecnología
 
+**Duración:** 2 semanas (12 horas)  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
+**Profesor:** Luis José Yudico Anaya  
+**Carrera:** Ingeniería en Nanotecnología  
+**Nivel:** Primer Semestre  
+
 Esta unidad presenta el diseño, implementación y validación de estructuras de datos complejas para la simulación molecular y el modelado de redes cristalinas en el contexto de la nanotecnología. Se hace uso de matrices multidimensionales de NumPy para la simulación en malla, NetworkX para el modelado de contactos interatómicos como grafos de conocimiento, y la suite de pruebas unitarias pytest para garantizar la robustez del software de producción.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_7_ESTRUCTURAS_DATOS_GRAFOS.ipynb)

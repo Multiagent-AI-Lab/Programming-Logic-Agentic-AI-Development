@@ -1,6 +1,13 @@
 # Unidad 8: Proyecto Integrador - Desarrollo Agéntico y Lógica de Programación
 ## El Mini-Agente de Evaluación de Código (MAEC) para el Análisis y Calificación Automatizada
 
+**Duración:** 3 semanas y media (21 horas)  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
+**Profesor:** Luis José Yudico Anaya  
+**Carrera:** Ingeniería en Nanotecnología  
+**Nivel:** Primer Semestre  
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_8_PROYECTO_INTEGRADOR.ipynb)
 
 ```python

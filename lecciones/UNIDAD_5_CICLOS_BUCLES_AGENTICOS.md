@@ -1,5 +1,12 @@
 # Unidad 5: Ciclos, Bucles Condicionales y Estructuras Agénticas de Autorreparación en Python para Ingeniería y Nanotecnología
 
+**Duración:** 2 semanas (12 horas)  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
+**Profesor:** Luis José Yudico Anaya  
+**Carrera:** Ingeniería en Nanotecnología  
+**Nivel:** Primer Semestre  
+
 Bienvenido a la **Unidad 5** del curso *"Lógica de Programación y Desarrollo Agéntico"*. En esta unidad, exploraremos de forma exhaustiva el uso avanzado de las estructuras de control cíclicas en Python 3 (`for` y `while`). Abordaremos estos conceptos desde dos áreas de vanguardia en la ingeniería contemporánea:
 1. **La simulación numérica de sistemas nanotecnológicos de precisión** (cinética de nucleación y crecimiento de nanopartículas).
 2. **El diseño de bucles de auto-corrección de código (Agentic Loops)** ejecutados dentro de entornos aislados (*Sandboxes*).

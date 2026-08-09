@@ -1,6 +1,6 @@
 # RÚBRICA GENERAL DEL SEMESTRE
 **Curso:** Lógica de Programación y Desarrollo Agéntico con IA
-**Institución:** UCEMICH — Ingeniería en Inteligencia Artificial y Nanotecnología
+**Institución:** UCEMICH — Ingeniería en Nanotecnología
 **Nivel:** Primer Semestre
 
 ---

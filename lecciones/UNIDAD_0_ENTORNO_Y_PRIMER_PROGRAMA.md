@@ -2,7 +2,8 @@
 **Duración:** Sesión inicial (previa a Unidad 1)
 **Curso:** Lógica de Programación y Desarrollo Agéntico con IA
 **Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)
-**Carrera:** Ingeniería en Inteligencia Artificial y Nanotecnología
+**Profesor:** Luis José Yudico Anaya
+**Carrera:** Ingeniería en Nanotecnología
 **Nivel:** Primer Semestre
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/blob/master/notebooks/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.ipynb)

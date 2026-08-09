@@ -1,5 +1,11 @@
 # EXTRA: Python + IA aplicado a Nanotecnología — Parte 2: Datos y Archivos
 
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
+**Profesor:** Luis José Yudico Anaya  
+**Carrera:** Ingeniería en Nanotecnología  
+**Nivel:** Primer Semestre  
+
 Continuación de la Parte 1: Fundamentos (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.ipynb`, disponible en `notebooks/`).
 Esta parte es autocontenida — no necesitas haber ejecutado la Parte 1 en esta sesión.
 

@@ -1,5 +1,12 @@
 # Unidad 6: Modularidad en Python y Desarrollo Agéntico (MCP & Function Calling)
 
+**Duración:** 2 semanas (12 horas)  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
+**Profesor:** Luis José Yudico Anaya  
+**Carrera:** Ingeniería en Nanotecnología  
+**Nivel:** Primer Semestre  
+
 Este documento constituye la guía oficial de estudio, repositorio de código de producción y marco de referencia pedagógico para la **Unidad 6: Modularidad e Integración con IA** de la materia *"Lógica de Programación y Desarrollo Agéntico"*. 
 
 El objetivo primordial de esta unidad es capacitar a los estudiantes de primer semestre de Ingeniería de la **Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)** en el diseño de software altamente cohesivo, débilmente acoplado y preparado para interactuar con sistemas de Inteligencia Artificial (IA) avanzados. A través del estudio de la modularidad y el **Model Context Protocol (MCP)**, los estudiantes comprenderán cómo los modelos de lenguaje a gran escala (LLMs) pueden descubrir, entender y ejecutar de manera autónoma herramientas programadas en Python.

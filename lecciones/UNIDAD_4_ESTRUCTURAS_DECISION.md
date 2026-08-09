@@ -1,5 +1,12 @@
 # Unidad 4: Estructuras de Decisión y Control de Flujo en Python 3
 
+**Duración:** 2 semanas (12 horas)  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
+**Profesor:** Luis José Yudico Anaya  
+**Carrera:** Ingeniería en Nanotecnología  
+**Nivel:** Primer Semestre  
+
 Este documento corresponde a la **Unidad 4** del curso *"Lógica de Programación y Desarrollo Agéntico"* del programa académico de la **UCEMICH**. En esta unidad se abordan las estructuras de decisión y el control de flujo aplicados a un dominio científico de frontera: la **Nanotecnología**. 
 
 Aprenderás a construir un motor de clasificación morfológica para nanopartículas utilizando estructuras condicionales tradicionales (`if/elif/else`), la moderna coincidencia de patrones estructurada (`match/case`), técnicas avanzadas de refactorización condicional y pruebas unitarias de nivel profesional con `pytest`.
