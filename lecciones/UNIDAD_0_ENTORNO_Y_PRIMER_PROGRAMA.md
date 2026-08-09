@@ -260,6 +260,8 @@ from src.multiagent_core.tutor_agent import TutorAgent
 tutor = TutorAgent(course_dir=Path("lecciones"))
 ```
 
+Prueba el tutor con una pregunta de ejemplo:
+
 ```python
 # Reutiliza la variable "tutor" en cualquier celda posterior para preguntar
 print(tutor.ask("¿qué es una variable?"))

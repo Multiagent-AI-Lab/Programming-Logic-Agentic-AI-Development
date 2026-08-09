@@ -21,6 +21,8 @@ if 'google.colab' in sys.modules:
     %pip install -q google-genai beautifulsoup4 lxml
 ```
 
+Define `get_llm_response`, igual que en las partes anteriores:
+
 ```python
 import os
 import sys
@@ -88,6 +90,8 @@ df = pd.read_csv("data/bitacoras_laboratorio/experimentos_verano_2026.csv")
 print(df.head())
 print(df.groupby("material")["diametro_nm"].mean())
 ```
+
+Con `matplotlib` puedes graficar directamente ese resumen:
 
 ```python
 df.groupby("material")["rendimiento_pct"].mean().plot(kind="bar")

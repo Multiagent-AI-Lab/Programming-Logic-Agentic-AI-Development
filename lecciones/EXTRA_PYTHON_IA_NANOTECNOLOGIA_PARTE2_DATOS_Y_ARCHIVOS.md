@@ -20,6 +20,8 @@ if 'google.colab' in sys.modules:
     %pip install -q google-genai
 ```
 
+Define `get_llm_response`, igual que en la Parte 1:
+
 ```python
 import os
 import sys
