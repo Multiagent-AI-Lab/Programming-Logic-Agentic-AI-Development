@@ -1,10 +1,14 @@
 # EXTRA: Python + IA aplicado a Nanotecnología — Parte 3: Paquetes y APIs
 
-**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
-**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
-**Profesor:** Luis José Yudico Anaya  
-**Carrera:** Ingeniería en Nanotecnología  
-**Nivel:** Primer Semestre  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA
+
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)
+
+**Profesor:** Luis José Yudico Anaya
+
+**Carrera:** Ingeniería en Nanotecnología
+
+**Nivel:** Primer Semestre
 
 Continuación de la Parte 2: Datos y Archivos (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE2_DATOS_Y_ARCHIVOS.ipynb`, disponible en `notebooks/`).
 Esta parte es autocontenida — no necesitas haber ejecutado las partes anteriores en esta sesión.

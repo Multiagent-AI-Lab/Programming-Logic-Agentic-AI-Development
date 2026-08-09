@@ -1,10 +1,14 @@
 # EXTRA: Python + IA aplicado a Nanotecnología — Parte 1: Fundamentos
 
-**Curso:** Lógica de Programación y Desarrollo Agéntico con IA  
-**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)  
-**Profesor:** Luis José Yudico Anaya  
-**Carrera:** Ingeniería en Nanotecnología  
-**Nivel:** Primer Semestre  
+**Curso:** Lógica de Programación y Desarrollo Agéntico con IA
+
+**Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)
+
+**Profesor:** Luis José Yudico Anaya
+
+**Carrera:** Ingeniería en Nanotecnología
+
+**Nivel:** Primer Semestre
 
 Material complementario y opcional, fuera de la secuencia de las 9 unidades del curso.
 Refuerza el patrón **Python como orquestador de llamadas a un LLM** — prompts como
