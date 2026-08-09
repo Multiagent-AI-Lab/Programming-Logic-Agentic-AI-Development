@@ -299,7 +299,7 @@ class TestAuditAllUnits:
     def test_recorre_las_9_unidades_reales_sin_excepciones(
         self, auditor: ContentAuditorAgent
     ):
-        course_dir = Path(__file__).parent.parent
+        course_dir = Path(__file__).parent.parent / "lecciones"
         reporte = auditor.audit_all_units(course_dir)
 
         assert isinstance(reporte, str)

@@ -59,7 +59,7 @@ Aplica como base a los laboratorios de todas las unidades (U1–U8). Cada unidad
 ## 📌 Notas de Aplicación
 
 - Esta rúbrica genérica es la **base**; unidades individuales (U1–U8) pueden agregar criterios propios sin sustituir estos 4/5 criterios centrales.
-- La política de IA por unidad (ver `UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`, sección de Política de IA) determina qué tan estrictamente se evalúa el criterio de "Trazabilidad del uso de IA": en U1–U3 se espera cero uso de IA en el código entregado.
+- La política de IA por unidad (ver `lecciones/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`, sección de Política de IA) determina qué tan estrictamente se evalúa el criterio de "Trazabilidad del uso de IA": en U1–U3 se espera cero uso de IA en el código entregado.
 - En exámenes y defensa oral, cualquier evidencia de uso de IA durante la evaluación implica calificación de 0 en el criterio correspondiente.
 
 ---

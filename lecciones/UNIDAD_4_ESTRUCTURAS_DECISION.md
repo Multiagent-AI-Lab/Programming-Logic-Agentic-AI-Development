@@ -1077,7 +1077,7 @@ if 'google.colab' in sys.modules:
 
 from src.multiagent_core.tutor_agent import TutorAgent
 
-tutor = TutorAgent(course_dir=Path("."))
+tutor = TutorAgent(course_dir=Path("lecciones"))
 print(tutor.ask("¿cuándo usar match/case en vez de if/elif/else?"))
 ```
 

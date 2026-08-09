@@ -1018,7 +1018,7 @@ if 'google.colab' in sys.modules:
 
 from src.multiagent_core.tutor_agent import TutorAgent
 
-tutor = TutorAgent(course_dir=Path("."))
+tutor = TutorAgent(course_dir=Path("lecciones"))
 print(tutor.ask("¿qué es el Vibe Coding y por qué no reemplaza el pensamiento computacional?"))
 ```
 

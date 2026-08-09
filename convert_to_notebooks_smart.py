@@ -23,6 +23,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     BASE_DIR = Path(__file__).parent
+    SOURCE_DIR = BASE_DIR / "lecciones"
     output_dir = BASE_DIR / "notebooks"
     output_dir.mkdir(exist_ok=True)
 
@@ -54,7 +55,7 @@ if __name__ == "__main__":
     missing = []
 
     for filename in files_to_convert:
-        filepath = BASE_DIR / filename
+        filepath = SOURCE_DIR / filename
         if not filepath.exists():
             missing.append(filename)
             continue

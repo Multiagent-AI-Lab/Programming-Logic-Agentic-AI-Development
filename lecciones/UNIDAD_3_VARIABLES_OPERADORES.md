@@ -1207,7 +1207,7 @@ if 'google.colab' in sys.modules:
 
 from src.multiagent_core.tutor_agent import TutorAgent
 
-tutor = TutorAgent(course_dir=Path("."))
+tutor = TutorAgent(course_dir=Path("lecciones"))
 print(tutor.ask("¿cuál es la diferencia entre shallow copy y deep copy?"))
 ```
 

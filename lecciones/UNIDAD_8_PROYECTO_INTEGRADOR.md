@@ -1221,7 +1221,7 @@ if 'google.colab' in sys.modules:
 
 from src.multiagent_core.tutor_agent import TutorAgent
 
-tutor = TutorAgent(course_dir=Path("."))
+tutor = TutorAgent(course_dir=Path("lecciones"))
 print(tutor.ask("¿qué hace el MAEC cuando detecta un import peligroso en el código del alumno?"))
 ```
 

@@ -364,7 +364,7 @@ Responde en español de forma estructurada, usando Markdown. Explica el paso a p
 if __name__ == "__main__":
     # Prueba del Agente en local
     BASE_DIR = Path(__file__).parent.parent.parent
-    tutor = TutorAgent(BASE_DIR)
+    tutor = TutorAgent(BASE_DIR / "lecciones")
     print("🤖 Agente Tutor inicializado. Haz una pregunta sobre el curso:")
     print("Duda: ¿Qué es el control por coincidencia de patrones?")
     respuesta = tutor.ask("¿Qué es el control por coincidencia de patrones?")

@@ -52,7 +52,7 @@ instrucciones si falta.
 | **Google Colab** | Modalidad híbrida/online o para ejecutar notebooks sin instalar nada localmente. Cada notebook incluye badge "Open in Colab" y celda de instalación automática. | Todas (opcional/respaldo) |
 | **Antigravity IDE** | Práctica estructurada del flujo de trabajo con asistentes de IA, a partir de la Unidad 4. | U4–U8 |
 
-Detalle completo (instalación de Python en Windows, primer programa en IDLE, checklist de verificación) en [`UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`](UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md).
+Detalle completo (instalación de Python en Windows, primer programa en IDLE, checklist de verificación) en [`UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`](lecciones/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md).
 
 ---
 
@@ -102,7 +102,8 @@ pytest tests/ -v --tb=short
 
 ## 🏗️ Estructura del Repositorio
 
-- **`notebooks/`**: Jupyter Notebooks (`.ipynb`) generados a partir de los MDs de las unidades, con badge de Colab y celda de instalación automática.
+- **`lecciones/`**: los 12 archivos Markdown fuente (9 `UNIDAD_*.md` + 3 `EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE*.md`) — nunca se editan los notebooks a mano, cualquier cambio de contenido va aquí y se regenera.
+- **`notebooks/`**: Jupyter Notebooks (`.ipynb`) generados a partir de los MDs de `lecciones/`, con badge de Colab y celda de instalación automática.
 - **`src/multiagent_core/`**: Los 8 agentes pedagógicos (ver tabla arriba).
 - **`tests/`**: Suite pytest de los 8 agentes.
 - **`data/`**: Datasets de nanotecnología de ejemplo (`nanoparticulas_ejemplo.csv`, `molecula_agua.json`, `red_cristalina_Au.json`) usados en U3, U5 y U7.
@@ -116,7 +117,7 @@ pytest tests/ -v --tb=short
 ## 🐍 Material Complementario: Python + IA en Nanotecnología
 
 Además de las 9 unidades principales, el repositorio incluye una pieza opcional
-en 3 partes (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE{1,2,3}_*.md`), adaptada del
+en 3 partes (`lecciones/EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE{1,2,3}_*.md`), adaptada del
 curso público ["AI Python for Beginners"](https://www.deeplearning.ai/courses/ai-python-for-beginners)
 de DeepLearning.AI. Refuerza el patrón "Python como orquestador de llamadas a un
 LLM" con ejemplos 100% de nanotecnología, en español, usando Gemini. No forma

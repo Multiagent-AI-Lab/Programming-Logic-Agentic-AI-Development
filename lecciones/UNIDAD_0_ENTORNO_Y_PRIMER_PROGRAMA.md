@@ -257,7 +257,7 @@ if 'google.colab' in sys.modules:
 from src.multiagent_core.tutor_agent import TutorAgent
 
 # Instanciar una sola vez (abrir el índice tiene un costo fijo ~0.3s)
-tutor = TutorAgent(course_dir=Path("."))
+tutor = TutorAgent(course_dir=Path("lecciones"))
 ```
 
 ```python
