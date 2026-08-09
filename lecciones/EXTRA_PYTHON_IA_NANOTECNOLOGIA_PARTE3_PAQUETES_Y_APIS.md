@@ -1,6 +1,6 @@
 # EXTRA: Python + IA aplicado a Nanotecnología — Parte 3: Paquetes y APIs
 
-Continuación de la [Parte 2: Datos y Archivos](EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE2_DATOS_Y_ARCHIVOS.md).
+Continuación de la Parte 2: Datos y Archivos (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE2_DATOS_Y_ARCHIVOS.ipynb`, disponible en `notebooks/`).
 Esta parte es autocontenida — no necesitas haber ejecutado las partes anteriores en esta sesión.
 
 **Contenido de esta parte:** paquetes built-in y de terceros, instalación con `pip`,
@@ -236,5 +236,5 @@ para responder tus preguntas del curso — ahora ya sabes cómo funciona por den
 ---
 
 Con esto terminan las 3 partes de este material complementario. Vuelve a la
-[Parte 1](EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.md) si quieres repasar
-desde el inicio.
+Parte 1 (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.ipynb`, disponible
+en `notebooks/`) si quieres repasar desde el inicio.

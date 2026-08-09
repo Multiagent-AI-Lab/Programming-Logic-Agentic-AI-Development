@@ -1,6 +1,6 @@
 # EXTRA: Python + IA aplicado a Nanotecnología — Parte 2: Datos y Archivos
 
-Continuación de la [Parte 1: Fundamentos](EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.md).
+Continuación de la Parte 1: Fundamentos (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE1_FUNDAMENTOS.ipynb`, disponible en `notebooks/`).
 Esta parte es autocontenida — no necesitas haber ejecutado la Parte 1 en esta sesión.
 
 **Contenido de esta parte:** manejo de excepciones, lectura de archivos de texto,
@@ -184,4 +184,4 @@ modificar su código.
 
 ---
 
-**Continúa en la [Parte 3: Paquetes y APIs →](EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE3_PAQUETES_Y_APIS.md)**
+**Continúa en la Parte 3: Paquetes y APIs** (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE3_PAQUETES_Y_APIS.ipynb`, disponible en `notebooks/`).

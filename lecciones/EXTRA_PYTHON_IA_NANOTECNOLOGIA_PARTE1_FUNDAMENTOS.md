@@ -259,4 +259,4 @@ print(get_llm_response(prompt))
 
 ---
 
-**Continúa en la [Parte 2: Datos y Archivos →](EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE2_DATOS_Y_ARCHIVOS.md)**
+**Continúa en la Parte 2: Datos y Archivos** (`EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE2_DATOS_Y_ARCHIVOS.ipynb`, disponible en `notebooks/`).
