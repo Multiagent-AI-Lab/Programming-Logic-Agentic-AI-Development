@@ -249,6 +249,8 @@ Donde:
 *   $\Delta G_v$ es el **cambio de energía libre volumétrica** (en $\text{J/m}^3$), que representa la ganancia de estabilidad química de los átomos al organizarse en un cristal ordenado. Para que el proceso de nucleación sea termodinámicamente favorable, este término debe ser estrictamente negativo ($\Delta G_v < 0$).
 *   $r$ es el **radio del núcleo** (en metros), el cual físicamente solo existe como una cantidad real y positiva ($r > 0$).
 
+📖 Esta es la formulación clásica de la barrera de nucleación homogénea del modelo de LaMer, la misma que gobierna la simulación cinética de la Unidad 5 — ver Whitehead, C. B., Özkar, S., & Finke, R. G. (2021). "LaMer's 1950 model of particle formation: a review and critical analysis..." *Materials Advances*, 2(1), 186–235. DOI: [10.1039/D0MA00439A](https://doi.org/10.1039/D0MA00439A).
+
 ### Comportamiento Físico de la Curva de Energía
 El término superficial crece proporcionalmente a $r^2$ (positivo), dominando a radios atómicos muy pequeños. El término volumétrico decrece proporcionalmente a $r^3$ (negativo), dominando a radios grandes. Esto genera una barrera de energía máxima en un radio crítico ($r^*$):
 

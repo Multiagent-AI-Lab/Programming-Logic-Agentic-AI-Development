@@ -293,6 +293,8 @@ En el código Python, esta fórmula matemática se evalúa numéricamente restan
 En la física de materiales, deseamos analizar cómo fluye la energía térmica (fonones) o la carga eléctrica (electrones) a través del esqueleto atómico del cristal.
 Los enlaces químicos más fuertes (con alta energía de enlace, expresada en $\text{kcal/mol}$) ofrecen un canal de comunicación de menor resistencia física para la propagación de energía. Por el contrario, enlaces débiles o fuerzas de dispersión de van der Waals representan canales de alta resistencia.
 
+📖 Los valores de energía de enlace usados en el ejemplo de la nanocadena de plata (`Ag1`-`Ag2`, `Ag2`-`Ag3`) son del orden de magnitud calculado para clústeres de plata mediante DFT — ver Chen, M., Dyer, J. E., Li, K., & Dixon, D. A. (2013). "Prediction of Structures and Atomization Energies of Small Silver Clusters, (Ag)ₙ, n < 100." *The Journal of Physical Chemistry A*, 117(39), 8298–8313. DOI: [10.1021/jp404493w](https://doi.org/10.1021/jp404493w).
+
 Para utilizar algoritmos estándar de búsqueda de caminos óptimos como el **Algoritmo de Dijkstra** (el cual minimiza la suma de pesos de las aristas), debemos definir una métrica de costo o resistencia que sea inversamente proporcional a la energía física del enlace químico.
 
 Por tanto, definimos el peso computacional $W_{AB}$ de la arista que conecta los átomos $A$ y $B$ como:

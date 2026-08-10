@@ -694,6 +694,8 @@ Donde:
 *   $\eta$ es la viscosidad dinámica del fluido ($Pa \cdot s$ o $\text{kg}/(\text{m} \cdot \text{s})$).
 *   $r$ es el radio hidrodinámico de la nanopartícula ($m$).
 
+📖 Esta relación entre el coeficiente de difusión y la fricción viscosa fue derivada originalmente por Einstein en 1905 combinándola con la ley de fricción de Stokes — para una revisión moderna del modelo y sus extensiones, ver Spiechowicz, J., Marchenko, I. G., Hänggi, P., & Łuczka, J. (2023). "Diffusion Coefficient of a Brownian Particle in Equilibrium and Nonequilibrium: Einstein Model and Beyond." *Entropy*, 25(1), 42. DOI: [10.3390/e25010042](https://doi.org/10.3390/e25010042).
+
 #### Ejemplo de Estructura de un Archivo de Entrega (`entrega_alumno.md`):
 
 ````markdown

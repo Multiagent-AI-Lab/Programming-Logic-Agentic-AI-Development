@@ -110,6 +110,8 @@ $$G_s = 4 \pi R^2 \gamma$$
 
 Donde $R$ representa el radio de la partícula y $\gamma$ representa la tensión superficial del material. No obstante, si el radio de la nanopartícula es menor o igual a $1.0\text{ nm}$, las fluctuaciones atómicas individuales y los efectos cuánticos dominan, lo que significa que el modelo macroscópico continuo ya no es válido y debe descartarse.
 
+📖 Sobre cómo la energía superficial de una nanopartícula depende de su tamaño y estructura, y los límites de validez del modelo continuo — ver Vollath, D., Fischer, F. D., & Holec, D. (2018). "Surface energy of nanoparticles – influence of particle size and structure." *Beilstein Journal of Nanotechnology*, 9, 2265–2276. DOI: [10.3762/bjnano.9.211](https://doi.org/10.3762/bjnano.9.211).
+
 A continuación, se define el diagrama de flujo en Mermaid que representa este algoritmo de validación y cálculo:
 
 <img src="https://raw.githubusercontent.com/Multiagent-AI-Lab/Programming-Logic-Agentic-AI-Development/master/notebooks/assets/diagramas/0a01b9bee68f3496.svg" alt="Diagrama de flujo Mermaid" style="max-width: 100%; background-color: white; padding: 8px;">
@@ -777,6 +779,8 @@ El número de coordinación ($CN$) representa la cantidad de átomos vecinos má
 
 Este algoritmo calcula la estimación teórica del número de coordinación promedio ponderado de una nanopartícula metálica de radio dado.
 
+📖 Sobre la distribución del número de coordinación en nanopartículas metálicas FCC en función del tamaño — ver Myshlyavtsev, A. V., Stishenko, P. V., & Svalova, A. I. (2017). "A systematic computational study of the structure crossover and coordination number distribution of metallic nanoparticles." *Physical Chemistry Chemical Physics*, 19(27), 17895–17903. DOI: [10.1039/c6cp07571a](https://doi.org/10.1039/c6cp07571a).
+
 #### Explicación matemática con LaTeX
 El número de coordinación promedio ponderado $\langle CN \rangle$ se calcula estimando la fracción de átomos en la superficie $f_s$ y en el núcleo $f_b = 1 - f_s$:
 
@@ -869,6 +873,8 @@ El algoritmo permite evaluar cómo disminuye el número de coordinación al cont
 
 #### Contexto conceptual e importancia
 La dispersión ($D_{isp}$) es un parámetro crítico en nanocatálisis, definido como la fracción de átomos de una nanopartícula metálica que están expuestos en la superficie y listos para interactuar con reactivos químicos. Un clúster con alta dispersión aprovecha mucho mejor el metal activo (como platino u oro).
+
+📖 El modelo de conteo de átomos superficiales usado aquí se basa en el trabajo fundacional de Van Hardeveld, R., & Hartog, F. (1969). "The statistics of surface atoms and surface sites on metal crystals." *Surface Science*, 15(2), 189–230. DOI: [10.1016/0039-6028(69)90148-4](https://doi.org/10.1016/0039-6028(69)90148-4).
 
 #### Explicación matemática con LaTeX
 Para un clúster esférico ideal con empaquetamiento hexagonal compacto o cúbico centrado en las caras, la dispersión se relaciona directamente con el radio $R$ y el radio atómico $r_{at}$:

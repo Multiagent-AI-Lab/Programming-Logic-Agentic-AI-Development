@@ -197,6 +197,8 @@ Las ecuaciones que gobiernan sus derivadas respecto al tiempo son:
     $$\frac{dC}{dt} = - \left( \frac{dN}{dt} V_0 + N(t) \cdot 4\pi R(t)^2 \frac{dR}{dt} \right) \rho_{solid}$$
     Donde $V_0 = \frac{4}{3}\pi R_0^3$ es el volumen molar inicial de una semilla de nucleación, y $\rho_{solid}$ es la densidad molar de la fase sólida metálica.
 
+📖 Este sistema de ecuaciones acopladas es una implementación directa del modelo clásico de LaMer (concentración crítica de supersaturación → nucleación → crecimiento) — ver Whitehead, C. B., Özkar, S., & Finke, R. G. (2021). "LaMer's 1950 model of particle formation: a review and critical analysis..." *Materials Advances*, 2(1), 186–235. DOI: [10.1039/D0MA00439A](https://doi.org/10.1039/D0MA00439A).
+
 Aplicando el integrador de Euler en cada iteración del bucle, obtenemos:
 $$N_{n+1} = N_n + \left( \frac{dN}{dt} \right)_n \cdot \Delta t$$
 $$R_{n+1} = R_n + \left( \frac{dR}{dt} \right)_n \cdot \Delta t$$
