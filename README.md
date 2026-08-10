@@ -93,10 +93,49 @@ reporte = orchestrator.generate_pedagogical_report(codigo_estudiante, unit_numbe
 print(reporte)
 ```
 
-Suite de pruebas de los 8 agentes (`tests/`, 111 tests):
+Suite de pruebas de los 8 agentes (`tests/`, 130 tests):
 ```bash
 pytest tests/ -v --tb=short
 ```
+
+---
+
+## 🧠 TutorAgent: Sistema Propio de Tutoría RAG Multiagente
+
+`TutorAgent` no es un wrapper delgado sobre una API de LLM — es un sistema de
+recuperación aumentada (RAG) construido específicamente para este curso, con
+varias decisiones de diseño no triviales:
+
+- **Índice semántico propio, no búsqueda por palabra clave.** Cada unidad se
+  parte por sección (`##`/`###`) y se indexa en ChromaDB con
+  `paraphrase-multilingual-MiniLM-L12-v2` en vez del embedding por defecto
+  de ChromaDB (`all-MiniLM-L6-v2`, entrenado casi exclusivamente en inglés)
+  — el default daba resultados de RAG muy pobres en español para preguntas
+  conceptuales del curso.
+- **Cada respuesta cita su fuente exacta** (archivo + título de sección), no
+  solo "según el curso" — el alumno puede verificar contra el material
+  original en `lecciones/`.
+- **Debugger socrático.** Si la pregunta incluye un traceback de Python
+  (`ZeroDivisionError`, `IndexError`, `KeyError`), el agente no da la
+  respuesta directa primero: hace una pregunta guía conectada a un ejemplo ya
+  visto en el curso, antes de resolver — mismo espíritu pedagógico que la
+  Política de IA progresiva de la Unidad 0.
+- **Memoria episódica local.** Guarda las últimas 50 preguntas de cada
+  alumno (`.tutor_memory.json`, por máquina) y las reutiliza como contexto
+  si detecta una pregunta relacionada — sin depender de un servicio externo
+  de persistencia.
+- **Recuperación resiliente ante conflictos de índice.** Si el índice local
+  fue construido con una versión anterior del embedding (p. ej. una sesión
+  de Colab previa), el agente detecta el conflicto y reconstruye el índice
+  automáticamente en vez de fallar.
+
+Es, en esencia, un sistema de tutoría multiagente propio (RAG + debugger
+socrático + memoria episódica) construido para un curso de primer semestre —
+no una integración genérica de chatbot. Código fuente completo y comentado
+en `src/multiagent_core/tutor_agent.py`; su suite de tests
+(`tests/test_tutor_agent.py`) documenta el comportamiento esperado de cada
+pieza con casos reales, incluyendo la reproducción del problema de
+embeddings en español antes del fix.
 
 ---
 
