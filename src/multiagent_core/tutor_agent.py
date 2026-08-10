@@ -129,8 +129,10 @@ class TutorAgent:
             )
 
     def _get_markdown_files(self) -> list[Path]:
-        """Obtiene todos los archivos Markdown de las unidades del curso."""
-        return list(self.course_dir.glob("UNIDAD_*.md"))
+        """Obtiene todos los archivos Markdown de las unidades y material EXTRA del curso."""
+        return list(self.course_dir.glob("UNIDAD_*.md")) + list(
+            self.course_dir.glob("EXTRA_*.md")
+        )
 
     def _split_into_sections(self, content: str) -> list[str]:
         """Divide un documento Markdown por secciones (headers H2 o H3)."""

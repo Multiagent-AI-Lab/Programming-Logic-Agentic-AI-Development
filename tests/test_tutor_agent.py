@@ -19,6 +19,10 @@ def course_dir(tmp_path: Path) -> Path:
         "# Unidad 2\n\n## Pseudocódigo\nEl pseudocódigo UCEMICH describe algoritmos usando INICIO, FIN, SI y PARA.\n",
         encoding="utf-8",
     )
+    (tmp_path / "EXTRA_TEST.md").write_text(
+        "# EXTRA: Material complementario\n\n## Tema Extra\nContenido de la parte EXTRA del curso.\n",
+        encoding="utf-8",
+    )
     (tmp_path / "notas.txt").write_text(
         "archivo no markdown, no debe incluirse", encoding="utf-8"
     )
@@ -31,13 +35,13 @@ def chroma_path(tmp_path: Path) -> Path:
 
 
 class TestGetMarkdownFiles:
-    def test_encuentra_solo_archivos_unidad_md(
+    def test_encuentra_archivos_unidad_y_extra_md(
         self, course_dir: Path, chroma_path: Path
     ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         archivos = tutor._get_markdown_files()
         nombres = {f.name for f in archivos}
-        assert nombres == {"UNIDAD_1_TEST.md", "UNIDAD_2_TEST.md"}
+        assert nombres == {"UNIDAD_1_TEST.md", "UNIDAD_2_TEST.md", "EXTRA_TEST.md"}
 
 
 class TestChromaPathCreation:
