@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Optional
 
 import chromadb
+import requests
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from dotenv import load_dotenv
 from google import genai
@@ -41,6 +42,8 @@ MAX_EPISODIOS = 50
 PREFIJO_LONGITUD = 5
 EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
 _DOI_PATTERN = re.compile(r"DOI:\s*\[([^\]]+)\]", re.IGNORECASE)
+CROSSREF_API_BASE = "https://api.crossref.org/works"
+CROSSREF_TIMEOUT_SECONDS = 10
 
 _SOCRATIC_RULES: dict[str, str] = {
     "zerodivisionerror": (
@@ -154,6 +157,33 @@ class TutorAgent:
             Lista de DOI únicos, en el orden en que aparecen en el texto.
         """
         return list(dict.fromkeys(_DOI_PATTERN.findall(content)))
+
+    def _fetch_abstract(self, doi: str) -> Optional[str]:
+        """Consulta el abstract público de un DOI vía la API de Crossref.
+
+        La API de Crossref es gratuita, no requiere API key, y expone el
+        abstract de un registro incluso cuando el texto completo del paper
+        está detrás de un paywall.
+
+        Args:
+            doi: Identificador DOI a consultar (ej. "10.3762/bjnano.9.211").
+
+        Returns:
+            Texto plano del abstract (markup JATS removido), o None si la
+            consulta falla o el registro no tiene abstract.
+        """
+        try:
+            response = requests.get(
+                f"{CROSSREF_API_BASE}/{doi}", timeout=CROSSREF_TIMEOUT_SECONDS
+            )
+            response.raise_for_status()
+            abstract_jats = response.json()["message"].get("abstract")
+            if not abstract_jats:
+                return None
+            return re.sub(r"<[^>]+>", "", abstract_jats).strip()
+        except (requests.RequestException, KeyError, ValueError) as e:
+            logger.warning("No se pudo obtener el abstract de DOI %s: %s", doi, e)
+            return None
 
     def _build_index(self) -> None:
         """Indexa los MDs del curso en ChromaDB, partidos por sección, si aún no lo están."""

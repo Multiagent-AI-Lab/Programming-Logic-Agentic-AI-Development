@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
+import requests
 
 from src.multiagent_core.tutor_agent import TutorAgent
 
@@ -81,6 +82,72 @@ class TestExtractDois:
     ):
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         assert tutor._extract_dois("Texto sin ninguna cita bibliográfica.") == []
+
+
+class TestFetchAbstract:
+    def test_retorna_abstract_limpio_de_markup_jats(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "message": {"abstract": "<jats:p>Texto del abstract con markup.</jats:p>"}
+        }
+        mock_response.raise_for_status.return_value = None
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            return_value=mock_response,
+        ):
+            resultado = tutor._fetch_abstract("10.3762/bjnano.9.211")
+
+        assert resultado == "Texto del abstract con markup."
+
+    def test_retorna_none_si_falla_la_peticion_de_red(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            side_effect=requests.exceptions.Timeout("timeout simulado"),
+        ):
+            resultado = tutor._fetch_abstract("10.9999/doi-inexistente")
+
+        assert resultado is None
+
+    def test_retorna_none_si_el_registro_no_tiene_abstract(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        mock_response = MagicMock()
+        mock_response.json.return_value = {"message": {}}
+        mock_response.raise_for_status.return_value = None
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            return_value=mock_response,
+        ):
+            resultado = tutor._fetch_abstract("10.1234/sin-abstract")
+
+        assert resultado is None
+
+    def test_retorna_none_si_status_code_es_error(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        mock_response = MagicMock()
+        mock_response.raise_for_status.side_effect = requests.exceptions.HTTPError(
+            "404"
+        )
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            return_value=mock_response,
+        ):
+            resultado = tutor._fetch_abstract("10.0000/no-existe")
+
+        assert resultado is None
 
 
 class TestChromaPathCreation:
