@@ -538,8 +538,17 @@ def classify_by_geometry_match(nanoparticle: Nanoparticle) -> str:
         # Caso por defecto para morfologías complejas o no convencionales
         case _:
             return "Morfología Compleja / No Clasificada"
+```
 
+Prueba ambas clasificaciones con una nanopartícula de ejemplo:
 
+```python
+nanoparticula = Nanoparticle(name="TestNP", length=12.0, width=10.0, height=5.0)
+print(f"Clasificación (if/elif): {classify_by_aspect_ratio_if(nanoparticula)}")
+print(f"Clasificación (match/case): {classify_by_geometry_match(nanoparticula)}")
+```
+
+```python
 def spaghetti_classifier(data: Any) -> str:
     """Implementación heredada de baja calidad (código espagueti).
     
@@ -627,6 +636,14 @@ def refactored_classifier(data: Dict[str, Any]) -> str:
             return "Nanorod"
         case _:
             return "Placa/Disco"
+```
+
+Compara ambas implementaciones con el mismo dato de entrada — deben coincidir en el resultado, pero nota cuánto más legible es la versión refactorizada:
+
+```python
+datos = {"dim": [10.0, 10.0, 10.0]}
+print(f"spaghetti_classifier:  {spaghetti_classifier(datos)}")
+print(f"refactored_classifier: {refactored_classifier(datos)}")
 ```
 
 ---

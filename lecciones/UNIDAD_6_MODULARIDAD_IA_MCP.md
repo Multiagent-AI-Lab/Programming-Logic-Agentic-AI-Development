@@ -394,8 +394,23 @@ def simular_modificacion_superficial(nanoparticula: Dict[str, Any], ligando: str
     nanoparticula["ligandos"].append(ligando.strip())
     nanoparticula["funcionalizada"] = True
     return nanoparticula
+```
 
+Prueba las tres funciones:
 
+```python
+relacion = calcular_relacion_aspecto(100.0, 5.0)
+print(f"Relación de aspecto (100nm/5nm): {relacion}")
+
+energia = calcular_energia_nucleacion(1e-9, 0.1, -1e8)
+print(f"Energía de nucleación: {energia:.5e} J")
+
+nanoparticula = {"id": "NP-Au-001", "nucleo": "Oro (Au)", "ligandos": ["Citrato"]}
+resultado = simular_modificacion_superficial(nanoparticula, "Tiol-PEG")
+print(f"Nanopartícula funcionalizada: {resultado}")
+```
+
+```python
 # =====================================================================
 # 2. SERVIDOR MCP / SIMULADOR DE FUNCTION CALLING
 # =====================================================================

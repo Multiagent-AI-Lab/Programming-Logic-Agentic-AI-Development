@@ -559,6 +559,16 @@ def calcular_energia_bohr(n: int, z: int = 1) -> Dict[str, float]:
     }
 ```
 
+Prueba ambas funciones con un caso físico real (ion sodio-cloro a 1 nm, y el estado fundamental del hidrógeno):
+
+```python
+fuerza = calcular_fuerza_coulomb(CARGA_ELEMENTAL, -CARGA_ELEMENTAL, 1e-9)
+print(f"Fuerza de Coulomb (Na+/Cl- a 1 nm): {fuerza:.4e} N")
+
+energia = calcular_energia_bohr(n=1, z=1)
+print(f"Energía de Bohr (hidrógeno, n=1): {energia['electronvoltios']:.4f} eV")
+```
+
 ---
 
 ### 🔍 Desglose Paso a Paso de `fisica_atomica.py`
