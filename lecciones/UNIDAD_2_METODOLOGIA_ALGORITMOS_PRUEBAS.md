@@ -1405,7 +1405,7 @@ if FUNCION_ESPERADA not in globals():
 else:
     bloques_codigo = [inspect.getsource(globals()[FUNCION_ESPERADA])]
     for nombre_global, valor in list(globals().items()):
-        if nombre_global.startswith(f"test_{FUNCION_ESPERADA}") and inspect.isfunction(valor):
+        if nombre_global.startswith("test_calcular_area") and inspect.isfunction(valor):
             bloques_codigo.append(inspect.getsource(valor))
 
     codigo_fuente = "\n\n".join(bloques_codigo)
