@@ -429,6 +429,8 @@ Donde:
 *   $q_1, q_2$ son los valores netos de las cargas en Coulombs ($\text{C}$).
 *   $r$ es la distancia de separación lineal de las cargas en metros ($\text{m}$). En escala atómica, esta distancia se sitúa en el rango de los nanómetros ($10^{-9}\text{ m}$) o Ångstroms ($10^{-10}\text{ m}$).
 
+📖 La repulsión de Coulomb entre nanopartículas con carga superficial del mismo signo es uno de los mecanismos que estabiliza una suspensión coloidal (evita que las partículas se agreguen) — ver Carone, A. et al. (2023). "Gold nanoparticle shape dependence of colloidal stability domains." *Nanoscale Advances*, 5(7), 2017–2026. DOI: [10.1039/d2na00809b](https://doi.org/10.1039/d2na00809b).
+
 ### 2. Ecuación de Niveles de Energía de Bohr (Física Cuántica)
 El modelo de Bohr describe el comportamiento energético del electrón en átomos hidrogenoides (átomos con un núcleo atómico pesado rodeado de un solo electrón, como el átomo de Hidrógeno, Helio ionizado $He^+$, o Litio doblemente ionizado $Li^{2+}$):
 
@@ -443,11 +445,15 @@ Donde:
 *   $h$ es la constante de Planck ($6.62607015 \times 10^{-34}\text{ J}\cdot\text{s}$).
 *   $n$ es el número cuántico principal (un entero discreto $n \ge 1$ que define la órbita permitida).
 
+📖 El modelo de Bohr es la base histórica de la ecuación de Brus, que describe cómo el confinamiento cuántico en un nanocristal semiconductor (radio menor al radio de Bohr del excitón) hace que su energía de bandgap dependa del tamaño de la partícula, no solo de su composición — ver Brus, L. E. (1986). "Electronic wave functions in semiconductor clusters: experiment and theory." *Journal of Physical Chemistry*, 90(12), 2555–2560. DOI: [10.1021/j100403a003](https://doi.org/10.1021/j100403a003).
+
 ---
 
 ### 💻 Código Python Completo: `fisica_atomica.py`
 
 A continuación se expone el código del módulo científico completo e integrado que realiza estos cálculos utilizando variables tipadas y validación estricta de rangos de operación.
+
+📖 Los valores de las constantes usados en este módulo (`K_COULOMB`, `MASA_ELECTRON`, `CARGA_ELEMENTAL`, `PERMITIVIDAD_VACIO`, `CONSTANTE_PLANCK`) corresponden a los valores recomendados por CODATA 2022, publicados oficialmente por el NIST — ver [CODATA Recommended Values of the Fundamental Physical Constants: 2022](https://physics.nist.gov/cuu/pdf/wall_2022.pdf), NIST Physical Measurement Laboratory.
 
 ```python
 """Cálculos robustos de física atómica a nanoescala y microescala.
