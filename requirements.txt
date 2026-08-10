@@ -1,4 +1,5 @@
 pytest>=7.0.0
+pytest-mock>=3.0.0
 ipytest>=0.14.0
 black>=24.0.0
 isort>=5.13.0

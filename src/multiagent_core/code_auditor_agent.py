@@ -11,6 +11,7 @@ Audita la calidad y la seguridad del código escrito por los alumnos:
 import ast
 import re
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -92,7 +93,14 @@ class CodeAuditorAgent:
         """Ejecuta pytest sobre el archivo de pruebas especificado y retorna el resultado."""
         try:
             result = subprocess.run(
-                ["pytest", str(test_file_path), "-q", "--tb=short"],
+                [
+                    sys.executable,
+                    "-m",
+                    "pytest",
+                    str(test_file_path),
+                    "-q",
+                    "--tb=short",
+                ],
                 capture_output=True,
                 text=True,
                 check=False,

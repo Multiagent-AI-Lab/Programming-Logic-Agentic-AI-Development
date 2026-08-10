@@ -81,6 +81,41 @@ class TestRunPytest:
         assert result["passed"] is False
         assert result["output"]
 
+    def test_invoca_pytest_como_modulo_del_interprete_actual(
+        self, auditor: CodeAuditorAgent, tmp_path: Path, mocker
+    ):
+        """Regresión: debe usar [sys.executable, '-m', 'pytest', ...], no ['pytest', ...] —
+        el binario 'pytest' puede no estar en el PATH del kernel en Colab aunque el
+        paquete sí esté instalado (mismo tipo de brecha vista con ipytest esta sesión)."""
+        import sys
+
+        test_file = tmp_path / "test_dummy.py"
+        test_file.write_text("def test_siempre_pasa():\n    assert True\n", encoding="utf-8")
+
+        mock_run = mocker.patch("src.multiagent_core.code_auditor_agent.subprocess.run")
+        mock_run.return_value.returncode = 0
+        mock_run.return_value.stdout = "1 passed"
+        mock_run.return_value.stderr = ""
+
+        auditor.run_pytest(test_file)
+
+        args_llamada = mock_run.call_args[0][0]
+        assert args_llamada[0] == sys.executable
+        assert args_llamada[1] == "-m"
+        assert args_llamada[2] == "pytest"
+
+    def test_retorna_passed_false_sin_lanzar_excepcion_con_cero_tests_recolectados(
+        self, auditor: CodeAuditorAgent, tmp_path: Path
+    ):
+        """Regresión: un archivo de tests sin ningún test recolectable (exit code 5 de
+        pytest) no debe lanzar excepción — debe comportarse igual que un fallo normal."""
+        test_file = tmp_path / "test_vacio.py"
+        test_file.write_text("# sin tests aquí\n", encoding="utf-8")
+
+        result = auditor.run_pytest(test_file)
+
+        assert result["passed"] is False
+
 
 class TestGenerateReport:
     def test_reporte_sin_test_file_incluye_estilo_y_seguridad(self, auditor: CodeAuditorAgent):
