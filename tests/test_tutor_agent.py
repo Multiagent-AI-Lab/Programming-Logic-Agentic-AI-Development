@@ -150,6 +150,106 @@ class TestFetchAbstract:
         assert resultado is None
 
 
+class TestBuildIndexConDois:
+    @pytest.fixture
+    def course_dir_con_doi(self, tmp_path: Path) -> Path:
+        (tmp_path / "UNIDAD_TEST.md").write_text(
+            "# Unidad de prueba\n\n"
+            "## Sección con cita\n\n"
+            "Un dato real respaldado por literatura. "
+            "DOI: [10.3762/bjnano.9.211](https://doi.org/10.3762/bjnano.9.211).\n",
+            encoding="utf-8",
+        )
+        return tmp_path
+
+    @pytest.fixture
+    def course_dir_con_doi_repetido(self, tmp_path: Path) -> Path:
+        (tmp_path / "UNIDAD_A_TEST.md").write_text(
+            "# Unidad A\n\n## Sección A\n\n"
+            "DOI: [10.1039/D0MA00439A](https://doi.org/10.1039/D0MA00439A).\n",
+            encoding="utf-8",
+        )
+        (tmp_path / "UNIDAD_B_TEST.md").write_text(
+            "# Unidad B\n\n## Sección B\n\n"
+            "DOI: [10.1039/D0MA00439A](https://doi.org/10.1039/D0MA00439A).\n",
+            encoding="utf-8",
+        )
+        return tmp_path
+
+    def test_abstract_se_indexa_con_metadata_de_referencia_doi(
+        self, course_dir_con_doi: Path, chroma_path: Path
+    ):
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "message": {"abstract": "Abstract de prueba sobre energía superficial."}
+        }
+        mock_response.raise_for_status.return_value = None
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            return_value=mock_response,
+        ):
+            tutor = TutorAgent(course_dir=course_dir_con_doi, chroma_path=chroma_path)
+
+        resultado = tutor._search_local_docs("energía superficial")
+        assert "Referencia DOI: 10.3762/bjnano.9.211" in resultado
+        assert "Abstract de prueba sobre energía superficial" in resultado
+
+    def test_doi_que_falla_no_impide_indexar_el_resto_del_archivo(
+        self, course_dir_con_doi: Path, chroma_path: Path
+    ):
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            side_effect=requests.exceptions.Timeout("timeout simulado"),
+        ):
+            tutor = TutorAgent(course_dir=course_dir_con_doi, chroma_path=chroma_path)
+
+        resultado = tutor._search_local_docs("sección con cita")
+        assert "UNIDAD_TEST.md" in resultado
+
+    def test_doi_repetido_en_dos_archivos_solo_consulta_crossref_una_vez(
+        self, course_dir_con_doi_repetido: Path, chroma_path: Path
+    ):
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "message": {"abstract": "Abstract único sobre nucleación."}
+        }
+        mock_response.raise_for_status.return_value = None
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            return_value=mock_response,
+        ) as mock_get:
+            TutorAgent(
+                course_dir=course_dir_con_doi_repetido, chroma_path=chroma_path
+            )
+
+        mock_get.assert_called_once()
+
+    def test_doi_repetido_en_dos_archivos_indexa_un_solo_documento_con_ambas_fuentes(
+        self, course_dir_con_doi_repetido: Path, chroma_path: Path
+    ):
+        mock_response = MagicMock()
+        mock_response.json.return_value = {
+            "message": {"abstract": "Abstract único sobre nucleación."}
+        }
+        mock_response.raise_for_status.return_value = None
+
+        with patch(
+            "src.multiagent_core.tutor_agent.requests.get",
+            return_value=mock_response,
+        ):
+            tutor = TutorAgent(
+                course_dir=course_dir_con_doi_repetido, chroma_path=chroma_path
+            )
+
+        resultado = tutor._search_local_docs("nucleación")
+        assert "UNIDAD_A_TEST.md" in resultado
+        assert "UNIDAD_B_TEST.md" in resultado
+        # Solo debe aparecer un bloque de referencia, no dos
+        assert resultado.count("Referencia DOI: 10.1039/D0MA00439A") == 1
+
+
 class TestChromaPathCreation:
     def test_crea_chroma_path_si_ni_el_directorio_padre_existe(
         self, course_dir: Path, tmp_path: Path

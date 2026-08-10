@@ -186,13 +186,22 @@ class TutorAgent:
             return None
 
     def _build_index(self) -> None:
-        """Indexa los MDs del curso en ChromaDB, partidos por sección, si aún no lo están."""
+        """Indexa los MDs del curso y los abstracts de sus DOI citados en
+        ChromaDB, si aún no lo están.
+
+        Las secciones se parten por MD como antes. Además, cada DOI citado
+        (en cualquier archivo) se consulta una sola vez vía Crossref y se
+        indexa como un documento adicional — si el mismo DOI aparece en
+        varios archivos, se indexa un solo documento con todas las fuentes
+        listadas en su metadata.
+        """
         if self.collection.count() > 0:
             return
 
         documents: list[str] = []
         metadatas: list[dict] = []
         ids: list[str] = []
+        doi_a_archivos: dict[str, list[str]] = {}
 
         for filepath in self._get_markdown_files():
             try:
@@ -207,6 +216,22 @@ class TutorAgent:
                 documents.append(section)
                 metadatas.append({"source": filepath.name, "section": title})
                 ids.append(f"{filepath.stem}__{idx}")
+
+            for doi in self._extract_dois(content):
+                doi_a_archivos.setdefault(doi, []).append(filepath.name)
+
+        for doi, archivos in doi_a_archivos.items():
+            abstract = self._fetch_abstract(doi)
+            if abstract is None:
+                continue
+            documents.append(abstract)
+            metadatas.append(
+                {
+                    "source": ", ".join(archivos),
+                    "section": f"Referencia DOI: {doi}",
+                }
+            )
+            ids.append(f"doi_{doi.replace('/', '_')}")
 
         if documents:
             self.collection.add(documents=documents, metadatas=metadatas, ids=ids)
