@@ -455,10 +455,7 @@ A continuación se expone el código del módulo científico completo e integrad
 
 📖 Los valores de las constantes usados en este módulo (`K_COULOMB`, `MASA_ELECTRON`, `CARGA_ELEMENTAL`, `PERMITIVIDAD_VACIO`, `CONSTANTE_PLANCK`) corresponden a los valores recomendados por CODATA 2022, publicados oficialmente por el NIST — ver [CODATA Recommended Values of the Fundamental Physical Constants: 2022](https://physics.nist.gov/cuu/pdf/wall_2022.pdf), NIST Physical Measurement Laboratory.
 
-> 💾 Para que puedas auto-evaluarte al final de esta unidad, guarda tu solución en un archivo real: agrega `%%writefile fisica_atomica.py` como primera línea de la celda de código de abajo antes de ejecutarla.
-
 ```python
-%%writefile fisica_atomica.py
 """Cálculos robustos de física atómica a nanoescala y microescala.
 
 Este módulo proporciona implementaciones de nivel profesional y rigor científico para:
@@ -568,6 +565,13 @@ def calcular_energia_bohr(n: int, z: int = 1) -> Dict[str, float]:
     }
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real (necesario para la auto-evaluación al final de la unidad). Pega debajo de la línea mágica el mismo código de la celda anterior.
+
+```python
+%%writefile fisica_atomica.py
+# Pega aquí tu código de la celda anterior (fisica_atomica.py completo)
+```
+
 Prueba ambas funciones con un caso físico real (ion sodio-cloro a 1 nm, y el estado fundamental del hidrógeno):
 
 ```python
@@ -603,10 +607,7 @@ La fuerza de Coulomb sale negativa (~-2.3×10⁻¹⁰ N), lo que confirma que es
 
 Las simulaciones de nanotecnología operan en escalas espaciales y de energía extremadamente pequeñas. Probar estas operaciones aritméticas utilizando un marco de pruebas como **Pytest** garantiza la resiliencia y estabilidad del algoritmo.
 
-> 💾 Para que puedas auto-evaluarte al final de esta unidad, guarda tus pruebas en un archivo real: agrega `%%writefile test_fisica_atomica.py` como primera línea de la celda de código de abajo antes de ejecutarla.
-
 ```python
-%%writefile test_fisica_atomica.py
 """Suite de pruebas unitarias robusta para el módulo fisica_atomica.
 
 Verifica la correctitud y precisión de los cálculos en escalas extremas
@@ -748,6 +749,13 @@ def test_energia_bohr_excepciones():
         
     with pytest.raises(ValueError):
         calcular_energia_bohr(n=1, z=-1)
+```
+
+> 💾 Corre la celda siguiente para guardar tus pruebas en un archivo real. Pega debajo de la línea mágica el mismo código de la celda anterior.
+
+```python
+%%writefile test_fisica_atomica.py
+# Pega aquí tu código de la celda anterior (test_fisica_atomica.py completo)
 ```
 
 ---
@@ -1313,9 +1321,9 @@ faltantes = [
 if faltantes:
     print("⚠️ Aún no has guardado:", ", ".join(faltantes))
     print(
-        f"Usa %%writefile {MODULO_SOLUCION} en la celda de tu solución y "
-        f"%%writefile {MODULO_TESTS} en la celda de tus pruebas, cada una "
-        "como primera línea de la celda, y vuelve a correr ambas antes de auto-evaluarte."
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
     )
 else:
     codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
