@@ -1383,3 +1383,42 @@ evaluador = EvaluatorAgent()
 resultado = evaluador.evaluate(mi_codigo)
 print(resultado["retroalimentacion"])
 ```
+
+---
+
+## 🧪 Auto-evaluación
+
+Corre esta celda al terminar los ejercicios de la unidad para recibir retroalimentación automática sobre tu función `calcular_area_nanoparticula`, calificada contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`).
+
+```python
+FUNCION_ESPERADA = "calcular_area_nanoparticula"
+
+import inspect
+import tempfile
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+if FUNCION_ESPERADA not in globals():
+    print(f"⚠️ Aún no has definido: {FUNCION_ESPERADA}")
+    print("Corre esa celda antes de auto-evaluarte.")
+else:
+    bloques_codigo = [inspect.getsource(globals()[FUNCION_ESPERADA])]
+    for nombre_global, valor in list(globals().items()):
+        if nombre_global.startswith(f"test_{FUNCION_ESPERADA}") and inspect.isfunction(valor):
+            bloques_codigo.append(inspect.getsource(valor))
+
+    codigo_fuente = "\n\n".join(bloques_codigo)
+
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".py", delete=False, encoding="utf-8"
+    ) as f:
+        f.write(codigo_fuente)
+        test_file_path = Path(f.name)
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=2, test_file_path=test_file_path
+    )
+    display(Markdown(reporte))
+```
