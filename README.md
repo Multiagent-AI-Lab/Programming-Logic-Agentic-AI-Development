@@ -128,6 +128,7 @@ varias decisiones de diseño no triviales:
   fue construido con una versión anterior del embedding (p. ej. una sesión
   de Colab previa), el agente detecta el conflicto y reconstruye el índice
   automáticamente en vez de fallar.
+- **Enriquecido con literatura científica real.** Además del contenido de las lecciones, el índice incluye el abstract público (vía la API gratuita de Crossref) de cada paper citado con DOI en el curso — el tutor puede fundamentar sus respuestas citando el estudio real detrás de una fórmula, no solo repetir el resumen pedagógico del `.md`. Deduplicado entre unidades: un DOI citado en más de un archivo se consulta e indexa una sola vez.
 
 Es, en esencia, un sistema de tutoría multiagente propio (RAG + debugger
 socrático + memoria episódica) construido para un curso de primer semestre —
