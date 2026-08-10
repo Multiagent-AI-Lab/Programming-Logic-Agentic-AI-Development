@@ -3,7 +3,7 @@ Agente Evaluador (EvaluatorAgent) - Lógica de Programación UCEMICH 📊
 =====================================================================
 
 Califica código de estudiantes contra la Rúbrica Genérica de Laboratorio
-(4 criterios × 4 niveles) definida en RUBRICA_GENERAL.md, reutilizando
+(5 criterios × 4 niveles) definida en RUBRICA_GENERAL.md, reutilizando
 CodeAuditorAgent para el análisis de estilo, seguridad y pruebas.
 """
 
@@ -88,6 +88,39 @@ class EvaluatorAgent:
         )
         return {"nivel": nivel, "retroalimentacion": retro}
 
+    def _evaluar_reproducibilidad(self, student_code: str) -> Dict[str, str]:
+        """Evalúa si el código usa aleatoriedad con una semilla fija (`seed`).
+
+        Código sin aleatoriedad es determinista por defecto y no requiere semilla.
+        Código que usa `random`/`np.random` sin fijar una semilla produce
+        resultados distintos en cada ejecución, dificultando la verificación.
+        """
+        usa_aleatoriedad = "random." in student_code or "random(" in student_code
+        if not usa_aleatoriedad:
+            return {
+                "nivel": "Sobresaliente",
+                "retroalimentacion": "El código es determinista; no requiere semilla fija.",
+            }
+
+        usa_seed = "seed(" in student_code
+        if usa_seed:
+            return {
+                "nivel": "Competente",
+                "retroalimentacion": (
+                    "Usa aleatoriedad con una semilla fija (seed); el resultado es "
+                    "reproducible entre ejecuciones."
+                ),
+            }
+
+        return {
+            "nivel": "Insuficiente",
+            "retroalimentacion": (
+                "Usa aleatoriedad (random/np.random) sin fijar una semilla (seed); "
+                "el resultado cambiará en cada ejecución, dificultando la verificación "
+                "y la depuración."
+            ),
+        }
+
     def _evaluar_pruebas(self, test_file_path: Optional[Path]) -> Dict[str, str]:
         """Califica el criterio de pruebas ejecutando pytest sobre test_file_path si existe."""
         if test_file_path is None or not Path(test_file_path).exists():
@@ -110,14 +143,14 @@ class EvaluatorAgent:
     def evaluate(
         self, student_code: str, test_file_path: Optional[Path] = None
     ) -> Dict[str, Any]:
-        """Evalúa el código del estudiante contra los 4 criterios de la rúbrica genérica.
+        """Evalúa el código del estudiante contra los 5 criterios de la rúbrica genérica.
 
         Args:
             student_code: Código fuente Python entregado por el estudiante.
             test_file_path: Ruta opcional a un archivo de pruebas pytest asociado.
 
         Returns:
-            Diccionario con los 4 criterios calificados, la calificación final
+            Diccionario con los 5 criterios calificados, la calificación final
             promedio (0-100) y una retroalimentación general consolidada.
         """
         criterios = {
@@ -125,6 +158,7 @@ class EvaluatorAgent:
             "Proceso (Hilo de Oro)": self._evaluar_proceso(student_code),
             "Calidad de código": self._evaluar_calidad_codigo(student_code),
             "Pruebas (pytest)": self._evaluar_pruebas(test_file_path),
+            "Reproducibilidad": self._evaluar_reproducibilidad(student_code),
         }
 
         puntajes = [PUNTAJE_POR_NIVEL[c["nivel"]] for c in criterios.values()]

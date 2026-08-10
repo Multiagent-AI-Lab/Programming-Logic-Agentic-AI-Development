@@ -19,7 +19,7 @@
 
 ---
 
-## 🧩 Rúbrica Genérica de Laboratorio (4 criterios × 4 niveles)
+## 🧩 Rúbrica Genérica de Laboratorio (5 criterios × 4 niveles)
 
 Aplica como base a los laboratorios de todas las unidades (U1–U8). Cada unidad puede añadir criterios específicos adicionales en su propio MD.
 
@@ -29,8 +29,9 @@ Aplica como base a los laboratorios de todas las unidades (U1–U8). Cada unidad
 | **2. Proceso (Hilo de Oro)** | No hay evidencia de pseudocódigo, diagrama ni pruebas previas al código. | Pseudocódigo o diagrama presentes pero desconectados del código final. | Pseudocódigo → Mermaid → Python coherentes entre sí. | Pseudocódigo → Mermaid → Python → pytest completo y trazable (TDD real: test antes que implementación). |
 | **3. Calidad de código** | Sin type hints, nombres poco claros, código no sigue PEP 8. | Type hints parciales, nombres aceptables, algunas violaciones de estilo. | Type hints completos en funciones públicas, PEP 8 cumplido, funciones cohesivas. | Además de lo anterior: docstrings completos, sin números mágicos, manejo explícito de errores. |
 | **4. Pruebas (pytest)** | Sin pruebas o pruebas que no ejecutan. | Pruebas presentes pero cobertura mínima (solo camino feliz). | Pruebas cubren camino feliz y al menos un caso borde/error. | Cobertura ≥80%, pruebas nombradas descriptivamente, incluye casos de error explícitos. |
+| **5. Reproducibilidad** | El resultado cambia entre ejecuciones sin explicación (aleatoriedad sin semilla fija, dependencia de estado externo no documentada). | Resultado estable en la mayoría de ejecuciones, pero sin semilla fija explícita cuando el algoritmo usa aleatoriedad. | Semilla fija (`random.seed()`/`np.random.seed()`/`random_state=`) donde aplica; el resultado es idéntico entre ejecuciones. | Además de lo anterior: la semilla es un parámetro documentado (no hardcodeada de forma oculta), y el README/docstring explica por qué ese valor produce el resultado reportado. |
 
-**Cálculo de la calificación del laboratorio:** promedio simple de los 4 criterios, salvo que la unidad específica indique una ponderación distinta.
+**Cálculo de la calificación del laboratorio:** promedio simple de los 5 criterios, salvo que la unidad específica indique una ponderación distinta. El criterio de Reproducibilidad se evalúa siempre, incluso cuando el laboratorio no usa aleatoriedad — en esos casos, el determinismo natural del código ya satisface el nivel Competente/Sobresaliente, salvo que el laboratorio dependa de estado externo no documentado (orden de ejecución de celdas, hora del sistema, etc.).
 
 ---
 

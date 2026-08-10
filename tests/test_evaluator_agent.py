@@ -30,6 +30,29 @@ def calcular_energia_cinetica(masa_kg: float, velocidad_m_s: float) -> float:
     return 0.5 * masa_kg * (velocidad_m_s ** 2)
 """
 
+CODIGO_ALEATORIO_SIN_SEED = """
+import random
+
+def simular_nucleacion(n_particulas: int) -> list[float]:
+    return [random.uniform(0.5, 5.0) for _ in range(n_particulas)]
+"""
+
+CODIGO_ALEATORIO_CON_SEED = """
+import random
+
+def simular_nucleacion(n_particulas: int, seed: int = 42) -> list[float]:
+    \"\"\"Simula radios de nucleación con una semilla fija para reproducibilidad.\"\"\"
+    random.seed(seed)
+    return [random.uniform(0.5, 5.0) for _ in range(n_particulas)]
+"""
+
+CODIGO_NUMPY_ALEATORIO_SIN_SEED = """
+import numpy as np
+
+def generar_ruido_afm(n_muestras: int):
+    return np.random.normal(0, 1, n_muestras)
+"""
+
 
 @pytest.fixture
 def evaluator() -> EvaluatorAgent:
@@ -37,13 +60,14 @@ def evaluator() -> EvaluatorAgent:
 
 
 class TestEvaluate:
-    def test_retorna_diccionario_con_cuatro_criterios(self, evaluator: EvaluatorAgent):
+    def test_retorna_diccionario_con_cinco_criterios(self, evaluator: EvaluatorAgent):
         resultado = evaluator.evaluate(CODIGO_LIMPIO)
         assert set(resultado["criterios"].keys()) == {
             "Corrección lógica",
             "Proceso (Hilo de Oro)",
             "Calidad de código",
             "Pruebas (pytest)",
+            "Reproducibilidad",
         }
 
     def test_cada_criterio_tiene_nivel_y_retroalimentacion(self, evaluator: EvaluatorAgent):
@@ -98,3 +122,40 @@ class TestEvaluate:
         resultado = evaluator.evaluate(CODIGO_LIMPIO)
         assert isinstance(resultado["retroalimentacion"], str)
         assert len(resultado["retroalimentacion"]) > 0
+
+
+class TestEvaluarReproducibilidad:
+    def test_codigo_sin_aleatoriedad_recibe_nivel_alto(self, evaluator: EvaluatorAgent):
+        resultado = evaluator.evaluate(CODIGO_LIMPIO)
+        assert resultado["criterios"]["Reproducibilidad"]["nivel"] in (
+            "Competente",
+            "Sobresaliente",
+        )
+
+    def test_random_sin_seed_recibe_nivel_insuficiente(self, evaluator: EvaluatorAgent):
+        resultado = evaluator.evaluate(CODIGO_ALEATORIO_SIN_SEED)
+        assert resultado["criterios"]["Reproducibilidad"]["nivel"] == "Insuficiente"
+
+    def test_numpy_random_sin_seed_recibe_nivel_insuficiente(
+        self, evaluator: EvaluatorAgent
+    ):
+        resultado = evaluator.evaluate(CODIGO_NUMPY_ALEATORIO_SIN_SEED)
+        assert resultado["criterios"]["Reproducibilidad"]["nivel"] == "Insuficiente"
+
+    def test_random_con_seed_recibe_nivel_competente_o_superior(
+        self, evaluator: EvaluatorAgent
+    ):
+        resultado = evaluator.evaluate(CODIGO_ALEATORIO_CON_SEED)
+        assert resultado["criterios"]["Reproducibilidad"]["nivel"] in (
+            "Competente",
+            "Sobresaliente",
+        )
+
+    def test_retroalimentacion_de_reproducibilidad_es_string_no_vacio(
+        self, evaluator: EvaluatorAgent
+    ):
+        resultado = evaluator.evaluate(CODIGO_ALEATORIO_SIN_SEED)
+        assert isinstance(
+            resultado["criterios"]["Reproducibilidad"]["retroalimentacion"], str
+        )
+        assert resultado["criterios"]["Reproducibilidad"]["retroalimentacion"]
