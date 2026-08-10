@@ -83,6 +83,15 @@ class TestExtractDois:
         tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
         assert tutor._extract_dois("Texto sin ninguna cita bibliográfica.") == []
 
+    def test_texto_con_link_doi_invalido_no_extrae_nada(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        texto = (
+            "Ver el trabajo de Vollath. DOI: [ver Vollath 2018](https://example.com)."
+        )
+        assert tutor._extract_dois(texto) == []
+
 
 class TestFetchAbstract:
     def test_retorna_abstract_limpio_de_markup_jats(
@@ -220,9 +229,7 @@ class TestBuildIndexConDois:
             "src.multiagent_core.tutor_agent.requests.get",
             return_value=mock_response,
         ) as mock_get:
-            TutorAgent(
-                course_dir=course_dir_con_doi_repetido, chroma_path=chroma_path
-            )
+            TutorAgent(course_dir=course_dir_con_doi_repetido, chroma_path=chroma_path)
 
         mock_get.assert_called_once()
 
