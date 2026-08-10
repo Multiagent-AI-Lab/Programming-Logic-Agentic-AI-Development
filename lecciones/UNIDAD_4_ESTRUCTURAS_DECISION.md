@@ -640,6 +640,13 @@ def refactored_classifier(data: Dict[str, Any]) -> str:
             return "Placa/Disco"
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real (necesario para la auto-evaluación al final de la unidad). Pega debajo de la línea mágica el código completo de la Sección 5: primero el bloque con `Nanoparticle`, `classify_by_aspect_ratio_if` y `classify_by_geometry_match`, y luego el bloque con `spaghetti_classifier` y `refactored_classifier`.
+
+```python
+%%writefile nanoparticle_classifier.py
+# Pega aquí tu código de las dos celdas anteriores (nanoparticle_classifier.py completo)
+```
+
 Compara ambas implementaciones con el mismo dato de entrada — deben coincidir en el resultado, pero nota cuánto más legible es la versión refactorizada:
 
 ```python
@@ -831,6 +838,13 @@ def test_refactored_classifier_raises_exceptions():
     # Dimensiones menores o iguales a cero
     with pytest.raises(ValueError, match="Las dimensiones de la nanopartícula deben ser"):
         refactored_classifier({"dim": [10.0, -1.0, 10.0]})
+```
+
+> 💾 Corre la celda siguiente para guardar tus pruebas en un archivo real. Pega debajo de la línea mágica el mismo código de la celda anterior.
+
+```python
+%%writefile test_nanoparticle_classifier.py
+# Pega aquí tu código de la celda anterior (test_nanoparticle_classifier.py completo)
 ```
 
 ---
@@ -1158,4 +1172,43 @@ print(auditor.generate_report(mi_codigo))
 evaluador = EvaluatorAgent()
 resultado = evaluador.evaluate(mi_codigo)
 print(resultado["retroalimentacion"])
+```
+
+---
+
+## 🧪 Auto-evaluación
+
+Corre esta celda al terminar los ejercicios de la unidad para recibir retroalimentación automática sobre tu módulo `nanoparticle_classifier.py`, calificado contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`).
+
+```python
+MODULO_SOLUCION = "nanoparticle_classifier.py"
+MODULO_TESTS = "test_nanoparticle_classifier.py"
+
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+ruta_solucion = Path(MODULO_SOLUCION)
+ruta_tests = Path(MODULO_TESTS)
+
+faltantes = [
+    nombre for nombre, ruta in
+    [(MODULO_SOLUCION, ruta_solucion), (MODULO_TESTS, ruta_tests)]
+    if not ruta.exists()
+]
+if faltantes:
+    print("⚠️ Aún no has guardado:", ", ".join(faltantes))
+    print(
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
+    )
+else:
+    codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=4, test_file_path=ruta_tests
+    )
+    display(Markdown(reporte))
 ```
