@@ -44,6 +44,45 @@ class TestGetMarkdownFiles:
         assert nombres == {"UNIDAD_1_TEST.md", "UNIDAD_2_TEST.md", "EXTRA_TEST.md"}
 
 
+class TestExtractDois:
+    def test_extrae_un_doi_simple(self, course_dir: Path, chroma_path: Path):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        texto = (
+            "Ver Vollath, D. (2018). *Beilstein J. Nanotechnol.*, 9, 2265. "
+            "DOI: [10.3762/bjnano.9.211](https://doi.org/10.3762/bjnano.9.211)."
+        )
+        assert tutor._extract_dois(texto) == ["10.3762/bjnano.9.211"]
+
+    def test_extrae_doi_con_parentesis_internos(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        """Regresión: el DOI real de Van Hardeveld & Hartog (1969) contiene
+        paréntesis en su propio identificador. Un regex que intente parsear
+        la URL delimitando por ')' trunca este DOI incorrectamente."""
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        texto = (
+            "Van Hardeveld, R., & Hartog, F. (1969). *Surface Science*, 15(2), 189–230. "
+            "DOI: [10.1016/0039-6028(69)90148-4](https://doi.org/10.1016/0039-6028(69)90148-4)."
+        )
+        assert tutor._extract_dois(texto) == ["10.1016/0039-6028(69)90148-4"]
+
+    def test_deduplica_doi_repetido_en_el_mismo_texto(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        texto = (
+            "Primera mención. DOI: [10.1039/d2na00809b](https://doi.org/10.1039/d2na00809b). "
+            "Segunda mención del mismo. DOI: [10.1039/d2na00809b](https://doi.org/10.1039/d2na00809b)."
+        )
+        assert tutor._extract_dois(texto) == ["10.1039/d2na00809b"]
+
+    def test_texto_sin_doi_retorna_lista_vacia(
+        self, course_dir: Path, chroma_path: Path
+    ):
+        tutor = TutorAgent(course_dir=course_dir, chroma_path=chroma_path)
+        assert tutor._extract_dois("Texto sin ninguna cita bibliográfica.") == []
+
+
 class TestChromaPathCreation:
     def test_crea_chroma_path_si_ni_el_directorio_padre_existe(
         self, course_dir: Path, tmp_path: Path

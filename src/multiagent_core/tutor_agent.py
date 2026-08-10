@@ -40,6 +40,7 @@ DEFAULT_MEMORY_FILENAME = ".tutor_memory.json"
 MAX_EPISODIOS = 50
 PREFIJO_LONGITUD = 5
 EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
+_DOI_PATTERN = re.compile(r"DOI:\s*\[([^\]]+)\]", re.IGNORECASE)
 
 _SOCRATIC_RULES: dict[str, str] = {
     "zerodivisionerror": (
@@ -137,6 +138,22 @@ class TutorAgent:
     def _split_into_sections(self, content: str) -> list[str]:
         """Divide un documento Markdown por secciones (headers H2 o H3)."""
         return [s.strip() for s in re.split(r"\n(?=##?\s)", content) if s.strip()]
+
+    def _extract_dois(self, content: str) -> list[str]:
+        """Extrae los identificadores DOI citados en el texto de una lección.
+
+        Extrae del texto del link Markdown (`[10.xxxx/yyyy]`), no de la URL —
+        algunos DOI reales contienen paréntesis en su propio identificador
+        (ej. Van Hardeveld & Hartog 1969: 10.1016/0039-6028(69)90148-4), lo
+        que rompería un regex que delimite por ')' en la URL.
+
+        Args:
+            content: Texto completo de un archivo Markdown de lección.
+
+        Returns:
+            Lista de DOI únicos, en el orden en que aparecen en el texto.
+        """
+        return list(dict.fromkeys(_DOI_PATTERN.findall(content)))
 
     def _build_index(self) -> None:
         """Indexa los MDs del curso en ChromaDB, partidos por sección, si aún no lo están."""
