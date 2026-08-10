@@ -140,6 +140,16 @@ embeddings en español antes del fix.
 
 ---
 
+## 🧪 Auto-evaluación Ejecutable por Unidad
+
+Las unidades 2, 3, 4 y 6 incluyen una celda de auto-evaluación al final del notebook: el alumno la corre para recibir retroalimentación automática e inmediata sobre su entrega, calificada contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`), sin depender de revisión manual del profesor.
+
+- Reutiliza el `OrchestratorAgent`/`EvaluatorAgent` existentes — cero infraestructura nueva, mismo motor que evalúa entregas manualmente.
+- Dos mecanismos según cómo cada unidad enseña pruebas: descubrimiento automático vía `globals()` (Unidad 2, funciones puras) o persistencia a disco vía `%%writefile` (Unidades 3, 4, 6 — módulos con dependencias de nivel de módulo, como constantes físicas).
+- Feedback efímero de sesión: la calificación no se guarda ni se reporta automáticamente al profesor, es solo para que el alumno itere antes de entregar.
+
+---
+
 ## 🏗️ Estructura del Repositorio
 
 - **`lecciones/`**: los 12 archivos Markdown fuente (9 `UNIDAD_*.md` + 3 `EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE*.md`) — nunca se editan los notebooks a mano, cualquier cambio de contenido va aquí y se regenera.
