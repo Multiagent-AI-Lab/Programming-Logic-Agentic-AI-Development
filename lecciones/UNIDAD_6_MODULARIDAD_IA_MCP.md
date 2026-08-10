@@ -641,6 +641,13 @@ class MCPServer:
             }
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real (necesario para la auto-evaluación al final de la unidad). Pega debajo de la línea mágica el código completo de la Sección 5: primero el bloque con las funciones modulares (`calcular_relacion_aspecto`, `calcular_energia_nucleacion`, `simular_modificacion_superficial`), y luego el bloque con la clase `MCPServer`.
+
+```python
+%%writefile mcp_server.py
+# Pega aquí tu código de las dos celdas anteriores (mcp_server.py completo)
+```
+
 ---
 
 ## 6. Desglose Paso a Paso del Código de Producción
@@ -827,6 +834,13 @@ def test_mcp_call_tool_error_validacion_tipos(servidor_inicializado: MCPServer) 
     
     assert response["isError"] is True
     assert "debe ser numérico" in response["content"][0]["text"]
+```
+
+> 💾 Corre la celda siguiente para guardar tus pruebas en un archivo real. Pega debajo de la línea mágica el mismo código de la celda anterior.
+
+```python
+%%writefile test_mcp_server.py
+# Pega aquí tu código de la celda anterior (test_mcp_server.py completo)
 ```
 
 ---
@@ -1249,4 +1263,43 @@ print(auditor.generate_report(mi_codigo))
 evaluador = EvaluatorAgent()
 resultado = evaluador.evaluate(mi_codigo)
 print(resultado["retroalimentacion"])
+```
+
+---
+
+## 🧪 Auto-evaluación
+
+Corre esta celda al terminar los ejercicios de la unidad para recibir retroalimentación automática sobre tu módulo `mcp_server.py`, calificado contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`).
+
+```python
+MODULO_SOLUCION = "mcp_server.py"
+MODULO_TESTS = "test_mcp_server.py"
+
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+ruta_solucion = Path(MODULO_SOLUCION)
+ruta_tests = Path(MODULO_TESTS)
+
+faltantes = [
+    nombre for nombre, ruta in
+    [(MODULO_SOLUCION, ruta_solucion), (MODULO_TESTS, ruta_tests)]
+    if not ruta.exists()
+]
+if faltantes:
+    print("⚠️ Aún no has guardado:", ", ".join(faltantes))
+    print(
+        f"Usa %%writefile {MODULO_SOLUCION} en la celda de tu solución y "
+        f"%%writefile {MODULO_TESTS} en la celda de tus pruebas, cada una "
+        "como primera línea de la celda, y vuelve a correr ambas antes de auto-evaluarte."
+    )
+else:
+    codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=6, test_file_path=ruta_tests
+    )
+    display(Markdown(reporte))
 ```
