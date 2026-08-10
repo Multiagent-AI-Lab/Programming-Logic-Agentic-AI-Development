@@ -548,6 +548,8 @@ print(f"Clasificación (if/elif): {classify_by_aspect_ratio_if(nanoparticula)}")
 print(f"Clasificación (match/case): {classify_by_geometry_match(nanoparticula)}")
 ```
 
+`classify_by_aspect_ratio_if` solo mira longitud/ancho (12.0/10.0 = 1.2, cae en el rango "Nanobastón"), mientras que `classify_by_geometry_match` evalúa las tres dimensiones a la vez y devuelve "Nanobastón (Nanorod)" por la misma razón geométrica pero con un criterio más completo (compara también contra la altura). Ambas coinciden en este caso, pero `classify_by_geometry_match` distingue morfologías (como nanoláminas 2D) que la versión if/elif no puede detectar por no considerar la altura.
+
 ```python
 def spaghetti_classifier(data: Any) -> str:
     """Implementación heredada de baja calidad (código espagueti).
@@ -645,6 +647,8 @@ datos = {"dim": [10.0, 10.0, 10.0]}
 print(f"spaghetti_classifier:  {spaghetti_classifier(datos)}")
 print(f"refactored_classifier: {refactored_classifier(datos)}")
 ```
+
+Ambas devuelven "Esfera Perfecta" para el mismo dato — el comportamiento observable es idéntico. La diferencia real está en el código fuente, no en la salida: `spaghetti_classifier` anida 6 niveles de `if` y retorna `"Error"` genérico ante cualquier entrada inválida (sin decir cuál fue el problema), mientras que `refactored_classifier` usa cláusulas de guarda que fallan rápido con mensajes específicos (`TypeError`, `ValueError` con texto explicativo). Es el mismo resultado con datos válidos, pero uno es mantenible y depurable, y el otro no.
 
 ---
 

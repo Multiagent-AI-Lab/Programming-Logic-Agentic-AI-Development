@@ -569,6 +569,8 @@ energia = calcular_energia_bohr(n=1, z=1)
 print(f"Energía de Bohr (hidrógeno, n=1): {energia['electronvoltios']:.4f} eV")
 ```
 
+La fuerza de Coulomb sale negativa (~-2.3×10⁻¹⁰ N), lo que confirma que es atractiva: cargas de signo opuesto se atraen, tal como documenta la función. La energía de Bohr del hidrógeno también es negativa (~-13.6 eV) — el signo indica que el electrón está ligado al núcleo; ese valor de -13.6 eV es precisamente la energía de ionización del hidrógeno medida experimentalmente, la referencia que valida que el modelo está bien implementado.
+
 ---
 
 ### 🔍 Desglose Paso a Paso de `fisica_atomica.py`

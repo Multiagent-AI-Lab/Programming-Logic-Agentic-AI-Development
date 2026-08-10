@@ -410,6 +410,8 @@ resultado = simular_modificacion_superficial(nanoparticula, "Tiol-PEG")
 print(f"Nanopartícula funcionalizada: {resultado}")
 ```
 
+Una relación de aspecto de 20.0 (longitud 20 veces el diámetro) describe un nanomaterial claramente 1D, como un nanohilo — valores cercanos a 1 corresponderían a partículas casi esféricas. La energía de nucleación positiva (~8.4×10⁻¹⁹ J) confirma que formar este núcleo cuesta energía: existe una barrera termodinámica que la nanopartícula debe superar antes de crecer establemente, el mismo fenómeno detrás de la curva de energía ($\Delta G$ vs. radio) vista más arriba en la unidad. Por último, nota que `resultado` es literalmente el mismo diccionario que `nanoparticula` — la función modifica el argumento in-place (paso por referencia), no crea una copia nueva.
+
 ```python
 # =====================================================================
 # 2. SERVIDOR MCP / SIMULADOR DE FUNCTION CALLING

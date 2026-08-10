@@ -219,6 +219,8 @@ print(f"Volumen (radio=5.0 nm): {calcular_volumen_esfera(5.0):.5f} nm³")
 print(f"Radio inválido (0 nm): {calcular_volumen_esfera(0)}")
 ```
 
+Al quintuplicar el radio (de 1.0 a 5.0 nm), el volumen no crece 5 veces sino 125 veces (5³), consecuencia directa de la relación cúbica $V \propto r^3$: pequeñas variaciones de tamaño a escala nanométrica producen cambios enormes de volumen. El tercer caso confirma que la función maneja el radio inválido devolviendo el centinela `-1.0` en vez de lanzar una excepción, tal como documenta su docstring.
+
 **Paso 4 — Prueba unitaria con pytest:**
 ```python
 import pytest
@@ -340,6 +342,8 @@ try:
 except ValueError as e:
     print(f"Error esperado: {e}")
 ```
+
+A diferencia del volumen (que crece con el cubo del radio), el área superficial crece con el cuadrado ($A \propto r^2$): al quintuplicar el radio, el área crece 25 veces, no 125. Esta diferencia de exponentes es exactamente por qué la relación superficie/volumen aumenta al reducir el tamaño de una nanopartícula — la razón física detrás de que los nanomateriales sean más reactivos que el mismo material a escala macroscópica. El tercer caso confirma que, a diferencia de `calcular_volumen_esfera`, esta función sí lanza una excepción explícita en vez de retornar un valor centinela.
 
 ---
 
@@ -854,6 +858,8 @@ cn = calcular_coordinacion_promedio(radio_np=2.0, diametro_atomo=0.2)
 print(f"Coordinación promedio (R=2.0 nm, átomo=0.2 nm): {cn:.2f}")
 ```
 
+El resultado (11.2) queda entre la coordinación típica de superficie (8.0, átomos con menos vecinos) y la de bulk FCC (12.0, átomos completamente rodeados), ponderado por la fracción de átomos que están en la superficie ($f_s = 0.2$, es decir, 20%). Cuanto menor el radio de la nanopartícula, mayor esa fracción superficial y más se acerca el promedio a 8.0 — átomos con menos vecinos son más reactivos, la misma razón física detrás del área superficial de la función anterior.
+
 #### Síntesis de Resultados
 El algoritmo permite evaluar cómo disminuye el número de coordinación al contraerse el tamaño de la nanopartícula, evidenciando por qué a escala nanométrica los materiales modifican de manera tan radical su reactividad química catalítica.
 
@@ -929,6 +935,8 @@ Pruébala con los mismos valores del test:
 dispersion = calcular_dispersion_metalica(radio_np=1.5, radio_atomo=0.15)
 print(f"Dispersión metálica (R=1.5 nm, r_atomo=0.15 nm): {dispersion:.2%}")
 ```
+
+30% de dispersión significa que 3 de cada 10 átomos del catalizador están expuestos en la superficie y disponibles para reaccionar — el resto queda "enterrado" dentro de la partícula sin participar en la catálisis. Como la fórmula es inversamente proporcional al radio ($d \propto 1/R$), reducir el tamaño de la nanopartícula es la estrategia directa para aumentar el porcentaje de átomos útiles por gramo de metal precioso.
 
 #### Síntesis de Resultados
 El cálculo refleja que al duplicar el radio de una nanopartícula de platino, la eficiencia de átomos expuestos disminuye a la mitad. Esto justifica el esfuerzo tecnológico por sintetizar catalizadores con el menor diámetro posible.
@@ -1026,6 +1034,8 @@ resultado = filtrar_lecturas_afm(datos, h_min=0.0, h_max=10.0)
 print(f"Lecturas originales: {datos}")
 print(f"Lecturas filtradas (0.0-10.0 nm): {resultado}")
 ```
+
+De las 7 lecturas originales, solo 4 sobreviven al filtro: `-0.5` queda fuera del rango físico (bajo `h_min`), `120.0` es un outlier evidente (posiblemente un pico espurio de vibración), y `nan` se descarta como ruido no numérico. El límite `10.0` se conserva porque el intervalo es cerrado (`h_min <= h <= h_max`).
 
 #### Síntesis de Resultados
 El algoritmo provee una base de filtrado determinista rápida que elimina artefactos de medición antes de computar métricas rugométricas clave como el promedio aritmético de rugosidad ($R_a$).
