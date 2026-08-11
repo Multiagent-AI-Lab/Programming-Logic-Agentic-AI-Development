@@ -295,6 +295,128 @@ class TestDimensionCurricular:
         assert resultado["hallazgos"]["curricular"] == []
 
 
+class TestInvariantesEstructurales:
+    def test_verifica_unit_number_detecta_desalineacion(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_3_TEST.md"
+        python_blocks = [
+            'MODULO_SOLUCION = "x.py"\n'
+            "orchestrator.generate_pedagogical_report(codigo, unit_number=2, test_file_path=p)"
+        ]
+        hallazgos = auditor._verifica_unit_number(python_blocks, md_path)
+        assert len(hallazgos) == 1
+        assert "unit_number=2" in hallazgos[0]
+        assert "Unidad 3" in hallazgos[0]
+
+    def test_verifica_unit_number_no_marca_hallazgo_si_coincide(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_3_TEST.md"
+        python_blocks = [
+            "orchestrator.generate_pedagogical_report(codigo, unit_number=3, test_file_path=p)"
+        ]
+        hallazgos = auditor._verifica_unit_number(python_blocks, md_path)
+        assert hallazgos == []
+
+    def test_verifica_unit_number_no_marca_hallazgo_si_no_hay_unit_number_en_ningun_bloque(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "UNIDAD_3_TEST.md"
+        python_blocks = ["def calcular(x: float) -> float:\n    return x * 2"]
+        hallazgos = auditor._verifica_unit_number(python_blocks, md_path)
+        assert hallazgos == []
+
+    def test_verifica_unit_number_no_marca_hallazgo_si_archivo_no_tiene_numero_de_unidad(
+        self, auditor: ContentAuditorAgent, tmp_path: Path
+    ):
+        md_path = tmp_path / "ARCHIVO_SIN_NUMERO.md"
+        python_blocks = [
+            "orchestrator.generate_pedagogical_report(codigo, unit_number=3, test_file_path=p)"
+        ]
+        hallazgos = auditor._verifica_unit_number(python_blocks, md_path)
+        assert hallazgos == []
+
+    def test_extrae_writefiles_reales_solo_lineas_que_empiezan_con_la_magia(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = [
+            "def f(x: int) -> int:\n    return x",
+            "%%writefile solucion.py\n# Pega aquí tu código",
+            'print("Corre %%writefile test.py para guardar")',
+        ]
+        resultado = auditor._extrae_writefiles_reales(python_blocks)
+        assert resultado == [("solucion.py", 1)]
+
+    def test_tiene_definicion_previa_encuentra_def_en_bloque_anterior(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = [
+            "def calcular(x: float) -> float:\n    return x * 2",
+            "%%writefile solucion.py",
+        ]
+        assert auditor._tiene_definicion_previa(python_blocks, 1) is True
+
+    def test_tiene_definicion_previa_encuentra_class_en_bloque_anterior(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = [
+            "class Ejemplo:\n    pass",
+            "%%writefile solucion.py",
+        ]
+        assert auditor._tiene_definicion_previa(python_blocks, 1) is True
+
+    def test_tiene_definicion_previa_false_sin_definiciones_antes(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = [
+            "x = 5\nprint(x)",
+            "%%writefile solucion.py",
+        ]
+        assert auditor._tiene_definicion_previa(python_blocks, 1) is False
+
+    def test_verifica_writefiles_con_definicion_detecta_writefile_sin_definicion_previa(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = [
+            "x = 5",
+            "%%writefile solucion.py\n# Pega aquí tu código",
+        ]
+        hallazgos = auditor._verifica_writefiles_con_definicion(python_blocks)
+        assert len(hallazgos) == 1
+        assert "solucion.py" in hallazgos[0]
+
+    def test_verifica_writefiles_con_definicion_no_marca_hallazgo_si_hay_definicion_antes(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = [
+            "def calcular_fuerza(q1: float, q2: float) -> float:\n    return q1 * q2",
+            "%%writefile fisica.py\n# Pega aquí tu código",
+        ]
+        hallazgos = auditor._verifica_writefiles_con_definicion(python_blocks)
+        assert hallazgos == []
+
+    def test_verifica_writefiles_no_marca_hallazgo_si_no_hay_writefile(
+        self, auditor: ContentAuditorAgent
+    ):
+        python_blocks = ["x = 5\nprint(x)"]
+        hallazgos = auditor._verifica_writefiles_con_definicion(python_blocks)
+        assert hallazgos == []
+
+    def test_verifica_writefiles_no_marca_hallazgo_por_mencion_en_fstring(
+        self, auditor: ContentAuditorAgent
+    ):
+        """Regresión: una mención de %%writefile dentro de un f-string de
+        ayuda (no como primera línea de una celda) nunca debe dispararse —
+        caso real verificado en UNIDAD_3/4/6 esta sesión."""
+        python_blocks = [
+            "MODULO_SOLUCION = \"x.py\"\n"
+            'print(f"Corre la celda \'%%writefile {MODULO_SOLUCION}\' para guardar")'
+        ]
+        hallazgos = auditor._verifica_writefiles_con_definicion(python_blocks)
+        assert hallazgos == []
+
+
 class TestAuditAllUnits:
     def test_recorre_las_9_unidades_reales_sin_excepciones(
         self, auditor: ContentAuditorAgent

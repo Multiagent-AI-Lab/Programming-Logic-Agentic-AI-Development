@@ -293,6 +293,108 @@ class ContentAuditorAgent:
 
         return hallazgos
 
+    _UNIT_NUMBER_PATTERN = re.compile(r"unit_number\s*=\s*(\d+)")
+
+    def _verifica_unit_number(
+        self, python_blocks: List[str], md_path: Path
+    ) -> List[str]:
+        """Verifica que unit_number en la celda de auto-evaluación coincida
+        con el número de unidad indicado por el nombre del archivo.
+
+        Args:
+            python_blocks: Bloques de código Python extraídos del MD.
+            md_path: Ruta del MD, usada para extraer el número de unidad.
+
+        Returns:
+            Lista con un hallazgo por cada bloque cuyo unit_number no
+            coincida; vacía si coincide o si el archivo no se reconoce
+            por nombre.
+        """
+        unidad_match = re.match(r"UNIDAD_(\d+)_", md_path.name)
+        if not unidad_match:
+            return []
+        numero_esperado = int(unidad_match.group(1))
+
+        hallazgos: List[str] = []
+        for code in python_blocks:
+            match = self._UNIT_NUMBER_PATTERN.search(code)
+            if match and int(match.group(1)) != numero_esperado:
+                hallazgos.append(
+                    f"La celda de auto-evaluación usa unit_number={match.group(1)}, "
+                    f"pero el archivo es de la Unidad {numero_esperado}."
+                )
+        return hallazgos
+
+    _WRITEFILE_LINEA = re.compile(r"^\s*%%writefile\s+(\S+)", re.MULTILINE)
+
+    def _extrae_writefiles_reales(self, python_blocks: List[str]) -> List[tuple]:
+        """Extrae líneas reales de %%writefile (primera línea no en blanco
+        de una celda), ignorando menciones en prosa o dentro de f-strings.
+
+        Args:
+            python_blocks: Bloques de código Python extraídos del MD.
+
+        Returns:
+            Lista de tuplas (nombre_archivo, indice_del_bloque_en_python_blocks).
+        """
+        resultado = []
+        for idx, code in enumerate(python_blocks):
+            for match in self._WRITEFILE_LINEA.finditer(code):
+                resultado.append((match.group(1), idx))
+        return resultado
+
+    def _tiene_definicion_previa(
+        self, python_blocks: List[str], indice_bloque: int
+    ) -> bool:
+        """Verifica si algún bloque anterior a indice_bloque define una
+        función o clase (ast.parse + ast.walk), tolerando bloques con
+        errores de sintaxis (se ignoran, no cuentan como definición).
+
+        Args:
+            python_blocks: Bloques de código Python extraídos del MD.
+            indice_bloque: Índice del bloque que contiene el %%writefile.
+
+        Returns:
+            True si algún bloque anterior tiene al menos una FunctionDef,
+            AsyncFunctionDef o ClassDef.
+        """
+        for code in python_blocks[:indice_bloque]:
+            try:
+                tree = ast.parse(code)
+            except SyntaxError:
+                continue
+            if any(
+                isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+                for n in ast.walk(tree)
+            ):
+                return True
+        return False
+
+    def _verifica_writefiles_con_definicion(
+        self, python_blocks: List[str]
+    ) -> List[str]:
+        """Verifica que todo %%writefile real tenga una definición de
+        función/clase en algún bloque anterior del mismo MD.
+
+        Args:
+            python_blocks: Bloques de código Python extraídos del MD.
+
+        Returns:
+            Lista con un hallazgo por cada %%writefile sin definición
+            previa; vacía si todos tienen definición o no hay ninguno.
+        """
+        hallazgos: List[str] = []
+        for nombre_archivo, indice_bloque in self._extrae_writefiles_reales(
+            python_blocks
+        ):
+            if not self._tiene_definicion_previa(python_blocks, indice_bloque):
+                hallazgos.append(
+                    f"'%%writefile {nombre_archivo}' no tiene ninguna definición "
+                    "de función o clase en un bloque de código anterior del "
+                    "mismo archivo — el alumno no tendría qué código pegar."
+                )
+        return hallazgos
+
     def audit_unit(self, md_path: Path) -> Dict[str, Any]:
         """Audita una unidad del curso contra las 4 dimensiones de calidad.
 
