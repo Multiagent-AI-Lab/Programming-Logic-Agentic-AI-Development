@@ -189,6 +189,7 @@ Antes de la primera sesión de la Unidad 1, el estudiante debe poder marcar los 
 - [ ] 8. El kernel `ia_logprog` aparece disponible al abrir un notebook en Jupyter/VS Code.
 - [ ] 9. La cuenta de GitHub Education fue solicitada (aprobación puede estar pendiente).
 - [ ] 10. Se leyó y comprendió la tabla de política de IA de la sección 0.5.
+- [ ] 11. Se leyó la sección 0.10 y se entiende cómo usar la celda de auto-evaluación en las Unidades 2, 3, 4 y 6.
 
 ---
 
@@ -277,6 +278,36 @@ print(tutor.ask("¿qué es una variable?"))
 Nota: la primera vez que ejecutes esto en una sesión nueva de Colab, `TutorAgent` indexa las 9 unidades del curso (tarda unos segundos); en ejecuciones posteriores en la misma máquina es instantáneo. Si `course_dir` no apunta a la raíz del repositorio (por ejemplo, tras un `git clone` en una ruta distinta en Colab), ajusta la ruta al directorio donde están los archivos `UNIDAD_*.md`.
 
 📖 Referencia: [aistudio.google.com](https://aistudio.google.com/apikey)
+
+---
+
+# 0.10 Auto-evaluación: Calificación Automática en tu Propio Notebook
+
+Algunas unidades (2, 3, 4 y 6) incluyen una celda "🧪 Auto-evaluación" al final del notebook. Al correrla, tu propio código se analiza automáticamente y recibes un reporte con retroalimentación contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`) — sin esperar a que el profesor revise tu entrega manualmente.
+
+> [!TIP]
+> Es una herramienta para practicar e iterar, no un reemplazo de la calificación oficial. El resultado no se guarda ni se envía a ningún lado — es feedback solo para ti, en esa sesión de Colab.
+
+## Cómo funciona, según la unidad
+
+Verás **uno de dos mecanismos**, dependiendo de cómo esa unidad ya te enseñó a escribir pruebas:
+
+**Unidad 2 — automático, sin pasos extra.** Ya escribiste tu función y sus pruebas en celdas anteriores del notebook. Solo corre la celda de auto-evaluación: encuentra tu código automáticamente (por el nombre de la función que pide el ejercicio) y lo evalúa. No necesitas hacer nada más.
+
+**Unidades 3, 4 y 6 — un paso adicional: guardar tu código en un archivo real.** Estas unidades usan funciones o clases que dependen de constantes definidas en la misma celda (por ejemplo, `K_COULOMB` en la Unidad 3) — la auto-evaluación necesita tu código completo, no solo el cuerpo de una función suelta, así que debes guardarlo en disco antes de evaluarlo:
+
+1. Debajo de tu celda de solución (y debajo de tu celda de pruebas) verás una celda nueva, corta, que empieza con `%%writefile <nombre>.py` seguida de un comentario tipo `# Pega aquí tu código de la celda anterior` (en unidades donde la solución está repartida en más de un bloque, el comentario lo indica explícitamente, por ejemplo "los dos bloques de definiciones que escribiste arriba").
+2. Reemplaza ese comentario pegando el código indicado (tu solución completa, o tus pruebas completas, según la celda).
+3. Corre esa celda — `%%writefile` es una instrucción especial de Colab que guarda el contenido de la celda como un archivo de verdad, en vez de solo ejecutarlo en memoria.
+4. Repite para la celda de pruebas.
+5. Ahora sí, corre la celda de auto-evaluación al final de la unidad.
+
+> [!WARNING]
+> Si corres la celda de auto-evaluación sin haber completado estos pasos, verás un mensaje claro indicándote qué falta (por ejemplo, "⚠️ Aún no has guardado: fisica_atomica.py") — no un error críptico de Python. Simplemente completa el paso que falta y vuelve a intentar.
+
+## ¿Por qué dos mecanismos distintos?
+
+No es inconsistencia: cada unidad usa el mecanismo que corresponde a cómo ya aprendiste a probar tu código ahí. La Unidad 2 evalúa funciones sueltas con sus pruebas en el mismo notebook (`ipytest`); las Unidades 3, 4 y 6 te preparan para el patrón real de un proyecto de software — código en un archivo `.py`, pruebas en otro — por eso ahí sí guardas archivos de verdad antes de evaluar.
 
 ---
 

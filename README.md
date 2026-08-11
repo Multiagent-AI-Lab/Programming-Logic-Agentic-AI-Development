@@ -148,6 +148,8 @@ Las unidades 2, 3, 4 y 6 incluyen una celda de auto-evaluación al final del not
 - Dos mecanismos según cómo cada unidad enseña pruebas: descubrimiento automático vía `globals()` (Unidad 2, funciones puras) o persistencia a disco vía `%%writefile` (Unidades 3, 4, 6 — módulos con dependencias de nivel de módulo, como constantes físicas).
 - Feedback efímero de sesión: la calificación no se guarda ni se reporta automáticamente al profesor, es solo para que el alumno itere antes de entregar.
 
+> 🎓 **Instrucciones para el alumno:** la explicación paso a paso de cómo usar la auto-evaluación en cada unidad está en `lecciones/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`, sección **0.10**.
+
 ---
 
 ## 🏗️ Estructura del Repositorio
@@ -160,7 +162,6 @@ Las unidades 2, 3, 4 y 6 incluyen una celda de auto-evaluación al final del not
 - **`convert_to_notebooks_smart.py`**: Convierte las lecciones Markdown (`.md`) a notebooks ejecutables (`.ipynb`), usando `NotebookCompilerAgent`.
 - **`RUBRICA_GENERAL.md`**: Ponderación del semestre y rúbricas genéricas de laboratorio y defensa oral.
 - **`CHEATSHEET_PYTHON_LOGPROG.md`**: Referencia rápida de sintaxis Python y comandos PowerShell.
-- **`docs/legado/`** *(local, no se publica en GitHub — ver `.gitignore`)*: material histórico del curso 2023-2024 (planeaciones didácticas, guías de PSeInt, código previo del pipeline de notebooks), conservado como referencia.
 
 ---
 
