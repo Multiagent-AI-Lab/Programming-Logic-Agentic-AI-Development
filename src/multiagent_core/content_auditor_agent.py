@@ -395,15 +395,101 @@ class ContentAuditorAgent:
                 )
         return hallazgos
 
+    def _verifica_fences_balanceados(self, content: str) -> List[str]:
+        """Detecta fences de apertura que extract_fenced_blocks() no pudo
+        cerrar correctamente — señal indirecta: el último bloque extraído
+        consume texto hasta el final del documento, aunque el .md real
+        siga teniendo contenido después de ese fence en el texto fuente.
+
+        No reimplementa el parseo de fences: reutiliza extract_fenced_blocks()
+        (notebook_compiler_agent.py) como fuente de verdad, y solo inspecciona
+        si su comportamiento de "consumir hasta EOF" ocurrió indebidamente.
+
+        Args:
+            content: Texto completo del MD de la unidad.
+
+        Returns:
+            Lista con un hallazgo si el último fence no cierra correctamente;
+            vacía si no hay bloques o todos cierran bien.
+        """
+        bloques = extract_fenced_blocks(content)
+        if not bloques:
+            return []
+
+        ultimo_fence, ultimo_lang, ultimo_codigo = bloques[-1]
+        if not ultimo_codigo:
+            return []
+
+        primera_linea_codigo = ultimo_codigo.split("\n")[0]
+        linea_apertura = f"{ultimo_fence}{ultimo_lang}"
+        marcador_apertura = f"{linea_apertura}\n{primera_linea_codigo}"
+        posicion_apertura = content.rfind(marcador_apertura)
+        if posicion_apertura == -1:
+            return []
+
+        resto_tras_apertura = content[posicion_apertura:]
+        lineas_resto = resto_tras_apertura.split("\n")
+        cierre_encontrado = any(
+            linea.strip() == ultimo_fence for linea in lineas_resto[1:]
+        )
+        if not cierre_encontrado:
+            return [
+                f"Posible fence de código sin cerrar: un bloque abierto con "
+                f"'{ultimo_fence}' no encuentra su línea de cierre exacta en "
+                "el resto del documento — extract_fenced_blocks() pudo haber "
+                "consumido contenido no destinado a ser código."
+            ]
+        return []
+
+    def _verifica_celda_setup(self, content: str) -> List[str]:
+        """Verifica que la celda estándar de setup (git clone + os.chdir)
+        esté presente en el MD.
+
+        Args:
+            content: Texto completo del MD de la unidad.
+
+        Returns:
+            Lista con un hallazgo si falta el patrón; vacía si está presente.
+        """
+        if "git clone" not in content or "os.chdir" not in content:
+            return [
+                "No se encontró la celda de setup estándar (git clone + "
+                "os.chdir) en esta unidad."
+            ]
+        return []
+
+    def _audit_invariantes_estructurales(
+        self, python_blocks: List[str], content: str, md_path: Path
+    ) -> List[str]:
+        """Audita invariantes estructurales: consistencia de la celda de
+        auto-evaluación (donde ya existe) e invariantes generales del
+        Hilo de Oro aplicables a las 9 unidades.
+
+        Args:
+            python_blocks: Bloques de código Python extraídos del MD.
+            content: Texto completo del MD de la unidad.
+            md_path: Ruta del MD, usada para extraer el número de unidad.
+
+        Returns:
+            Lista concatenada de hallazgos de las 4 verificaciones.
+        """
+        hallazgos: List[str] = []
+        hallazgos.extend(self._verifica_unit_number(python_blocks, md_path))
+        hallazgos.extend(self._verifica_writefiles_con_definicion(python_blocks))
+        hallazgos.extend(self._verifica_fences_balanceados(content))
+        hallazgos.extend(self._verifica_celda_setup(content))
+        return hallazgos
+
     def audit_unit(self, md_path: Path) -> Dict[str, Any]:
-        """Audita una unidad del curso contra las 4 dimensiones de calidad.
+        """Audita una unidad del curso contra las 5 dimensiones de calidad.
 
         Args:
             md_path: Ruta al archivo Markdown de la unidad.
 
         Returns:
             Diccionario con la unidad auditada, hallazgos por dimensión
-            ("latex", "pedagogico", "codigo", "curricular") y el total.
+            ("latex", "pedagogico", "codigo", "curricular", "estructural")
+            y el total.
         """
         content = md_path.read_text(encoding="utf-8")
         bloques = extract_fenced_blocks(content)
@@ -414,6 +500,9 @@ class ContentAuditorAgent:
             "pedagogico": self._audit_pedagogico(bloques, content),
             "codigo": self._audit_codigo(python_blocks),
             "curricular": self._audit_curricular(md_path, content),
+            "estructural": self._audit_invariantes_estructurales(
+                python_blocks, content, md_path
+            ),
         }
         total = sum(len(v) for v in hallazgos.values())
 

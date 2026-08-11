@@ -17,7 +17,7 @@ def auditor() -> ContentAuditorAgent:
 
 
 class TestAuditUnitEstructura:
-    def test_retorna_diccionario_con_las_4_dimensiones(
+    def test_retorna_diccionario_con_las_5_dimensiones(
         self, auditor: ContentAuditorAgent, tmp_path: Path
     ):
         md_path = tmp_path / "UNIDAD_1_TEST.md"
@@ -33,6 +33,7 @@ class TestAuditUnitEstructura:
             "pedagogico",
             "codigo",
             "curricular",
+            "estructural",
         }
         assert isinstance(resultado["total_hallazgos"], int)
 
@@ -414,6 +415,62 @@ class TestInvariantesEstructurales:
             'print(f"Corre la celda \'%%writefile {MODULO_SOLUCION}\' para guardar")'
         ]
         hallazgos = auditor._verifica_writefiles_con_definicion(python_blocks)
+        assert hallazgos == []
+
+    def test_verifica_fences_balanceados_detecta_fence_sin_cerrar(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = (
+            "# Test\n\n```python\ndef f():\n    pass\n\n## Encabezado que "
+            "nunca debería estar dentro de un bloque de código\n"
+        )
+        hallazgos = auditor._verifica_fences_balanceados(content)
+        assert len(hallazgos) == 1
+        assert "sin cerrar" in hallazgos[0].lower()
+
+    def test_verifica_fences_balanceados_no_marca_fences_correctos(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = "# Test\n\n```python\ndef f():\n    pass\n```\n\nTexto normal.\n"
+        hallazgos = auditor._verifica_fences_balanceados(content)
+        assert hallazgos == []
+
+    def test_verifica_fences_balanceados_no_marca_fences_anidados_de_distinta_longitud(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = (
+            "# Test\n\n````markdown\nEjemplo con un fence interno:\n\n"
+            "```python\nx = 1\n```\n````\n\nTexto tras el bloque.\n"
+        )
+        hallazgos = auditor._verifica_fences_balanceados(content)
+        assert hallazgos == []
+
+    def test_verifica_fences_balanceados_sin_bloques_no_marca_nada(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = "# Test\n\nSolo texto, sin ningún bloque de código.\n"
+        hallazgos = auditor._verifica_fences_balanceados(content)
+        assert hallazgos == []
+
+    def test_verifica_celda_setup_detecta_ausencia(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = "# Test\n\nContenido sin celda de setup.\n"
+        hallazgos = auditor._verifica_celda_setup(content)
+        assert len(hallazgos) == 1
+        assert "setup" in hallazgos[0].lower()
+
+    def test_verifica_celda_setup_no_marca_hallazgo_si_presente(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = (
+            "# Test\n\n```python\nimport os\nimport sys\n\n"
+            "if 'google.colab' in sys.modules:\n"
+            "    repo_dir = 'algo'\n"
+            "    !git clone -q https://github.com/x/y.git\n"
+            "    os.chdir(repo_dir)\n```\n"
+        )
+        hallazgos = auditor._verifica_celda_setup(content)
         assert hallazgos == []
 
 
