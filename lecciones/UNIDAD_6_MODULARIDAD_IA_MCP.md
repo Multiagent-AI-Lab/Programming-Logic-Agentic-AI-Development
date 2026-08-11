@@ -645,7 +645,7 @@ class MCPServer:
 
 ```python
 %%writefile mcp_server.py
-# Pega aquí tu código de las dos celdas anteriores (mcp_server.py completo)
+# Pega aquí tu código de los dos bloques de definiciones que escribiste arriba (mcp_server.py completo)
 ```
 
 ---
@@ -874,6 +874,8 @@ pytest -v test_mcp_server.py
 
 ### 8.4. Script de Demostración del Flujo Agéntico
 Para ver cómo opera el servidor simulando la recepción de un JSON de entrada de una IA, puede crear y ejecutar un script complementario (`demo_agent.py`):
+
+> Este script solo reutiliza `mcp_server.py`, que ya debe existir en disco desde la sección de solución — no necesita su propio `%%writefile`.
 
 ```python
 from mcp_server import MCPServer, calcular_relacion_aspecto, simular_modificacion_superficial
@@ -1290,9 +1292,9 @@ faltantes = [
 if faltantes:
     print("⚠️ Aún no has guardado:", ", ".join(faltantes))
     print(
-        f"Usa %%writefile {MODULO_SOLUCION} en la celda de tu solución y "
-        f"%%writefile {MODULO_TESTS} en la celda de tus pruebas, cada una "
-        "como primera línea de la celda, y vuelve a correr ambas antes de auto-evaluarte."
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
     )
 else:
     codigo_fuente = ruta_solucion.read_text(encoding="utf-8")

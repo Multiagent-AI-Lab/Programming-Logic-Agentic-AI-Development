@@ -1403,7 +1403,8 @@ if FUNCION_ESPERADA not in globals():
     print(f"⚠️ Aún no has definido: {FUNCION_ESPERADA}")
     print("Corre esa celda antes de auto-evaluarte.")
 else:
-    bloques_codigo = [inspect.getsource(globals()[FUNCION_ESPERADA])]
+    PREAMBULO = "import math\nimport pytest\nfrom typing import Union\n"
+    bloques_codigo = [PREAMBULO, inspect.getsource(globals()[FUNCION_ESPERADA])]
     for nombre_global, valor in list(globals().items()):
         if nombre_global.startswith("test_calcular_area") and inspect.isfunction(valor):
             bloques_codigo.append(inspect.getsource(valor))

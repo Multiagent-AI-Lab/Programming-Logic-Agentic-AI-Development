@@ -644,7 +644,7 @@ def refactored_classifier(data: Dict[str, Any]) -> str:
 
 ```python
 %%writefile nanoparticle_classifier.py
-# Pega aquí tu código de las dos celdas anteriores (nanoparticle_classifier.py completo)
+# Pega aquí tu código de los dos bloques de definiciones que escribiste arriba (nanoparticle_classifier.py completo)
 ```
 
 Compara ambas implementaciones con el mismo dato de entrada — deben coincidir en el resultado, pero nota cuánto más legible es la versión refactorizada:
