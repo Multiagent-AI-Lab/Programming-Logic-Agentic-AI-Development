@@ -70,7 +70,7 @@ Este acceso se activa **antes** de llegar a la Unidad 4, cuando la política de 
 
 ## 🤖 Sistema de Agentes Pedagógicos
 
-El proyecto incluye 8 agentes en `src/multiagent_core/`, invocables desde terminal o importándolos en un script/notebook:
+El proyecto incluye 9 agentes en `src/multiagent_core/`, invocables desde terminal o importándolos en un script/notebook:
 
 | Agente | Propósito | Uso típico desde terminal |
 | :--- | :--- | :--- |
@@ -80,7 +80,8 @@ El proyecto incluye 8 agentes en `src/multiagent_core/`, invocables desde termin
 | `EvaluatorAgent` | Califica código de un estudiante contra la Rúbrica Genérica de Laboratorio (`RUBRICA_GENERAL.md`). | `python -m src.multiagent_core.evaluator_agent` |
 | `OrchestratorAgent` | Coordina Auditor + Flowchart + Evaluator y produce un reporte pedagógico Markdown unificado. | `python -m src.multiagent_core.orchestrator_agent` |
 | `TutorAgent` | Responde dudas del curso vía RAG semántico (ChromaDB) sobre los MDs de las unidades + Gemini, con debugger socrático y memoria episódica. | `python -m src.multiagent_core.tutor_agent` |
-| `ContentAuditorAgent` | Audita el contenido pedagógico de los MDs de unidad (LaTeX, ciclo Hilo de Oro, código de ejemplo, alineación curricular contra el programa oficial). | `python -m src.multiagent_core.content_auditor_agent` |
+| `ContentAuditorAgent` | Audita el contenido pedagógico de los MDs de unidad en 5 dimensiones: LaTeX, ciclo Hilo de Oro, código de ejemplo, alineación curricular contra el programa oficial, e invariantes estructurales (consistencia de auto-evaluación y de la sección de prerequisitos, fences balanceados, celda de setup). | `python -m src.multiagent_core.content_auditor_agent` |
+| `CurriculumMapAgent` | Sugiere candidatos de relación de concepto entre unidades (para aprobación humana) y renderiza el diagrama Mermaid de dependencias del curso a partir de relaciones ya aprobadas. | `python -m src.multiagent_core.curriculum_map_agent` |
 | `NotebookCompilerAgent` | Convierte los MDs de las unidades en notebooks `.ipynb` (usado por `convert_to_notebooks_smart.py`). | `python convert_to_notebooks_smart.py` |
 
 Ejemplo de uso programático (equivalente a lo que hace cada bloque `if __name__ == "__main__":` de los agentes):
@@ -93,7 +94,7 @@ reporte = orchestrator.generate_pedagogical_report(codigo_estudiante, unit_numbe
 print(reporte)
 ```
 
-Suite de pruebas de los 8 agentes (`tests/`, 130 tests):
+Suite de pruebas de los 9 agentes (`tests/`, 179 tests):
 ```bash
 pytest tests/ -v --tb=short
 ```
@@ -156,8 +157,8 @@ Las unidades 2, 3, 4 y 6 incluyen una celda de auto-evaluación al final del not
 
 - **`lecciones/`**: los 12 archivos Markdown fuente (9 `UNIDAD_*.md` + 3 `EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE*.md`) — nunca se editan los notebooks a mano, cualquier cambio de contenido va aquí y se regenera.
 - **`notebooks/`**: Jupyter Notebooks (`.ipynb`) generados a partir de los MDs de `lecciones/`, con badge de Colab y celda de instalación automática.
-- **`src/multiagent_core/`**: Los 8 agentes pedagógicos (ver tabla arriba).
-- **`tests/`**: Suite pytest de los 8 agentes.
+- **`src/multiagent_core/`**: Los 9 agentes pedagógicos (ver tabla arriba).
+- **`tests/`**: Suite pytest de los 9 agentes.
 - **`data/`**: Datasets de nanotecnología de ejemplo (`nanoparticulas_ejemplo.csv`, `molecula_agua.json`, `red_cristalina_Au.json`) usados en U3, U5 y U7.
 - **`convert_to_notebooks_smart.py`**: Convierte las lecciones Markdown (`.md`) a notebooks ejecutables (`.ipynb`), usando `NotebookCompilerAgent`.
 - **`RUBRICA_GENERAL.md`**: Ponderación del semestre y rúbricas genéricas de laboratorio y defensa oral.
