@@ -3,9 +3,10 @@ Agente Auditor de Contenido (ContentAuditorAgent) - Lógica de Programación UCE
 ======================================================================================
 
 Audita las 9 unidades del curso (contenido escrito por el mantenedor, no por
-estudiantes) contra 4 dimensiones de calidad: rigor matemático/LaTeX,
-coherencia pedagógica (Hilo de Oro), calidad de código de ejemplo, y
-cumplimiento curricular contra el programa oficial. Heurístico puro, sin LLM.
+estudiantes) contra 5 dimensiones de calidad: rigor matemático/LaTeX,
+coherencia pedagógica (Hilo de Oro), calidad de código de ejemplo,
+cumplimiento curricular contra el programa oficial, e invariantes estructurales
+(consistencia de auto-evaluación, fences balanceados, celda de setup). Heurístico puro, sin LLM.
 """
 
 import ast
@@ -20,8 +21,8 @@ from .notebook_compiler_agent import extract_fenced_blocks
 
 SKILL_METADATA = {
     "name": "content_auditor_agent",
-    "description": "Audita el contenido pedagógico de las unidades del curso (LaTeX, pedagogía, código, cumplimiento curricular).",
-    "version": "1.0.0",
+    "description": "Audita el contenido pedagógico de las unidades del curso en 5 dimensiones: LaTeX, pedagogía (Hilo de Oro), código de ejemplo, cumplimiento curricular, e invariantes estructurales (auto-evaluación, fences, setup).",
+    "version": "1.1.0",
     "input": "md_path: Path (audit_unit) | course_dir: Path (audit_all_units)",
     "output": "Dict[str, Any] con hallazgos por dimensión (audit_unit) | str Markdown (audit_all_units)",
     "requires_api_key": False,
