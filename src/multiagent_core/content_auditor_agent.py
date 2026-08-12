@@ -553,3 +553,9 @@ class ContentAuditorAgent:
         )
 
         return "\n".join(secciones)
+
+
+if __name__ == "__main__":
+    auditor = ContentAuditorAgent()
+    course_dir = Path(__file__).parent.parent.parent / "lecciones"
+    print(auditor.audit_all_units(course_dir))

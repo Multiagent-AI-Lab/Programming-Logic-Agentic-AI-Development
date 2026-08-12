@@ -411,8 +411,8 @@ class TestInvariantesEstructurales:
         ayuda (no como primera línea de una celda) nunca debe dispararse —
         caso real verificado en UNIDAD_3/4/6 esta sesión."""
         python_blocks = [
-            "MODULO_SOLUCION = \"x.py\"\n"
-            'print(f"Corre la celda \'%%writefile {MODULO_SOLUCION}\' para guardar")'
+            'MODULO_SOLUCION = "x.py"\n'
+            "print(f\"Corre la celda '%%writefile {MODULO_SOLUCION}' para guardar\")"
         ]
         hallazgos = auditor._verifica_writefiles_con_definicion(python_blocks)
         assert hallazgos == []
@@ -452,9 +452,7 @@ class TestInvariantesEstructurales:
         hallazgos = auditor._verifica_fences_balanceados(content)
         assert hallazgos == []
 
-    def test_verifica_celda_setup_detecta_ausencia(
-        self, auditor: ContentAuditorAgent
-    ):
+    def test_verifica_celda_setup_detecta_ausencia(self, auditor: ContentAuditorAgent):
         content = "# Test\n\nContenido sin celda de setup.\n"
         hallazgos = auditor._verifica_celda_setup(content)
         assert len(hallazgos) == 1
@@ -472,6 +470,19 @@ class TestInvariantesEstructurales:
         )
         hallazgos = auditor._verifica_celda_setup(content)
         assert hallazgos == []
+
+    def test_las_9_unidades_reales_no_tienen_hallazgos_estructurales(self):
+        """Gate de CI: ninguna unidad real del curso debe tener hallazgos
+        de invariantes estructurales. Si este test falla, corregir el .md
+        correspondiente — nunca relajar esta aserción ni excluir la unidad."""
+        auditor = ContentAuditorAgent()
+        course_dir = Path(__file__).parent.parent / "lecciones"
+        fallos = []
+        for md_path in sorted(course_dir.glob("UNIDAD_*.md")):
+            resultado = auditor.audit_unit(md_path)
+            if resultado["hallazgos"]["estructural"]:
+                fallos.append((md_path.name, resultado["hallazgos"]["estructural"]))
+        assert not fallos, f"Hallazgos estructurales encontrados: {fallos}"
 
 
 class TestAuditAllUnits:
