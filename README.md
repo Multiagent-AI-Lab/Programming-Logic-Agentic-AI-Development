@@ -153,6 +153,49 @@ Las unidades 2, 3, 4 y 6 incluyen una celda de auto-evaluación al final del not
 
 ---
 
+## 🗺️ Mapa del Curso: Dependencias entre Unidades
+
+El orden del curso es estrictamente secuencial (U0→U8), pero dos capas de información quedaban solo en prosa dispersa: cuándo cambia el nivel de asistencia de IA permitido, y qué unidades reutilizan explícitamente un concepto ya introducido antes. `CurriculumMapAgent` hace ambas visibles.
+
+```mermaid
+graph LR
+  subgraph SIN_IA["Sin IA para código (U1-U3)"]
+    direction TB
+    U1[U1: Pensamiento Computacional]
+    U2[U2: Metodología y Pruebas]
+    U3[U3: Variables y Operadores]
+  end
+  subgraph IA_MEDIA["IA Moderada, asistencia documentada (U4-U6)"]
+    direction TB
+    U4[U4: Estructuras de Decisión]
+    U5[U5: Ciclos y Bucles Agénticos]
+    U6[U6: Modularidad y MCP]
+  end
+  subgraph IA_EXT["IA Extensiva (U7-U8)"]
+    direction TB
+    U7[U7: Estructuras de Datos y Grafos]
+    U8[U8: Proyecto Integrador]
+  end
+  U0[U0: Entorno de Trabajo] --> U1
+  U1 --> U2 --> U3 --> U4 --> U5 --> U6 --> U7 --> U8
+  U2 -.Pseudocódigo y Hilo de Oro.-> U3
+  U2 -.Pseudocódigo y Hilo de Oro.-> U4
+  U2 -.Pseudocódigo y Hilo de Oro.-> U5
+  U2 -.Pseudocódigo y Hilo de Oro.-> U6
+  U6 -.Type Hints.-> U8
+  U1 -.Sandbox.-> U8
+  style SIN_IA fill:#ffe0e0,stroke:#cc6666
+  style IA_MEDIA fill:#fff4cc,stroke:#ccaa33
+  style IA_EXT fill:#d4f4dd,stroke:#66aa77
+```
+
+- Cada unidad documenta sus propios prerequisitos en su sección `## 📚 Prerequisitos de esta unidad` — este diagrama es la vista consolidada, generada por `CurriculumMapAgent.render_dag()` a partir de esas secciones ya aprobadas.
+- `CurriculumMapAgent.suggest_prerequisites()` es la heurística de sugerencia (un solo uso, nunca escribe a disco) que propuso los candidatos revisados manualmente antes de escribir las secciones — ver `python -m src.multiagent_core.curriculum_map_agent`.
+
+> 🎓 **Para el alumno:** la vista pedagógica de este mismo mapa está en `lecciones/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`, sección **0.11**.
+
+---
+
 ## 🏗️ Estructura del Repositorio
 
 - **`lecciones/`**: los 12 archivos Markdown fuente (9 `UNIDAD_*.md` + 3 `EXTRA_PYTHON_IA_NANOTECNOLOGIA_PARTE*.md`) — nunca se editan los notebooks a mano, cualquier cambio de contenido va aquí y se regenera.

@@ -28,6 +28,12 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- La secuencia de la unidad anterior (sin conceptos específicos adicionales que reforzar).
+
+---
+
 ## 📚 OBJETIVOS DE APRENDIZAJE
 
 Al finalizar esta unidad académica, el estudiante de ingeniería será capaz de:

@@ -28,6 +28,12 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- **Pseudocódigo y Hilo de Oro** (Unidad 2) — antes de escribir código Python en esta unidad, sigues usando el ciclo Pseudocódigo → Mermaid → Python → pytest introducido en la Unidad 2, verificado con PseudocodeAgent.
+
+---
+
 ## 📚 OBJETIVOS DE APRENDIZAJE
 
 Al finalizar esta unidad, el estudiante será capaz de:

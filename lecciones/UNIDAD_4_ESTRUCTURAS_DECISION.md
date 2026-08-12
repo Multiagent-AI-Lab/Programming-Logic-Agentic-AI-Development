@@ -39,6 +39,12 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- **Pseudocódigo y Hilo de Oro** (Unidad 2) — antes de escribir código Python en esta unidad, sigues usando el ciclo Pseudocódigo → Mermaid → Python → pytest introducido en la Unidad 2, verificado con PseudocodeAgent.
+
+---
+
 ## 1. Contexto Conceptual e Importancia en Ingeniería y Ciencia de Datos
 
 En el universo de la nanotecnología, las propiedades físicas de la materia experimentan cambios drásticos debido al efecto de confinamiento cuántico y a la enorme relación entre el área superficial y el volumen que ocurre a escala nanométrica ($1\text{ nm} = 10^{-9}\text{ m}$). Por ejemplo, las nanopartículas de oro ($\text{AuNPs}$), que en macroescala exhiben un color amarillo brillante metálico, en nanoescala presentan tonalidades rojas, azules o violetas. Este fenómeno físico es gobernado por la **Resonancia de Plasmón Superficial Localizado (LSPR)**, el cual depende directamente del tamaño, el medio circundante y, de manera crítica, de la **morfología geométrica** de la nanopartícula.

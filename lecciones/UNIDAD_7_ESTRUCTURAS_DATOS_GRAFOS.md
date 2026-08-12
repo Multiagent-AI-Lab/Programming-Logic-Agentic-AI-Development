@@ -30,6 +30,12 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- La secuencia de la unidad anterior (sin conceptos específicos adicionales que reforzar).
+
+---
+
 ## Introducción y Contexto Pedagógico
 
 En la Ingeniería en Nanotecnología, el estudio de los sistemas a escala nanométrica (de $10^{-9}$ metros) requiere herramientas computacionales robustas para simular fenómenos moleculares, predecir el comportamiento de nuevos materiales y modelar redes cristalinas. En este nivel, los átomos individuales y sus interacciones químicas determinan las propiedades macroscópicas del material (mecánicas, eléctricas, térmicas, ópticas).

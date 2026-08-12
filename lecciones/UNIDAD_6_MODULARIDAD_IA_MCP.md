@@ -32,6 +32,12 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- **Pseudocódigo y Hilo de Oro** (Unidad 2) — antes de escribir código Python en esta unidad, sigues usando el ciclo Pseudocódigo → Mermaid → Python → pytest introducido en la Unidad 2, verificado con PseudocodeAgent.
+
+---
+
 ## 1. Contexto Conceptual e Importancia de la Modularidad
 
 ### 1.1. Cohesión y Acoplamiento: Pilares del Diseño de Software

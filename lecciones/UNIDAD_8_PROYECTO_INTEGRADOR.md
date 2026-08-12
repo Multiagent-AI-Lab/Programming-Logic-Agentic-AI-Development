@@ -29,6 +29,13 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- **Type Hints** (Unidad 6) — el código de producción del MAEC usa anotaciones de tipo en todas sus funciones, el mismo concepto introducido formalmente en la sección "Anotaciones de Tipo (Type Hints) y Validación Estricta" de la Unidad 6.
+- **Sandbox** (Unidad 1) — el MAEC ejecuta código de estudiantes en un entorno aislado (directorios temporales efímeros), aplicando el mismo concepto de sandboxing introducido en la Unidad 1 para protegerse de Path Traversal.
+
+---
+
 ## 1. Portada y Contexto Académico
 
 *   **Institución:** Universidad de la Ciénega del Estado de Michoacán de Ocampo (UCEMICH)

@@ -34,6 +34,12 @@ if 'google.colab' in sys.modules:
 
 ---
 
+## 📚 Prerequisitos de esta unidad
+
+- **Pseudocódigo y Hilo de Oro** (Unidad 2) — antes de escribir código Python en esta unidad, sigues usando el ciclo Pseudocódigo → Mermaid → Python → pytest introducido en la Unidad 2, verificado con PseudocodeAgent.
+
+---
+
 ## 1. Contexto Conceptual e Importancia Pedagógica
 
 En el ámbito de la ingeniería de software y la nanotecnología, las estructuras de control repetitivas no son meramente herramientas para evitar duplicar código; son el motor fundamental que permite la discretización y el análisis de sistemas continuos complejos, así como la base para el comportamiento autónomo de la inteligencia artificial.

@@ -311,6 +311,47 @@ No es inconsistencia: cada unidad usa el mecanismo que corresponde a cómo ya ap
 
 ---
 
+# 0.11 Mapa del Curso: Dependencias entre Unidades
+
+El curso avanza en un orden estrictamente secuencial (Unidad 0 a Unidad 8) — no hay rutas alternativas. Este diagrama hace visibles dos cosas que de otro modo solo viven en prosa dispersa: en qué momento cambia el nivel de asistencia de IA permitido (ver política de la sección 0.5), y qué unidades reutilizan explícitamente un concepto técnico ya introducido en una unidad anterior (flechas punteadas).
+
+```mermaid
+graph LR
+  subgraph SIN_IA["Sin IA para código (U1-U3)"]
+    direction TB
+    U1[U1: Pensamiento Computacional]
+    U2[U2: Metodología y Pruebas]
+    U3[U3: Variables y Operadores]
+  end
+  subgraph IA_MEDIA["IA Moderada, asistencia documentada (U4-U6)"]
+    direction TB
+    U4[U4: Estructuras de Decisión]
+    U5[U5: Ciclos y Bucles Agénticos]
+    U6[U6: Modularidad y MCP]
+  end
+  subgraph IA_EXT["IA Extensiva (U7-U8)"]
+    direction TB
+    U7[U7: Estructuras de Datos y Grafos]
+    U8[U8: Proyecto Integrador]
+  end
+  U0[U0: Entorno de Trabajo] --> U1
+  U1 --> U2 --> U3 --> U4 --> U5 --> U6 --> U7 --> U8
+  U2 -.Pseudocódigo y Hilo de Oro.-> U3
+  U2 -.Pseudocódigo y Hilo de Oro.-> U4
+  U2 -.Pseudocódigo y Hilo de Oro.-> U5
+  U2 -.Pseudocódigo y Hilo de Oro.-> U6
+  U6 -.Type Hints.-> U8
+  U1 -.Sandbox.-> U8
+  style SIN_IA fill:#ffe0e0,stroke:#cc6666
+  style IA_MEDIA fill:#fff4cc,stroke:#ccaa33
+  style IA_EXT fill:#d4f4dd,stroke:#66aa77
+```
+
+> [!TIP]
+> Cada unidad también documenta sus propios prerequisitos en su sección "📚 Prerequisitos de esta unidad", justo al inicio — no necesitas volver aquí cada vez, pero este mapa te da la vista completa del semestre de un vistazo.
+
+---
+
 ## 📖 Referencias
 
 - [Introducción a Python](https://ellibrodepython.com/introduccion-python)
