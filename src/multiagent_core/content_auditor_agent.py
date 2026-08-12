@@ -459,11 +459,59 @@ class ContentAuditorAgent:
             ]
         return []
 
+    _PREREQUISITO_LINEA = re.compile(r"^- \*\*(.+?)\*\*\s*\(Unidad (\d+)\)")
+    _PREREQUISITO_LINEA_ALTERNATIVA = re.compile(
+        r"^- La secuencia de la unidad anterior"
+    )
+
+    def _verifica_seccion_prerequisitos(self, content: str) -> List[str]:
+        """Verifica que la sección de prerequisitos, si existe, tenga al
+        menos una línea con el formato parseable esperado por
+        CurriculumMapAgent.render_dag() (relación estructurada o la línea
+        alternativa de "sin conceptos adicionales").
+
+        No exige que la sección exista — su ausencia no es un hallazgo,
+        ya que esta feature puede desplegarse gradualmente unidad por
+        unidad.
+
+        Args:
+            content: Texto completo del MD de la unidad.
+
+        Returns:
+            Lista con un hallazgo si la sección existe pero está mal
+            formada; vacía si no existe o si está bien formada.
+        """
+        if "## 📚 Prerequisitos de esta unidad" not in content:
+            return []
+
+        inicio = content.index("## 📚 Prerequisitos de esta unidad")
+        resto = content[inicio:]
+        siguiente_encabezado = re.search(r"\n##[^#]", resto[1:])
+        seccion = (
+            resto[: siguiente_encabezado.start() + 1] if siguiente_encabezado else resto
+        )
+
+        for linea in seccion.split("\n"):
+            linea_strip = linea.strip()
+            if self._PREREQUISITO_LINEA.match(
+                linea_strip
+            ) or self._PREREQUISITO_LINEA_ALTERNATIVA.match(linea_strip):
+                return []
+
+        return [
+            "La sección '## 📚 Prerequisitos de esta unidad' existe pero "
+            "ninguna de sus líneas sigue el formato esperado "
+            "('- **término** (Unidad N)' o la línea alternativa de "
+            "'sin conceptos adicionales') — CurriculumMapAgent.render_dag() "
+            "no podrá extraer ninguna relación de esta unidad."
+        ]
+
     def _audit_invariantes_estructurales(
         self, python_blocks: List[str], content: str, md_path: Path
     ) -> List[str]:
         """Audita invariantes estructurales: consistencia de la celda de
-        auto-evaluación (donde ya existe) e invariantes generales del
+        auto-evaluación (donde ya existe), consistencia de la sección de
+        prerequisitos (donde ya existe), e invariantes generales del
         Hilo de Oro aplicables a las 9 unidades.
 
         Args:
@@ -472,13 +520,14 @@ class ContentAuditorAgent:
             md_path: Ruta del MD, usada para extraer el número de unidad.
 
         Returns:
-            Lista concatenada de hallazgos de las 4 verificaciones.
+            Lista concatenada de hallazgos de las 5 verificaciones.
         """
         hallazgos: List[str] = []
         hallazgos.extend(self._verifica_unit_number(python_blocks, md_path))
         hallazgos.extend(self._verifica_writefiles_con_definicion(python_blocks))
         hallazgos.extend(self._verifica_fences_balanceados(content))
         hallazgos.extend(self._verifica_celda_setup(content))
+        hallazgos.extend(self._verifica_seccion_prerequisitos(content))
         return hallazgos
 
     def audit_unit(self, md_path: Path) -> Dict[str, Any]:

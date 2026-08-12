@@ -484,6 +484,46 @@ class TestInvariantesEstructurales:
                 fallos.append((md_path.name, resultado["hallazgos"]["estructural"]))
         assert not fallos, f"Hallazgos estructurales encontrados: {fallos}"
 
+    def test_verifica_seccion_prerequisitos_no_marca_hallazgo_si_seccion_ausente(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = "# UNIDAD 5\n\nSin sección de prerequisitos en absoluto.\n"
+        hallazgos = auditor._verifica_seccion_prerequisitos(content)
+        assert hallazgos == []
+
+    def test_verifica_seccion_prerequisitos_no_marca_hallazgo_con_formato_valido(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = (
+            "# UNIDAD 5\n\n## 📚 Prerequisitos de esta unidad\n\n"
+            "- **Bucles `for`/`while`** (Unidad 3) — se reutilizan aquí.\n"
+        )
+        hallazgos = auditor._verifica_seccion_prerequisitos(content)
+        assert hallazgos == []
+
+    def test_verifica_seccion_prerequisitos_no_marca_hallazgo_con_linea_alternativa(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = (
+            "# UNIDAD 1\n\n## 📚 Prerequisitos de esta unidad\n\n"
+            "- La secuencia de la unidad anterior (sin conceptos "
+            "específicos adicionales que reforzar).\n"
+        )
+        hallazgos = auditor._verifica_seccion_prerequisitos(content)
+        assert hallazgos == []
+
+    def test_verifica_seccion_prerequisitos_detecta_seccion_mal_formada(
+        self, auditor: ContentAuditorAgent
+    ):
+        content = (
+            "# UNIDAD 5\n\n## 📚 Prerequisitos de esta unidad\n\n"
+            "- Bucles de la unidad 3, sin el formato de negritas ni "
+            "paréntesis correcto.\n"
+        )
+        hallazgos = auditor._verifica_seccion_prerequisitos(content)
+        assert len(hallazgos) == 1
+        assert "prerequisitos" in hallazgos[0].lower()
+
 
 class TestAuditAllUnits:
     def test_recorre_las_9_unidades_reales_sin_excepciones(
