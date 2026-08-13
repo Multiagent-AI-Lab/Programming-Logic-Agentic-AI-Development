@@ -508,6 +508,9 @@ Guarde el siguiente código en un archivo de pruebas para verificar la robustez 
 
 ```python
 import pytest
+import numpy as np
+from molecular_mesh_simulator import MolecularMeshSimulator
+from crystal_lattice_graph import CrystalLatticeGraph
 
 # ==============================================================================
 # Pruebas Unitarias para MolecularMeshSimulator
