@@ -534,6 +534,13 @@ class NanoparticleSimulation:
         return t_list, c_list, n_list, r_list
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real (necesario para la auto-evaluación al final de la unidad). Pega debajo de la línea mágica el código completo de la clase `NanoparticleSimulation` que escribiste arriba.
+
+```python
+%%writefile nanoparticle_growth.py
+# Pega aquí tu código de la celda anterior (nanoparticle_growth.py completo)
+```
+
 ### Código de Aislamiento y Bucle Agéntico: `agentic_loop_sandbox.py`
 Guarda el siguiente código para simular la ejecución e iteración autónoma en el sandbox de autorreparación.
 
@@ -716,6 +723,13 @@ def calculate_critical_radius(gamma: float, V_m: float, T: float, S: float)
     print(codigo_final)
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real. Pega debajo de la línea mágica el código completo de `CodeSandbox` y `AgenticLoopSimulator` que escribiste arriba.
+
+```python
+%%writefile agentic_loop_sandbox.py
+# Pega aquí tu código de la celda anterior (agentic_loop_sandbox.py completo)
+```
+
 ---
 
 ## 7. Suite de Pruebas Unitarias (`pytest`)
@@ -784,6 +798,13 @@ def calculate_critical_radius(gamma: float, V_m: float, T: float, S: float)
     assert "import math" in final_code
     assert "/ (R_g * T" in final_code
     assert "if S <= 1.0:" in final_code
+```
+
+> 💾 Corre la celda siguiente para guardar tus pruebas en un archivo real. Pega debajo de la línea mágica el mismo código de la celda anterior.
+
+```python
+%%writefile test_simulation.py
+# Pega aquí tu código de la celda anterior (test_simulation.py completo)
 ```
 
 ---
@@ -1129,4 +1150,80 @@ print(auditor.generate_report(mi_codigo))
 evaluador = EvaluatorAgent()
 resultado = evaluador.evaluate(mi_codigo)
 print(resultado["retroalimentacion"])
+```
+
+---
+
+## 🧪 Auto-evaluación
+
+Corre estas celdas al terminar los ejercicios de la unidad para recibir retroalimentación automática sobre tus dos módulos, calificados contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`). Son dos evaluaciones independientes — una por módulo.
+
+### Módulo 1: `nanoparticle_growth.py`
+
+```python
+MODULO_SOLUCION = "nanoparticle_growth.py"
+MODULO_TESTS = "test_simulation.py"
+
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+ruta_solucion = Path(MODULO_SOLUCION)
+ruta_tests = Path(MODULO_TESTS)
+
+faltantes = [
+    nombre for nombre, ruta in
+    [(MODULO_SOLUCION, ruta_solucion), (MODULO_TESTS, ruta_tests)]
+    if not ruta.exists()
+]
+if faltantes:
+    print("⚠️ Aún no has guardado:", ", ".join(faltantes))
+    print(
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
+    )
+else:
+    codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=5, test_file_path=ruta_tests
+    )
+    display(Markdown(reporte))
+```
+
+### Módulo 2: `agentic_loop_sandbox.py`
+
+```python
+MODULO_SOLUCION = "agentic_loop_sandbox.py"
+MODULO_TESTS = "test_simulation.py"
+
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+ruta_solucion = Path(MODULO_SOLUCION)
+ruta_tests = Path(MODULO_TESTS)
+
+faltantes = [
+    nombre for nombre, ruta in
+    [(MODULO_SOLUCION, ruta_solucion), (MODULO_TESTS, ruta_tests)]
+    if not ruta.exists()
+]
+if faltantes:
+    print("⚠️ Aún no has guardado:", ", ".join(faltantes))
+    print(
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
+    )
+else:
+    codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=5, test_file_path=ruta_tests
+    )
+    display(Markdown(reporte))
 ```
