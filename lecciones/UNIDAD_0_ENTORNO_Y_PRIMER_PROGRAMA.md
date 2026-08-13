@@ -189,7 +189,7 @@ Antes de la primera sesión de la Unidad 1, el estudiante debe poder marcar los 
 - [ ] 8. El kernel `ia_logprog` aparece disponible al abrir un notebook en Jupyter/VS Code.
 - [ ] 9. La cuenta de GitHub Education fue solicitada (aprobación puede estar pendiente).
 - [ ] 10. Se leyó y comprendió la tabla de política de IA de la sección 0.5.
-- [ ] 11. Se leyó la sección 0.10 y se entiende cómo usar la celda de auto-evaluación en las Unidades 2, 3, 4 y 6.
+- [ ] 11. Se leyó la sección 0.10 y se entiende cómo usar la celda de auto-evaluación en las Unidades 2, 3, 4, 5, 6 y 7.
 
 ---
 
