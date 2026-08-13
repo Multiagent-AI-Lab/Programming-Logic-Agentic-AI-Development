@@ -262,6 +262,13 @@ class MolecularMeshSimulator:
         return float(np.sum(self.grid) * dv)
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real (necesario para la auto-evaluación al final de la unidad). Pega debajo de la línea mágica el código completo de la clase `MolecularMeshSimulator` que escribiste arriba, incluyendo sus imports (`numpy`, `numpy.typing`, `typing`).
+
+```python
+%%writefile molecular_mesh_simulator.py
+# Pega aquí tu código de la celda anterior (molecular_mesh_simulator.py completo, con sus imports)
+```
+
 ### Desglose Paso a Paso del Código de la Malla
 
 1. **Importación de Módulos:**
@@ -476,6 +483,13 @@ class CrystalLatticeGraph:
         return {node: list(self.graph.neighbors(node)) for node in self.graph.nodes}
 ```
 
+> 💾 Corre la celda siguiente para guardar tu solución en un archivo real. Pega debajo de la línea mágica el código completo de `CrystalLatticeGraph` que escribiste arriba, incluyendo su import de `networkx`.
+
+```python
+%%writefile crystal_lattice_graph.py
+# Pega aquí tu código de la celda anterior (crystal_lattice_graph.py completo, con su import de networkx)
+```
+
 ### Desglose Paso a Paso del Código del Grafo Cristalino
 
 1. **Creación del Grafo No Dirigido (`nx.Graph`):**
@@ -677,6 +691,13 @@ def test_crystal_lattice_adjacency_dict() -> None:
     assert "C1" in adj
     assert adj["C1"] == ["C2"]
     assert adj["C2"] == ["C1"]
+```
+
+> 💾 Corre la celda siguiente para guardar tus pruebas en un archivo real. Pega debajo de la línea mágica el mismo código de la celda anterior.
+
+```python
+%%writefile test_structures.py
+# Pega aquí tu código de la celda anterior (test_structures.py completo)
 ```
 
 ---
@@ -1099,4 +1120,80 @@ print(auditor.generate_report(mi_codigo))
 evaluador = EvaluatorAgent()
 resultado = evaluador.evaluate(mi_codigo)
 print(resultado["retroalimentacion"])
+```
+
+---
+
+## 🧪 Auto-evaluación
+
+Corre estas celdas al terminar los ejercicios de la unidad para recibir retroalimentación automática sobre tus dos módulos, calificados contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`). Son dos evaluaciones independientes — una por módulo.
+
+### Módulo 1: `molecular_mesh_simulator.py`
+
+```python
+MODULO_SOLUCION = "molecular_mesh_simulator.py"
+MODULO_TESTS = "test_structures.py"
+
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+ruta_solucion = Path(MODULO_SOLUCION)
+ruta_tests = Path(MODULO_TESTS)
+
+faltantes = [
+    nombre for nombre, ruta in
+    [(MODULO_SOLUCION, ruta_solucion), (MODULO_TESTS, ruta_tests)]
+    if not ruta.exists()
+]
+if faltantes:
+    print("⚠️ Aún no has guardado:", ", ".join(faltantes))
+    print(
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
+    )
+else:
+    codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=7, test_file_path=ruta_tests
+    )
+    display(Markdown(reporte))
+```
+
+### Módulo 2: `crystal_lattice_graph.py`
+
+```python
+MODULO_SOLUCION = "crystal_lattice_graph.py"
+MODULO_TESTS = "test_structures.py"
+
+from pathlib import Path
+from IPython.display import Markdown, display
+from src.multiagent_core.orchestrator_agent import OrchestratorAgent
+
+ruta_solucion = Path(MODULO_SOLUCION)
+ruta_tests = Path(MODULO_TESTS)
+
+faltantes = [
+    nombre for nombre, ruta in
+    [(MODULO_SOLUCION, ruta_solucion), (MODULO_TESTS, ruta_tests)]
+    if not ruta.exists()
+]
+if faltantes:
+    print("⚠️ Aún no has guardado:", ", ".join(faltantes))
+    print(
+        f"Corre la celda '%%writefile {MODULO_SOLUCION}' (justo debajo de tu solución) y "
+        f"la celda '%%writefile {MODULO_TESTS}' (justo debajo de tus pruebas), "
+        "pegando tu código en cada una, y vuelve a correr ambas antes de auto-evaluarte."
+    )
+else:
+    codigo_fuente = ruta_solucion.read_text(encoding="utf-8")
+
+    orchestrator = OrchestratorAgent()
+    reporte = orchestrator.generate_pedagogical_report(
+        codigo_fuente, unit_number=7, test_file_path=ruta_tests
+    )
+    display(Markdown(reporte))
 ```
