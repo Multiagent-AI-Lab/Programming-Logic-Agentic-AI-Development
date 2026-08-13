@@ -143,10 +143,10 @@ embeddings en español antes del fix.
 
 ## 🧪 Auto-evaluación Ejecutable por Unidad
 
-Las unidades 2, 3, 4 y 6 incluyen una celda de auto-evaluación al final del notebook: el alumno la corre para recibir retroalimentación automática e inmediata sobre su entrega, calificada contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`), sin depender de revisión manual del profesor.
+Las unidades 2, 3, 4, 5, 6 y 7 incluyen una o más celdas de auto-evaluación al final del notebook: el alumno las corre para recibir retroalimentación automática e inmediata sobre su entrega, calificada contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`), sin depender de revisión manual del profesor. Las unidades 5 y 7 tienen dos módulos de producción cada una, así que incluyen dos celdas de auto-evaluación independientes en vez de una sola.
 
 - Reutiliza el `OrchestratorAgent`/`EvaluatorAgent` existentes — cero infraestructura nueva, mismo motor que evalúa entregas manualmente.
-- Dos mecanismos según cómo cada unidad enseña pruebas: descubrimiento automático vía `globals()` (Unidad 2, funciones puras) o persistencia a disco vía `%%writefile` (Unidades 3, 4, 6 — módulos con dependencias de nivel de módulo, como constantes físicas).
+- Dos mecanismos según cómo cada unidad enseña pruebas: descubrimiento automático vía `globals()` (Unidad 2, funciones puras) o persistencia a disco vía `%%writefile` (Unidades 3, 4, 5, 6, 7 — módulos con dependencias de nivel de módulo, como constantes físicas o clases con estado).
 - Feedback efímero de sesión: la calificación no se guarda ni se reporta automáticamente al profesor, es solo para que el alumno itere antes de entregar.
 
 > 🎓 **Instrucciones para el alumno:** la explicación paso a paso de cómo usar la auto-evaluación en cada unidad está en `lecciones/UNIDAD_0_ENTORNO_Y_PRIMER_PROGRAMA.md`, sección **0.10**.

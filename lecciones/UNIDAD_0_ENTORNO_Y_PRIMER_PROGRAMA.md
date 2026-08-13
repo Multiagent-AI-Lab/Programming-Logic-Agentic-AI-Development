@@ -283,7 +283,7 @@ Nota: la primera vez que ejecutes esto en una sesión nueva de Colab, `TutorAgen
 
 # 0.10 Auto-evaluación: Calificación Automática en tu Propio Notebook
 
-Algunas unidades (2, 3, 4 y 6) incluyen una celda "🧪 Auto-evaluación" al final del notebook. Al correrla, tu propio código se analiza automáticamente y recibes un reporte con retroalimentación contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`) — sin esperar a que el profesor revise tu entrega manualmente.
+Algunas unidades (2, 3, 4, 5, 6 y 7) incluyen una o más celdas "🧪 Auto-evaluación" al final del notebook. Al correrlas, tu propio código se analiza automáticamente y recibes un reporte con retroalimentación contra la Rúbrica Genérica del curso (`RUBRICA_GENERAL.md`) — sin esperar a que el profesor revise tu entrega manualmente.
 
 > [!TIP]
 > Es una herramienta para practicar e iterar, no un reemplazo de la calificación oficial. El resultado no se guarda ni se envía a ningún lado — es feedback solo para ti, en esa sesión de Colab.
@@ -294,7 +294,7 @@ Verás **uno de dos mecanismos**, dependiendo de cómo esa unidad ya te enseñó
 
 **Unidad 2 — automático, sin pasos extra.** Ya escribiste tu función y sus pruebas en celdas anteriores del notebook. Solo corre la celda de auto-evaluación: encuentra tu código automáticamente (por el nombre de la función que pide el ejercicio) y lo evalúa. No necesitas hacer nada más.
 
-**Unidades 3, 4 y 6 — un paso adicional: guardar tu código en un archivo real.** Estas unidades usan funciones o clases que dependen de constantes definidas en la misma celda (por ejemplo, `K_COULOMB` en la Unidad 3) — la auto-evaluación necesita tu código completo, no solo el cuerpo de una función suelta, así que debes guardarlo en disco antes de evaluarlo:
+**Unidades 3, 4, 5, 6 y 7 — un paso adicional: guardar tu código en un archivo real.** Estas unidades usan funciones o clases que dependen de constantes o estado definidos en la misma celda (por ejemplo, `K_COULOMB` en la Unidad 3) — la auto-evaluación necesita tu código completo, no solo el cuerpo de una función suelta, así que debes guardarlo en disco antes de evaluarlo:
 
 1. Debajo de tu celda de solución (y debajo de tu celda de pruebas) verás una celda nueva, corta, que empieza con `%%writefile <nombre>.py` seguida de un comentario tipo `# Pega aquí tu código de la celda anterior` (en unidades donde la solución está repartida en más de un bloque, el comentario lo indica explícitamente, por ejemplo "los dos bloques de definiciones que escribiste arriba").
 2. Reemplaza ese comentario pegando el código indicado (tu solución completa, o tus pruebas completas, según la celda).
@@ -305,9 +305,11 @@ Verás **uno de dos mecanismos**, dependiendo de cómo esa unidad ya te enseñó
 > [!WARNING]
 > Si corres la celda de auto-evaluación sin haber completado estos pasos, verás un mensaje claro indicándote qué falta (por ejemplo, "⚠️ Aún no has guardado: fisica_atomica.py") — no un error críptico de Python. Simplemente completa el paso que falta y vuelve a intentar.
 
+Las Unidades 5 y 7 usan el mismo Mecanismo B, pero con una diferencia: cada una tiene **dos módulos de producción** (por ejemplo, en la Unidad 5: `nanoparticle_growth.py` y `agentic_loop_sandbox.py`), así que encontrarás **dos celdas de auto-evaluación independientes** en la sección `## 🧪 Auto-evaluación` de esas unidades — una por módulo, cada una con su propio par de celdas `%%writefile`. Evalúa ambas para tener retroalimentación completa de la unidad.
+
 ## ¿Por qué dos mecanismos distintos?
 
-No es inconsistencia: cada unidad usa el mecanismo que corresponde a cómo ya aprendiste a probar tu código ahí. La Unidad 2 evalúa funciones sueltas con sus pruebas en el mismo notebook (`ipytest`); las Unidades 3, 4 y 6 te preparan para el patrón real de un proyecto de software — código en un archivo `.py`, pruebas en otro — por eso ahí sí guardas archivos de verdad antes de evaluar.
+No es inconsistencia: cada unidad usa el mecanismo que corresponde a cómo ya aprendiste a probar tu código ahí. La Unidad 2 evalúa funciones sueltas con sus pruebas en el mismo notebook (`ipytest`); las Unidades 3, 4, 5, 6 y 7 te preparan para el patrón real de un proyecto de software — código en un archivo `.py`, pruebas en otro — por eso ahí sí guardas archivos de verdad antes de evaluar.
 
 ---
 
