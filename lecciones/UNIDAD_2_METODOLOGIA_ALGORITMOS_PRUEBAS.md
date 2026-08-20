@@ -231,7 +231,10 @@ Al quintuplicar el radio (de 1.0 a 5.0 nm), el volumen no crece 5 veces sino 125
 
 **Paso 4 — Prueba unitaria con pytest:**
 ```python
+import ipytest
 import pytest
+
+ipytest.autoconfig()
 
 def test_calcula_volumen_esfera_valida():
     assert calcular_volumen_esfera(1.0) == pytest.approx(4.18879, rel=1e-4)
@@ -239,6 +242,8 @@ def test_calcula_volumen_esfera_valida():
 def test_retorna_menos_uno_si_radio_no_positivo():
     assert calcular_volumen_esfera(0) == -1.0
     assert calcular_volumen_esfera(-5.2) == -1.0
+
+ipytest.run("-vv")
 ```
 
 **Paso 5 — Prueba de escritorio (trace table):** antes de ejecutar el código, se traza manualmente su comportamiento fila por fila, anotando el valor de cada variable en cada paso.
@@ -518,6 +523,8 @@ def test_calcular_area_valores_no_finitos() -> None:
         calcular_area_nanoparticula(float('inf'))
     with pytest.raises(ValueError, match="El radio debe ser un número real finito"):
         calcular_area_nanoparticula(float('-inf'))
+
+ipytest.run("-vv")
 ```
 
 ---
