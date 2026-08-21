@@ -41,7 +41,7 @@ DEFAULT_MEMORY_FILENAME = ".tutor_memory.json"
 MAX_EPISODIOS = 50
 PREFIJO_LONGITUD = 5
 EMBEDDING_MODEL_NAME = "paraphrase-multilingual-MiniLM-L12-v2"
-_DOI_PATTERN = re.compile(r"DOI:\s*\[(10\.\d{4,9}/[^\]\s]+)\]", re.IGNORECASE)
+_DOI_PATTERN = re.compile(r"DOI:\s*\[(10\.\d{4,9}/[^\]\s?#]+)\]", re.IGNORECASE)
 CROSSREF_API_BASE = "https://api.crossref.org/works"
 CROSSREF_TIMEOUT_SECONDS = 10
 
@@ -174,7 +174,9 @@ class TutorAgent:
         """
         try:
             response = requests.get(
-                f"{CROSSREF_API_BASE}/{doi}", timeout=CROSSREF_TIMEOUT_SECONDS
+                f"{CROSSREF_API_BASE}/{doi}",
+                timeout=CROSSREF_TIMEOUT_SECONDS,
+                allow_redirects=False,
             )
             response.raise_for_status()
             abstract_jats = response.json()["message"].get("abstract")
@@ -182,7 +184,7 @@ class TutorAgent:
                 logger.info("DOI %s no tiene abstract disponible en Crossref.", doi)
                 return None
             return re.sub(r"<[^>]+>", "", abstract_jats).strip()
-        except (requests.RequestException, KeyError, ValueError) as e:
+        except (requests.RequestException, KeyError, ValueError, AttributeError) as e:
             logger.warning("No se pudo obtener el abstract de DOI %s: %s", doi, e)
             return None
 
